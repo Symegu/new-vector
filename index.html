@@ -4,182 +4,361 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Новый Вектор - Банкротство физических лиц</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet"/>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style type="text/tailwindcss">
     :root {
-      --color-primary: #1E3A8A;
-      --color-primary-dark: #1E40AF;
+      --color-primary: #3B82F6;
+      --color-primary-dark: #2563EB;
       --color-secondary: #F59E0B;
       --color-secondary-dark: #D97706;
-      --color-accent: #10B981;
-      --color-text-light: #F9FAFB;
+      --color-accent: #F59E0B;
+      --color-text-light: #F3F4F6;
       --color-text-dark: #1F2937;
-      --color-text-muted: #4B5563;--color-bg-light: #F3F4F6;
-      --color-bg-dark: #111827;
-      --color-primary-rgb: 30, 58, 138;
+      --color-text-muted: #6B7280;--color-bg-light: #F9FAFB;
+      --color-bg-medium: #FFFFFF;
+      --color-bg-dark: #111827;--color-bg-darker: #0F172A;--color-danger: #EF4444;
+      --color-success: #10B981;
+      --color-primary-rgb: 59, 130, 246;
+      --color-primary-dark-rgb: 37, 99, 235;
       --color-secondary-rgb: 245, 158, 11;
-      --color-accent-rgb: 16, 185, 129;
-      --color-bg-light-rgb: 243, 244, 246;
+      --color-secondary-dark-rgb: 217, 119, 6;
+      --color-accent-rgb: 245, 158, 11;
+      --color-white-rgb: 255, 255, 255;
+      --color-dark-rgb: 17, 24, 39;
+      --color-danger-rgb: 239, 68, 68;
     }
     body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--color-bg-light);
-      color: var(--color-text-dark);
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--color-bg-light);color: var(--color-text-dark);overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50vh;
+      left: -30vw;
+      width: 180vw;
+      height: 180vh;
+      background:
+        radial-gradient(ellipse at 10% 20%, rgba(var(--color-primary-rgb), 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 90% 80%, rgba(var(--color-secondary-rgb), 0.04) 0%, transparent 60%);
+      z-index: -2;
+      opacity: 0.7;
+      transform: rotate(15deg) scale(1.1);
+      pointer-events: none;
+      filter: blur(8px);
     }
     .hero-bg {
-      background-image: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 64, 175, 0.9)), url('https://images.unsplash.com/photo-1579000149998-360017093b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+      background-color: rgba(var(--color-white-rgb), 0.9);background-image:
+        linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-white-rgb), 0.7) 50%, rgba(var(--color-secondary-rgb), 0.08) 100%);
       background-size: cover;
       background-position: center;
+      border-radius: 1.5rem;
+      box-shadow: 0 15px 40px rgba(var(--color-primary-rgb), 0.1);position: relative;
+      border: 1px solid rgba(var(--color-dark-rgb), 0.05);
+    }
+    .hero-bg::before {content: "";
+      position: absolute;
+      top: -40px;
+      left: 10%;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.15) 0%, transparent 65%);
+      border-radius: 50%;
+      z-index: 0;
+      filter: blur(25px);
+      opacity: 0.6;
+    }
+    .hero-bg::after {content: "";
+      position: absolute;
+      bottom: -50px;
+      right: 15%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      filter: blur(30px);
+      opacity: 0.7;
     }
     .section-title {
       font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      color: var(--color-primary);
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--color-primary);text-shadow: 1px 1px 3px rgba(var(--color-dark-rgb), 0.05);
     }
     .section-subtitle {
-      font-size: 1.125rem;
-      font-weight: 500;
+      font-size: 1.15rem;
+      font-weight: 400;
       margin-bottom: 3rem;
       color: var(--color-text-muted);
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 0.75rem;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    .content-block {
+      background-color: var(--color-bg-medium);color: var(--color-text-dark);
+      border: 1px solid rgba(var(--color-dark-rgb), 0.08);
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 35px 0 rgba(var(--color-primary-rgb), 0.06), 0 2px 8px rgba(var(--color-secondary-rgb), 0.04);
+      padding: 3rem 2.5rem;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .content-block.dark-block {background-color: var(--color-bg-dark);
+      color: var(--color-text-light);
+      border-color: rgba(var(--color-white-rgb), 0.1);
+    }
+     .content-block.dark-block .section-title {
+      color: var(--color-text-light);
+    }
+    .content-block.dark-block .section-subtitle {
+      color: var(--color-text-muted);}
+    .content-block::before {content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.04) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      opacity: 0.5;
+      pointer-events: none;
+      filter: blur(8px);
+    }
+    .content-block::after {content: '';
+      position: absolute;
+      bottom: -15%;
+      right: -8%;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      opacity: 0.6;
+      transform: rotate(20deg);
+      pointer-events: none;
+      filter: blur(12px);
     }
     .card {
-      background-color: white;
-      border-radius: 0.75rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      background-color: var(--color-bg-medium);border-radius: 1rem;
+      border: 1px solid rgba(var(--color-dark-rgb), 0.1);
       padding: 2rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.08);
+      position: relative;
+      overflow: hidden;
+      color: var(--color-text-dark);
+    }
+    .card h3,
+    .card p {
+      color: var(--color-text-dark);
+    }
+    .card.dark-card {background-color: rgba(var(--color-white-rgb), 0.05);
+        border-color: rgba(var(--color-white-rgb), 0.1);
+        color: var(--color-text-light);
+    }
+    .card.dark-card h3, .card.dark-card p {
+        color: var(--color-text-light);
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0%;
+      background-color: var(--color-secondary);
+      opacity: 0;
+      transition: opacity 0.4s ease, height 0.4s ease;
+      border-radius: 0 0 4px 4px;
+    }
+    .card:hover::before {
+      opacity: 1;
+      height: 100%;
     }
     .card:hover {
       transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.15), 0 10px 10px -5px rgba(30, 58, 138, 0.1);
-    }
+      box-shadow: 0 15px 25px -5px rgba(var(--color-primary-rgb), 0.12), 0 8px 12px -5px rgba(var(--color-secondary-rgb), 0.1);
+      background-color: var(--color-bg-medium);}
     .btn {
-      padding: 0.8rem 1.8rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 0.625rem;
+      font-weight: 500;
       transition: all 0.3s ease;
       text-align: center;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
-      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(var(--color-dark-rgb), .08), 0 1px 3px rgba(var(--color-dark-rgb), .06);
+      letter-spacing: 0.3px;
       text-transform: uppercase;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
     }
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 7px 18px rgba(var(--color-dark-rgb), .12), 0 3px 8px rgba(var(--color-dark-rgb), .08);
     }
     .btn-primary {
       background-color: var(--color-primary);
-      color: white;
-      border: 1px solid var(--color-primary);
+      color: var(--color-text-light);
     }
     .btn-primary:hover {
       background-color: var(--color-primary-dark);
-      border-color: var(--color-primary-dark);
+      box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.4);
     }
     .btn-secondary {
       background-color: var(--color-secondary);
       color: var(--color-text-dark);
-      border: 1px solid var(--color-secondary);
     }
     .btn-secondary:hover {
       background-color: var(--color-secondary-dark);
-      color: white;
-      border-color: var(--color-secondary-dark);
+      box-shadow: 0 0 15px rgba(var(--color-secondary-rgb), 0.4);
     }
     .btn-outline {
       background-color: transparent;
-      color: var(--color-primary);
-      border: 2px solid var(--color-primary);
+      color: var(--color-primary);border: 2px solid var(--color-primary);
     }
     .btn-outline:hover {
       background-color: var(--color-primary);
-      color: white;
+      color: var(--color-text-light);
     }
     .icon {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-      padding: 0.75rem;
+      margin-bottom: 1.25rem;
+      display: inline-flex;align-items: center;
+      justify-content: center;
+      padding: 1rem;
       border-radius: 50%;
-      background-color: rgba(var(--color-primary-rgb), 0.1);
-      color: var(--color-primary);
-    }.section-divider-top {
-      border-top: 2px solid rgba(0, 0, 0, 0.05);
-    }
-    .section-divider-bottom {
-      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-    }
-    .section-divider-dark-top {
-      border-top: 2px solid rgba(255, 255, 255, 0.1);
-    }
-    .section-divider-dark-bottom {
-      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(var(--color-primary-rgb), 0.1);color: var(--color-primary);
+      box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.08);
     }
     .form-input {
       width: 100%;
-      padding: 0.85rem 1rem;
-      border: 1px solid #9CA3AF;border-radius: 0.375rem;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid rgba(var(--color-dark-rgb), 0.15);
+      border-radius: 0.5rem;
       margin-bottom: 1rem;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
       color: var(--color-text-dark);
-      background-color: #FFFFFF;
+      background-color: rgba(var(--color-dark-rgb), 0.03);
     }
     .form-input:focus {
       outline: none;
       border-color: var(--color-primary);
       box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.2);
+      background-color: var(--color-bg-medium);
     }
-    .testimonial-card {
-      background-color: var(--color-bg-light);
-      border-left: 4px solid var(--color-secondary);
+    .form-input::placeholder {
+      color: var(--color-text-muted);
+    }
+    .dark-block .form-input {background-color: rgba(var(--color-white-rgb), 0.05);
+      border-color: rgba(var(--color-white-rgb), 0.2);
+      color: var(--color-text-light);
+    }
+    .dark-block .form-input:focus {
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(var(--color-secondary-rgb), 0.3);
+      background-color: rgba(var(--color-white-rgb), 0.08);
+    }
+    .dark-block .form-input::placeholder {
+      color: rgba(var(--color-white-rgb), 0.5);
+    }
+    .testimonial-card-new {
+      background: var(--color-bg-medium);border: 1px solid rgba(var(--color-dark-rgb), 0.1);
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      box-shadow: 0 12px 30px rgba(var(--color-dark-rgb), 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-card-new::before {
+      content: '“';
+      position: absolute;
+      top: 0.5rem;
+      left: 1rem;
+      font-size: 6rem;
+      color: rgba(var(--color-primary-rgb), 0.1);font-family: 'Georgia', serif;
+      line-height: 1;
+      z-index: 0;
+      opacity: 0.8;
+    }
+    .testimonial-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 4px solid var(--color-primary);margin-bottom: 1.75rem;
+      box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.25);
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-text {
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: 1.75rem;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.2rem;
+      margin-bottom: 0.35rem;
+    }
+    .testimonial-details {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      opacity: 0.9;
+    }
+    .testimonial-rating .material-icons {
+      color: var(--color-secondary);font-size: 1.35rem;
     }
     .faq-item {
-      border: 1px solid #D1D5DB;border-radius: 0.5rem;
+      border: 1px solid rgba(var(--color-dark-rgb), 0.1);
+      border-radius: 0.75rem;
       margin-bottom: 1rem;
       overflow: hidden;
+      background-color: rgba(var(--color-dark-rgb), 0.02);
+      box-shadow: 0 3px 10px rgba(var(--color-dark-rgb), 0.05);
     }
     .faq-question {
       padding: 1.25rem 1.5rem;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: white;
       color: var(--color-text-dark);
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
     .faq-question:hover {
-      background-color: #f9fafb;
+      background-color: rgba(var(--color-primary-rgb), 0.08);
+      color: var(--color-primary);
     }
     .faq-answer {
       padding: 1.5rem;
-      border-top: 1px solid #D1D5DB;background-color: #fdfdff;
+      border-top: 1px solid rgba(var(--color-dark-rgb), 0.08);
+      background-color: var(--color-bg-medium);
       color: var(--color-text-muted);
     }
     .logo-text {
       font-size: 1.75rem;
       font-weight: 700;
-      letter-spacing: -0.025em;
-    }
+      letter-spacing: -0.01em;
+      color: var(--color-text-dark);}
     .logo-container {
       display: flex;
       align-items: center;
@@ -190,487 +369,1303 @@
       margin-right: 0.75rem;
     }
     .calculator-input {
-      border: 1px solid #9CA3AF;border-radius: 0.375rem;
-      padding: 0.75rem;
+      border: 1px solid rgba(var(--color-dark-rgb), 0.15);
+      border-radius: 0.5rem;
+      padding: 0.85rem;
       width: 100%;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 4px rgba(var(--color-dark-rgb), 0.03);
       color: var(--color-text-dark);
-      background-color: #FFFFFF;
+      background-color: rgba(var(--color-dark-rgb), 0.03);
     }
     .calculator-label {
       font-weight: 500;
-      color: var(--color-text-dark);
-      margin-bottom: 0.5rem;
+      color: var(--color-text-dark);margin-bottom: 0.75rem;
       display: block;
     }
     .calculator-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 20px;
-      height: 20px;
-      background: var(--color-primary);
-      cursor: pointer;
+      width: 22px;
+      height: 22px;
+      background: var(--color-primary);cursor: pointer;
       border-radius: 50%;
+      box-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.5);
+      margin-top: -7px;
     }
     .calculator-slider::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       background: var(--color-primary);
       cursor: pointer;
       border-radius: 50%;
       border: none;
+      box-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.5);
+    }
+    .calculator-slider {
+      height: 8px;
     }
     .contact-icon {
       font-size: 1.5rem;
-      color: var(--color-secondary);
-    }
+      color: var(--color-primary);}
     .header-glass {
-      background: rgba(243, 244, 246, 0.9);backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(var(--color-white-rgb), 0.92);backdrop-filter: blur(10px) saturate(150%);
+      -webkit-backdrop-filter: blur(10px) saturate(150%);
+      border-bottom: 1px solid rgba(var(--color-dark-rgb), 0.08);
+      box-shadow: 0 4px 15px rgba(var(--color-dark-rgb), 0.06);
     }
-    .section-bg-gradient {
-      background: linear-gradient(135deg, var(--color-bg-light) 0%, #ffffff 100%);
+    .header-glass .logo-text, .header-glass a, .header-glass button .material-icons {
+      color: var(--color-text-dark);}
+    .header-glass a:hover, .header-glass button:hover .material-icons, .header-glass .logo-text span {
+      color: var(--color-primary);}
+    .header-glass .text-\[var\(--color-secondary\)\] {
+        color: var(--color-primary) !important;}
+    .header-glass .hover\:text-\[var\(--color-secondary\)\]:hover {
+        color: var(--color-primary-dark) !important;
     }
-    .section-bg-dark-gradient {
-      background: linear-gradient(135deg, var(--color-bg-dark) 0%, #1F2937 100%);
+     .header-glass .btn-secondary {
+      background-color: var(--color-primary);
       color: var(--color-text-light);
     }
-    .section-bg-dark-gradient .section-title,
-    .section-bg-dark-gradient .section-subtitle,
-    .section-bg-dark-gradient p,
-    .section-bg-dark-gradient h3,
-    .section-bg-dark-gradient label,
-    .section-bg-dark-gradient span,
-    .section-bg-dark-gradient li {
-      color: var(--color-text-light);
+    .header-glass .btn-secondary:hover {
+      background-color: var(--color-primary-dark);
     }
-    .section-bg-dark-gradient .section-subtitle {
-      color: #D1D5DB;}
-    .section-bg-dark-gradient .section-title {
-      color: var(--color-secondary);
-    }
-    .section-bg-dark-gradient .card {
-      background-color: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.15);}
-    .section-bg-dark-gradient .card:hover {
-      background-color: rgba(255, 255, 255, 0.07);
-    }
-    .section-bg-dark-gradient .card h3,
-    .section-bg-dark-gradient .card p {
-      color: var(--color-text-light) !important;
-    }
-    .section-bg-dark-gradient .card h3 {
-      color: var(--color-secondary) !important;
-    }
-    .section-bg-dark-gradient .icon {
-      background-color: rgba(var(--color-accent-rgb), 0.15);
-      color: var(--color-accent);
-    }
-    .section-bg-dark-gradient .form-input {
-      background-color: rgba(var(--color-bg-light-rgb), 0.1);
-      border-color: rgba(255, 255, 255, 0.3);color: var(--color-text-light);
-    }
-    .section-bg-dark-gradient .form-input:focus {
-      border-color: var(--color-secondary);
-      box-shadow: 0 0 0 3px rgba(var(--color-secondary-rgb), 0.3);
-    }
-    .section-bg-dark-gradient .form-input::placeholder {
-      color: #9CA3AF;}
-    .section-bg-dark-gradient .calculator-label {
-      color: var(--color-text-light);
-    }
-    .section-bg-dark-gradient .calculator-input {
-      background-color: rgba(var(--color-bg-light-rgb), 0.1);
-      border-color: rgba(255, 255, 255, 0.3);color: var(--color-text-light);
-    }
-    .section-bg-dark-gradient .calculator-input:focus {
-      border-color: var(--color-secondary);
-      box-shadow: 0 0 0 3px rgba(var(--color-secondary-rgb), 0.3);
-    }
-    .section-bg-dark-gradient .calculator-slider::-webkit-slider-thumb {
-      background: var(--color-secondary);
-    }
-    .section-bg-dark-gradient .calculator-slider::-moz-range-thumb {
-      background: var(--color-secondary);
-    }
-    .section-bg-dark-gradient .testimonial-card {
-      background-color: rgba(var(--color-bg-light-rgb), 0.05);
-      border-left-color: var(--color-accent);
-    }
-    .section-bg-dark-gradient .testimonial-card p:not(.font-semibold) {
-      color: #D1D5DB;}.contact-form-card {
-      background-color: #ffffff;padding: 2.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    .header-glass .material-icons.mr-1 { color: var(--color-primary) !important; }
+    .contact-form-card {
+      background-color: var(--color-bg-medium);padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 18px 30px -5px rgba(var(--color-primary-rgb), 0.08), 0 8px 12px -5px rgba(var(--color-secondary-rgb), 0.06);
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(var(--color-primary-rgb), 0.1);
+      color: var(--color-text-dark);
     }
-    .contact-form-card::before {
-      content: "";
-      position: absolute;
-      top: -50px;
-      left: -50px;
-      width: 200px;
-      height: 200px;
-      background-color: rgba(var(--color-primary-rgb), 0.05);
-      border-radius: 50%;
-      z-index: 0;
-    }
-    .contact-form-card::after {
-      content: "";
-      position: absolute;
-      bottom: -70px;
-      right: -70px;
-      width: 250px;
-      height: 250px;
-      background-color: rgba(var(--color-secondary-rgb), 0.08);
-      border-radius: 50%;
-      z-index: 0;
-    }
-    .contact-form-card form {
-      position: relative;
-      z-index: 1;
-    }
-    .contact-form-card .form-input {
-      background-color: var(--color-bg-light);
-      border-color: #D1D5DB;
-    }
-    .contact-form-card .form-input:focus {
-      background-color: white;
+    .dark-block .contact-form-card {background-color: rgba(var(--color-white-rgb), 0.05);
+      border-color: rgba(var(--color-white-rgb), 0.1);
+      box-shadow: 0 18px 30px -5px rgba(var(--color-dark-rgb), 0.1), 0 8px 12px -5px rgba(var(--color-secondary-rgb), 0.08);
+      color: var(--color-text-light);
     }
     .form-label-group {
       position: relative;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
     }
     .form-label-group .form-input {
-      padding-top: 1.25rem;
+      padding-top: 1.35rem;
       margin-bottom: 0;
     }
     .form-label-group label {
       position: absolute;
-      top: 0.85rem;
-      left: 1rem;
-      font-size: 0.875rem;
+      top: 1rem;
+      left: 1.2rem;
+      font-size: 0.9rem;
       color: var(--color-text-muted);
       transition: all 0.2s ease;
       pointer-events: none;
     }
     .form-label-group .form-input:focus~label,
     .form-label-group .form-input:not(:placeholder-shown)~label {
-      top: 0.3rem;
-      left: 0.8rem;
-      font-size: 0.7rem;
-      color: var(--color-primary);
-      background-color: var(--color-bg-light);
-      padding: 0 0.25rem;
+      top: 0.4rem;
+      left: 1rem;
+      font-size: 0.75rem;
+      color: var(--color-primary);background-color: var(--color-bg-medium);
+      padding: 0 0.3rem;
       border-radius: 0.25rem;
     }
+    .dark-block .form-label-group .form-input:focus~label,
+    .dark-block .form-label-group .form-input:not(:placeholder-shown)~label {
+      color: var(--color-secondary);
+      background-color: rgba(var(--color-dark-rgb), 0.9);
+    }
     .form-label-group .form-input:focus {
-      padding-top: 1.25rem;}
+      padding-top: 1.35rem;
+    }
+    .parallax-bg {background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 25px rgba(var(--color-dark-rgb), 0.1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(var(--color-white-rgb), 0.1);
+      color: var(--color-text-light);
+    }
+    .parallax-bg::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(ellipse at center, rgba(var(--color-white-rgb), 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(40deg);
+      z-index: 0;
+      opacity: 0.4;
+      filter: blur(5px);
+    }
+    .form-radio {
+      color: var(--color-primary);border-color: rgba(var(--color-dark-rgb), 0.3);
+    }
+    .form-radio:focus {
+      ring: var(--color-primary);
+      ring-offset-color: var(--color-bg-light);
+    }
+    .dark-block .form-radio {
+      color: var(--color-secondary);
+      border-color: rgba(var(--color-white-rgb), 0.3);
+    }
+    .dark-block .form-radio:focus {
+      ring: var(--color-secondary);
+      ring-offset-color: var(--color-bg-dark);
+    }
+    .form-checkbox {
+      color: var(--color-primary);border-color: rgba(var(--color-dark-rgb), 0.3);
+      border-radius: 0.2rem;
+    }
+    .form-checkbox:focus {
+      ring: var(--color-primary);
+      ring-offset-color: var(--color-bg-light);
+    }
+    .dark-block .form-checkbox {
+      color: var(--color-secondary);
+      border-color: rgba(var(--color-white-rgb), 0.3);
+    }
+    .dark-block .form-checkbox:focus {
+      ring: var(--color-secondary);
+      ring-offset-color: var(--color-bg-dark);
+    }.stage-card {
+        background-color: var(--color-bg-medium);
+        border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+        border-radius: 1rem;
+        padding: 2rem 1.5rem;
+        box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.08);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stage-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.15);
+    }
+    .stage-number-icon {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: var(--color-primary);
+        color: var(--color-text-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.3);
+        border: 3px solid var(--color-bg-medium);
+    }
+    .stage-card .icon {margin-top: 2.5rem;font-size: 2.8rem;
+        margin-bottom: 1rem;
+        background-color: rgba(var(--color-secondary-rgb), 0.1);
+        color: var(--color-secondary);
+    }
+    .stage-card h3 {
+        color: var(--color-primary);
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .stage-card p {
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    .gradient-text {
+      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));-webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    .footer-dark {background-color: var(--color-bg-darker);
+      color: var(--color-text-muted);
+    }
+    .footer-dark .logo-text,
+    .footer-dark h5 {
+      color: var(--color-text-light);
+    }
+    .footer-dark .logo-text span {
+      color: var(--color-secondary);
+    }
+    .footer-dark a {
+      color: var(--color-text-muted);
+    }
+    .footer-dark a:hover {
+      color: var(--color-secondary);
+    }
+    .footer-dark .border-t {
+      border-top-color: rgba(var(--color-white-rgb), 0.1);
+    }
+    .footer-dark .material-icons {
+      color: var(--color-secondary);
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(var(--color-dark-rgb), 0.7);backdrop-filter: blur(8px) saturate(120%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-container {
+      background: var(--color-bg-medium);color: var(--color-text-dark);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 40px rgba(var(--color-dark-rgb), 0.15);
+      width: 90%;
+      max-width: 550px;
+      position: relative;
+      transform: scale(0.95) translateY(20px);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(var(--color-dark-rgb), 0.1);
+    }
+    .modal-overlay.active .modal-container {
+      transform: scale(1) translateY(0);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 2rem;
+      padding: 0.25rem;
+      line-height: 1;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      color: var(--color-primary);transform: rotate(90deg);
+    }
+     #modalContactForm .form-label-group .form-input:focus~label,
+    #modalContactForm .form-label-group .form-input:not(:placeholder-shown)~label {
+        background-color: var(--color-bg-medium);color: var(--color-primary);
+    }
+    #modalContactForm .form-input::placeholder {
+        color: var(--color-text-muted);
+    }
+    #modalTitle { color: var(--color-primary); }#credit-trap {background-color: var(--color-bg-dark);
+      border: 2px solid var(--color-danger);
+      box-shadow: 0 0 30px rgba(var(--color-danger-rgb), 0.3), inset 0 0 20px rgba(var(--color-danger-rgb), 0.2);
+      color: var(--color-text-light);
+      position: relative;
+      overflow: hidden;
+    }
+    #credit-trap::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        repeating-linear-gradient(45deg,
+          rgba(var(--color-danger-rgb), 0.15),
+          rgba(var(--color-danger-rgb), 0.15) 10px,
+          transparent 10px,
+          transparent 20px);
+      z-index: 0;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    #credit-trap .relative.z-10 {
+      position: relative;
+      z-index: 1;
+    }
+    #credit-trap .section-title,
+    #credit-trap .section-subtitle,
+    #credit-trap p,
+    #credit-trap h4 {
+      color: var(--color-text-light) !important;
+    }
+    #credit-trap .bg-\[rgba\(var\(--color-white-rgb\),0\.08\)\] {
+      background-color: rgba(var(--color-danger-rgb), 0.1) !important;
+      border: 1px solid rgba(var(--color-danger-rgb), 0.3);
+    }
+    #credit-trap .material-icons {
+      color: var(--color-danger) !important;
+      filter: brightness(1.2);
+    }
+    #credit-trap .btn-secondary {
+      background-color: var(--color-danger);
+      color: var(--color-text-light);
+      border: 1px solid rgba(var(--color-white-rgb), 0.5);
+    }
+    #credit-trap .btn-secondary:hover {
+      background-color: #C82333;
+      box-shadow: 0 0 15px rgba(var(--color-danger-rgb), 0.5);
+    }#client-benefits.content-block { background-color: var(--color-bg-light); }#client-benefits .section-title { color: var(--color-primary); }
+    #client-benefits .section-subtitle { color: var(--color-text-muted); }
+    #client-benefits .card {
+        background-color: var(--color-bg-medium);
+        border: 1px solid rgba(var(--color-success-rgb, 16, 185, 129), 0.3);border-left-width: 5px;
+        border-left-color: var(--color-success);box-shadow: 0 8px 20px rgba(var(--color-success-rgb, 16, 185, 129), 0.1);
+        color: var(--color-text-dark);
+        transition: all 0.3s ease;
+    }
+    #client-benefits .card:hover {
+        background-color: rgba(var(--color-success-rgb, 16, 185, 129), 0.08);
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 12px 25px rgba(var(--color-success-rgb, 16, 185, 129), 0.15);
+    }
+    #client-benefits .icon {
+        color: var(--color-success);background-color: rgba(var(--color-success-rgb, 16, 185, 129), 0.15);
+        box-shadow: 0 0 15px rgba(var(--color-success-rgb, 16, 185, 129), 0.2);
+        padding: 1.2rem;font-size: 2.8rem;
+    }
+    #client-benefits .card h3 {
+        color: var(--color-text-dark); font-weight: 600;
+    }
+    #client-benefits .card p {
+        color: var(--color-text-muted);
+    }
+    .swiper-slide-image {
+        width: 100%;
+        height: 200px;object-fit: cover;
+        border-radius: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: var(--color-success) !important;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        color: var(--color-success) !important;
+    }
+     #client-benefits .swiper-container {
+      padding-bottom: 40px;}
+    #debt-relief-benefits .card {background-color: var(--color-bg-medium) !important;
+      border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+      border-top: 4px solid var(--color-primary);
+      box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.1);
+      transition: all 0.3s ease;
+      transform: perspective(1000px) rotateX(0deg);
+      color: var(--color-text-dark);
+    }
+    #debt-relief-benefits .card:hover {
+      background-color: rgba(var(--color-primary-rgb), 0.05) !important;
+      transform: translateY(-8px) scale(1.03) perspective(1000px) rotateX(2deg);
+      box-shadow: 0 15px 30px rgba(var(--color-primary-rgb), 0.18);
+    }
+    #debt-relief-benefits .material-icons.text-\[var\(--color-secondary\)\] {
+      background-color: rgba(var(--color-primary-rgb), 0.1) !important;
+      padding: 1rem;
+      border-radius: 50%;
+      color: var(--color-primary) !important;font-size: 2.8rem;
+      box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.1);
+      transition: transform 0.3s ease;
+    }
+    #debt-relief-benefits .card:hover .material-icons.text-\[var\(--color-secondary\)\] {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    #debt-relief-benefits .card h3 {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+    #debt-relief-benefits .card p {
+      color: var(--color-text-muted);
+    }
+    .section-divider {
+      height: 3px;
+      width: 100px;
+      background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+      margin: 2.5rem auto 3rem;
+      opacity: 0.8;
+      border-radius: 3px;
+    }
+    .line-decoration {
+      position: absolute;
+      background-color: rgba(var(--color-primary-rgb), 0.05);
+      z-index: -1;
+      border-radius: 999px;
+      filter: blur(1px);
+    }
+    .line-decoration.secondary {
+      background-color: rgba(var(--color-secondary-rgb), 0.05);
+    }
+    .line-decoration-1 {
+      top: 15%;
+      left: -5%;
+      width: 250px;
+      height: 6px;
+      transform: rotate(-25deg);
+    }
+    .line-decoration-2 {
+      bottom: 20%;
+      right: -8%;
+      width: 200px;
+      height: 10px;
+      transform: rotate(30deg);
+    }
+    .line-decoration-3 {
+      top: 25%;
+      right: -3%;
+      width: 150px;
+      height: 4px;
+      transform: rotate(55deg);
+    }
+    .line-decoration-4 {
+      bottom: 10%;
+      left: -10%;
+      width: 220px;
+      height: 7px;
+      transform: rotate(-10deg);
+    }
+    .blob-decoration {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;filter: blur(60px);z-index: -1;
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 450px;
+      height: 450px;
+      background-color: var(--color-primary);
+      top: 8%;
+      left: 55%;
+    }
+    .blob-2 {
+      width: 350px;
+      height: 350px;
+      background-color: var(--color-secondary);
+      bottom: 12%;
+      left: 8%;
+    }
+    .blob-3 {
+      width: 400px;
+      height: 400px;
+      background-color: var(--color-primary);
+      top: 45%;
+      right: -12%;
+      transform: translateY(-50%);
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #bankruptcy-info.content-block { background-color: var(--color-bg-medium); }
+    #bankruptcy-info .section-title { color: var(--color-primary); }
+    #bankruptcy-info .section-subtitle { color: var(--color-text-muted); }
+    #bankruptcy-info .grid>div {
+      animation: fadeInUp 0.5s ease-out forwards;
+      opacity: 0;
+      background-color: rgba(var(--color-primary-rgb), 0.04);border: 1px solid rgba(var(--color-primary-rgb), 0.1);
+    }
+     #bankruptcy-info .grid>div h3 { color: var(--color-primary); }
+     #bankruptcy-info .grid>div ul li { color: var(--color-text-dark); }
+     #bankruptcy-info .grid>div ul li .material-icons { color: var(--color-secondary); }
+     #bankruptcy-info .grid>div p.text-gray-400 { color: var(--color-text-muted); }
+    #bankruptcy-info .grid>div:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    #bankruptcy-info .grid>div:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+    #bankruptcy-info .grid ul li {
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: fadeInLeftList 0.4s ease-out forwards;
+    }
+    #bankruptcy-info .grid ul li:nth-child(1) {
+      animation-delay: 0.5s;
+    }
+    #bankruptcy-info .grid ul li:nth-child(2) {
+      animation-delay: 0.6s;
+    }
+    #bankruptcy-info .grid ul li:nth-child(3) {
+      animation-delay: 0.7s;
+    }
+    #bankruptcy-info .grid ul li:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+    #bankruptcy-info .grid ul li:nth-child(5) {
+      animation-delay: 0.9s;
+    }
+    @keyframes fadeInLeftList {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }#hero h1 { color: var(--color-text-dark); }
+    #hero p.text-lg { color: var(--color-text-muted); }
+    #hero .bg-\[rgba\(var\(--color-white-rgb\),0\.08\)\] {
+        background-color: rgba(var(--color-primary-rgb), 0.05);
+        border-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+    #hero .material-icons.text-\[var\(--color-secondary\)\] { color: var(--color-primary) !important; }
+    #hero h4 { color: var(--color-text-dark); }
+    #hero p.text-xs { color: var(--color-text-muted); }#about .section-title { color: var(--color-primary); }
+    #about .section-subtitle { color: var(--color-text-muted); }
+    #about .card {
+        background-color: rgba(var(--color-primary-rgb), 0.03);
+        border-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+    #about .card h3 { color: var(--color-primary); }
+    #about .card p { color: var(--color-text-muted); }
+    #about .icon {
+        background-color: rgba(var(--color-secondary-rgb), 0.1);
+        color: var(--color-secondary);
+    }#contact-main.content-block { background-color: var(--color-bg-light); }#contact-main .section-title { color: var(--color-primary); }
+    #contact-main .section-subtitle { color: var(--color-text-muted); }
+    #contact-main .contact-form-card {
+        background-color: var(--color-bg-medium);box-shadow: 0 10px 30px rgba(var(--color-primary-rgb), 0.1);
+    }
+    #contact-main .form-label-group .form-input:focus~label,
+    #contact-main .form-label-group .form-input:not(:placeholder-shown)~label {
+        background-color: var(--color-bg-medium);color: var(--color-primary);
+    }#calculator.content-block { background-color: var(--color-bg-light); }
+    #calculator .section-title { color: var(--color-primary); }
+    #calculator .section-subtitle { color: var(--color-text-muted); }
+    #calculator .bg-\[var\(--color-bg-darker\)\] {
+        background-color: var(--color-bg-medium);border-color: rgba(var(--color-primary-rgb), 0.1);
+        box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.08);
+    }
+    #calculator .calculator-label { color: var(--color-text-dark); }
+    #calculator #debtAmountValue, #calculator #creditorsCountValue { color: var(--color-primary); }
+    #calculator .calculator-slider { background-color: rgba(var(--color-dark-rgb), 0.1); accent-color: var(--color-primary); }
+    #calculator .text-gray-300 { color: var(--color-text-muted); }
+    #calculator .hover\:text-gray-100:hover { color: var(--color-text-dark); }
+    #calculator .border-\[rgba\(var\(--color-white-rgb\),0\.15\)\] { border-color: rgba(var(--color-dark-rgb), 0.1); }
+    #calculator .text-\[var\(--color-text-light\)\] { color: var(--color-text-dark); }
+    #calculator #calculatedCostNewP { color: var(--color-primary); }
+    #calculator .text-gray-400 { color: var(--color-text-muted); }#stages.content-block { background-color: var(--color-bg-light); }#faq.content-block { background-color: var(--color-bg-light); }
+    #faq .section-title { color: var(--color-primary); }
+    #faq .section-subtitle { color: var(--color-text-muted); }
+    #faq .material-icons.text-\[var\(--color-secondary\)\] { color: var(--color-primary) !important; }
+    #faq .faq-item {
+        border-color: rgba(var(--color-primary-rgb),0.15);
+        border-top-color: var(--color-primary);
+        background-color: rgba(var(--color-primary-rgb), 0.02);
+    }
+    #faq .text-9xl.text-\[var\(--color-secondary\)\] { color: var(--color-primary) !important; opacity: 0.05; }#contact-final.content-block { background-color: var(--color-bg-light); }
+    #contact-final .contact-form-card {
+        background-color: var(--color-bg-medium);
+        box-shadow: 0 10px 30px rgba(var(--color-primary-rgb), 0.1);
+    }
+    #contact-final .form-label-group .form-input:focus~label,
+    #contact-final .form-label-group .form-input:not(:placeholder-shown)~label {
+        background-color: var(--color-bg-medium);
+        color: var(--color-primary);
+    }
   </style>
 </head>
-<body class="bg-[var(--color-bg-light)]">
-<header class="header-glass shadow-lg sticky top-0 z-50 py-3">
+<body class="bg-[var(--color-bg-light)] text-[var(--color-text-dark)]">
+<div class="blob-decoration blob-1"></div>
+<div class="blob-decoration blob-2"></div>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<header class="header-glass shadow-lg sticky top-0 z-50 py-3 my-4 rounded-xl">
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
 <div class="logo-container">
 <img alt="Логотип Новый Вектор" class="logo-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrm6mDqC8d_v9qG0lP5Wn_N3eY0T2KjX5sR6zHqA4fB7w_Z8cV-1bO0gX3L_N9YmC-A6b_X0eR_P1JcIqW-R1S_E0jJvXnE9D_FwUvPqJkI_M-A8pQh_S7tZ6vN_WwR_D-X_V_E1fA2gP4QzS3dYjL_K5xG9zC8bA4iR7eT0uL"/>
-<span class="logo-text text-[var(--color-text-dark)]">НОВЫЙ <span class="text-[var(--color-primary)]">ВЕКТОР</span></span>
+<span class="logo-text">НОВЫЙ <span class="text-[var(--color-primary)]">ВЕКТОР</span></span>
 </div>
 <nav class="hidden lg:flex space-x-6 items-center">
-<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#about">О нас</a>
-<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#bankruptcy-info">О банкротстве</a>
-<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#services">Услуги</a>
-<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#calculator">Калькулятор</a>
-<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#contact-info">Контакты</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-medium" href="#about">О нас</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-medium" href="#bankruptcy-info">О банкротстве</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-medium" href="#stages">Этапы</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-medium" href="#reviews">Отзывы</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-medium" href="#faq">FAQ</a>
 </nav>
 <div class="flex items-center space-x-4">
-<a class="text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors flex items-center" href="tel:+78001234567">
-<span class="material-icons mr-1 text-lg text-[var(--color-primary)]">phone_in_talk</span> +7 (800) 123-45-67
-        </a>
-<a class="btn btn-secondary text-sm px-5 py-2.5 hidden sm:inline-flex items-center group" href="#contact"> Заказать звонок <span class="material-icons ml-2 text-base transform group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
-</a>
+<a class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors flex items-center" href="tel:+78001234567">
+<span class="material-icons mr-1 text-lg text-[var(--color-primary)]">call</span> +7 (800) 123-45-67
+          </a>
+<button class="btn btn-primary text-sm px-5 py-2.5 hidden sm:inline-flex items-center group open-modal-btn"> Заказать звонок <span class="material-icons ml-2 text-base transform group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+</button>
 <button class="lg:hidden text-[var(--color-text-muted)] hover:text-[var(--color-primary)]" id="mobileMenuButton">
 <span class="material-icons text-3xl">menu</span>
 </button>
 </div>
 </div>
-<div class="lg:hidden hidden header-glass" id="mobileMenu">
-<nav class="px-4 pt-2 pb-4 border-t border-slate-300 space-y-1">
-<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#about">О нас</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#bankruptcy-info">О банкротстве</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#services">Услуги</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#calculator">Калькулятор</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#contact-info">Контакты</a>
-<a class="block sm:hidden w-full mt-2 btn btn-secondary text-sm" href="#contact">Заказать звонок <span class="material-icons ml-2 text-base">arrow_forward</span></a>
+<div class="lg:hidden hidden header-glass mt-2 rounded-lg" id="mobileMenu">
+<nav class="px-4 pt-2 pb-4 border-t border-[rgba(var(--color-dark-rgb),0.08)] space-y-1">
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] hover:text-[var(--color-primary)]" href="#about">О нас</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] hover:text-[var(--color-primary)]" href="#bankruptcy-info">О банкротстве</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] hover:text-[var(--color-primary)]" href="#stages">Этапы</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] hover:text-[var(--color-primary)]" href="#reviews">Отзывы</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[rgba(var(--color-primary-rgb),0.1)] hover:text-[var(--color-primary)]" href="#faq">FAQ</a>
+<button class="block sm:hidden w-full mt-2 btn btn-primary text-sm open-modal-btn">Заказать звонок <span class="material-icons ml-2 text-base">arrow_forward</span></button>
 </nav>
 </div>
 </header>
-<section class="hero-bg relative">
-<div class="absolute inset-0 bg-gradient-to-br from-[rgba(var(--color-primary-rgb),0.85)] via-[rgba(var(--color-primary-rgb),0.75)] to-[rgba(var(--color-primary-dark-rgb,30,64,175),0.7)]"></div>
-<div class="relative container mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-40 text-center">
-<h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight"> Законное списание долгов <br class="hidden sm:inline"/>и <span class="text-[var(--color-secondary)]">новая</span> финансовая жизнь </h1>
-<p class="text-lg sm:text-xl text-slate-100 mb-12 max-w-3xl mx-auto"> Компания "Новый Вектор" поможет вам пройти процедуру банкротства физических лиц быстро, эффективно и с полной юридической поддержкой. Начните свой путь к свободе от долгов уже сегодня! </p>
-<a class="btn btn-secondary text-lg px-10 py-4 group" href="#contact"> Получить бесплатную консультацию <span class="material-icons ml-2 transform group-hover:rotate-12 transition-transform duration-300">rocket_launch</span>
+<main class="pt-8">
+<section class="hero-bg relative mb-16" id="hero">
+<div class="relative container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-40 text-center z-10">
+<h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-[var(--color-text-dark)] mb-6 leading-tight tracking-tight"> Законное списание долгов <br class="hidden sm:inline"/>и <span class="gradient-text">новая</span> финансовая жизнь </h1>
+<p class="text-lg sm:text-xl text-[var(--color-text-muted)] mb-10 max-w-3xl mx-auto"> Компания "Новый Вектор" поможет вам пройти процедуру банкротства физических лиц быстро, эффективно и с полной юридической поддержкой. </p>
+<div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+<button class="btn btn-primary text-lg px-8 py-3.5 group open-modal-btn"> Бесплатная консультация <span class="material-icons ml-2 transform group-hover:rotate-12 transition-transform duration-300">rocket_launch</span>
+</button>
+<a class="btn btn-outline text-lg px-8 py-3.5 group" href="#quiz"> Пройти тест <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform duration-300">quiz</span>
 </a>
 </div>
-</section>
-<section class="py-20 section-bg-gradient section-divider-bottom" id="about">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16">
-<h2 class="section-title">О компании "Новый Вектор"</h2>
-<p class="section-subtitle">Мы — команда опытных юристов, специализирующихся на процедурах банкротства физических лиц. Наша миссия — помочь вам освободиться от долгового бремени и обрести финансовую свободу с минимальными затратами времени и нервов.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+<div class="bg-[rgba(var(--color-primary-rgb),0.05)] p-4 rounded-xl text-center backdrop-blur-sm shadow-md border border-[rgba(var(--color-primary-rgb),0.1)]">
+<span class="material-icons text-3xl text-[var(--color-primary)] mb-2">verified_user</span>
+<h4 class="font-semibold text-[var(--color-text-dark)]">Законно и надежно</h4>
+<p class="text-xs text-[var(--color-text-muted)]">По ФЗ №127</p>
 </div>
-<div class="grid md:grid-cols-3 gap-8">
-<div class="card text-center border-t-4 border-[var(--color-primary)] hover:bg-[rgba(var(--color-primary-rgb),0.05)]">
-<span class="material-icons icon text-[var(--color-primary)]">gavel</span>
-<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Опыт и экспертиза</h3>
+<div class="bg-[rgba(var(--color-primary-rgb),0.05)] p-4 rounded-xl text-center backdrop-blur-sm shadow-md border border-[rgba(var(--color-primary-rgb),0.1)]">
+<span class="material-icons text-3xl text-[var(--color-primary)] mb-2">savings</span>
+<h4 class="font-semibold text-[var(--color-text-dark)]">Списание до 100% долга</h4>
+<p class="text-xs text-[var(--color-text-muted)]">Включая пени и штрафы</p>
+</div>
+<div class="bg-[rgba(var(--color-primary-rgb),0.05)] p-4 rounded-xl text-center backdrop-blur-sm shadow-md border border-[rgba(var(--color-primary-rgb),0.1)]">
+<span class="material-icons text-3xl text-[var(--color-primary)] mb-2">support_agent</span>
+<h4 class="font-semibold text-[var(--color-text-dark)]">Полное сопровождение</h4>
+<p class="text-xs text-[var(--color-text-muted)]">От А до Я</p>
+</div>
+<div class="bg-[rgba(var(--color-primary-rgb),0.05)] p-4 rounded-xl text-center backdrop-blur-sm shadow-md border border-[rgba(var(--color-primary-rgb),0.1)]">
+<span class="material-icons text-3xl text-[var(--color-primary)] mb-2">school</span>
+<h4 class="font-semibold text-[var(--color-text-dark)]">Опытные юристы</h4>
+<p class="text-xs text-[var(--color-text-muted)]">Более 5 лет практики</p>
+</div>
+</div>
+</div>
+<div class="line-decoration line-decoration-1"></div>
+<div class="line-decoration secondary line-decoration-2"></div>
+</section>
+<section class="content-block" id="about">
+<div class="relative z-10">
+<div class="lg:flex lg:items-center lg:gap-12">
+<div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+<h2 class="section-title">О компании "Новый Вектор"</h2>
+<p class="section-subtitle !mx-0 !max-w-none">Мы — команда опытных юристов, специализирующихся на процедурах банкротства физических лиц. Наша миссия — помочь вам освободиться от долгового бремени и обрести финансовую свободу.</p>
+<img alt="Команда юристов Новый Вектор" class="rounded-xl shadow-lg mt-6 w-full h-auto object-cover max-h-80 border border-[rgba(var(--color-dark-rgb),0.1)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfqq0jV6FRZzUmzKGES-l4vZyCDsZDpFrI1GLFtN5MICMXba5esOAfWiu3fQ302jHVrKoCE3Ur-Qa5Uw_IyWcCtUROEEnAVSPNqu1JePYTSmojiPvXhqQ1k9jYLOBeiatW8gc4CVHwYMIFT5-p4cNCOB7XSKQ3MqE5clAOaRo4D9-7ZlAwXtYcQJo_W0Z9MxtEkHL2kNQg-vlsk3OfxlHkd8aShmU7H59iHHvX8FtsfZ7cDLUV-AksluA27_UwWEIPR0Y1os2eOqG7"/>
+</div>
+<div class="lg:w-1/2 grid grid-cols-1 gap-8">
+<div class="card text-center">
+<span class="material-icons icon">gavel</span>
+<h3 class="text-xl font-semibold mb-2">Опыт и экспертиза</h3>
 <p class="text-[var(--color-text-muted)]">Многолетний опыт успешного ведения дел о банкротстве. Знаем все тонкости закона.</p>
 </div>
-<div class="card text-center border-t-4 border-[var(--color-accent)] hover:bg-[rgba(var(--color-accent-rgb),0.05)]">
-<span class="material-icons icon text-[var(--color-accent)] !bg-[rgba(var(--color-accent-rgb),0.1)]">shield_lock</span>
-<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Надежность и Защита</h3>
+<div class="card text-center">
+<span class="material-icons icon">shield</span>
+<h3 class="text-xl font-semibold mb-2">Надежность и Защита</h3>
 <p class="text-[var(--color-text-muted)]">Гарантируем полную конфиденциальность и юридическую защиту на всех этапах.</p>
 </div>
-<div class="card text-center border-t-4 border-[var(--color-secondary)] hover:bg-[rgba(var(--color-secondary-rgb),0.05)]">
-<span class="material-icons icon text-[var(--color-secondary)] !bg-[rgba(var(--color-secondary-rgb),0.1)]">sentiment_very_satisfied</span>
-<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Доверие клиентов</h3>
-<p class="text-[var(--color-text-muted)]">Сотни довольных клиентов, избавившихся от долгов с нашей помощью. Ваши интересы - наш приоритет.</p>
+<div class="card text-center">
+<span class="material-icons icon">thumb_up</span>
+<h3 class="text-xl font-semibold mb-2">Доверие клиентов</h3>
+<p class="text-[var(--color-text-muted)]">Сотни довольных клиентов, избавившихся от долгов с нашей помощью.</p>
 </div>
 </div>
 </div>
+</div>
+<div class="line-decoration secondary line-decoration-3"></div>
+<div class="line-decoration line-decoration-4"></div>
 </section>
-<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="bankruptcy-info">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col lg:flex-row items-center gap-12">
-<div class="lg:w-1/2">
-<img alt="Документы и калькулятор, символизирующие процесс банкротства" class="rounded-xl shadow-2xl w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFUe1eCaTrPOjd7hhSRg7TcB4qOJDduydgjRqG6Il-ofPnhybSggZZZ-R68P-J9P1y6b9ab3y53dw0xqEn1uCcNVh-VHwEcdoD29zaVBqT5wz_64uPSxPkDnvsk4Na6iiqFfHLPAjQSKw-7Nz_XkU7fDoy-4ZzXtLtC0ql0drZGUpHRnP9w2TquQ3PatgfKNhJoKpy3k6HA7E5MjFUycFheoMRuLDSIjNPyMfRHaX8K5RsSWYv0vhX_lNw7XUucWswHXIxnDOUVOWl"/>
-</div>
-<div class="lg:w-1/2 lg:text-left">
-<h2 class="section-title text-left lg:text-left">Что такое банкротство физических лиц?</h2>
-<p class="section-subtitle text-left lg:text-left !text-slate-300 mx-0 max-w-none">Узнайте больше о процедуре, ее этапах и преимуществах, которые она открывает.</p>
-<div class="glass-effect p-8 rounded-xl border-slate-700">
-<p class="text-slate-300 mb-4 leading-relaxed">Банкротство физического лица — это законная процедура, позволяющая гражданину, неспособному исполнять свои финансовые обязательства, освободиться от долгов. Процедура регулируется Федеральным законом № 127-ФЗ "О несостоятельности (банкротстве)".</p>
-<h3 class="text-lg font-semibold text-[var(--color-accent)] mt-6 mb-3">Ключевые моменты:</h3>
-<ul class="list-disc list-inside text-slate-300 space-y-2 leading-relaxed marker:text-[var(--color-accent)]">
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Списание большинства видов долгов (кредиты, займы, налоги, ЖКХ).</li>
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Прекращение начисления процентов, пеней и штрафов.</li>
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Остановка исполнительных производств и давления со стороны коллекторов.</li>
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Возможность начать жизнь с чистого финансового листа.</li>
-</ul>
-<h3 class="text-lg font-semibold text-[var(--color-accent)] mt-6 mb-3">Когда стоит задуматься о банкротстве?</h3>
-<ul class="list-disc list-inside text-slate-300 space-y-2 leading-relaxed marker:text-[var(--color-accent)]">
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">help_outline</span>Общая сумма долга превышает 300 000 рублей.</li>
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">help_outline</span>Просрочки по платежам составляют более 3 месяцев.</li>
-<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">help_outline</span>Вы понимаете, что не сможете погасить долги в обозримом будущем.</li>
-</ul>
-<p class="text-slate-300 mt-6 leading-relaxed">Наша команда поможет вам разобраться во всех нюансах процедуры и выбрать оптимальный путь решения вашей финансовой проблемы.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 section-bg-gradient section-divider-bottom" id="services">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="section-title text-center">Наши услуги</h2>
-<p class="section-subtitle text-center">Полный спектр юридической помощи в процедуре банкротства — от первой консультации до полного списания долгов.</p>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="card group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-all duration-300">
-<div class="relative">
-<img alt="Юрист консультирует клиента по вопросам банкротства" class="rounded-lg mb-4 h-48 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMHtXelE0o-lB5STdYO7HO3vpSheDi8Yo5x4R7uVTmx4mwmIF-QG6nq4Lkrtr5jiaaIzH5DxCxkZ9qZL1RL_FU9iOy9_vKikb4YedG06pqQ9CBABzWnCRiuYfC-iyvXzcsvtAadUhFDclOVtgmfQl3QrKh2-0lL8o6vzPN2x3nyYXAlWifTCAk2EILX_qfWLVwxBO8Tssx4toHCTg5b0lrj8ulY5Ysth2sL6G-CbXugAE8zt0iSo-jllujhajVplqskq5fGZJRpZYX"/>
-<div class="absolute inset-0 bg-black/20 rounded-lg group-hover:bg-black/5 transition-all duration-300"></div>
-<span class="material-icons icon text-[var(--color-primary)] absolute top-3 right-3 bg-white/80 !p-2 !text-2xl">assignment</span>
-</div>
-<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Консультация и анализ</h3>
-<p class="text-[var(--color-text-muted)]">Подробный разбор вашей финансовой ситуации и оценка перспектив банкротства.</p>
-</div>
-<div class="card group hover:bg-[rgba(var(--color-accent-rgb),0.05)] transition-all duration-300">
-<div class="relative">
-<img alt="Стопка документов для процедуры банкротства" class="rounded-lg mb-4 h-48 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaPffJcW-4HEi9975YwzNcWGLeOWD4IrCEnie3-FV3RoJryOMvEthgNPHFy1DbjGPp1mgttWLadvwAVFF6179QR6bMfXtlq5tzsn5GICxlJzhADyLQwKwFgL4Y-9xUHrNXEQRB-KzQWSZ-moZs0PxD6BGqheVIeUdcJhwj7HqYK8z5L27iwMXdiKvjxEPT8KwZ7Qu3A1IwHyhmSwJGsD-rm8GrVNn3fKQskYpXVYcIhPtoRFUynD1q0Jg2UtR4G_yE5uuOcZjFv2ZX"/>
-<div class="absolute inset-0 bg-black/20 rounded-lg group-hover:bg-black/5 transition-all duration-300"></div>
-<span class="material-icons icon text-[var(--color-accent)] !bg-[rgba(var(--color-accent-rgb),0.1)] absolute top-3 right-3 bg-white/80 !p-2 !text-2xl">folder_shared</span>
-</div>
-<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Сбор документов</h3>
-<p class="text-[var(--color-text-muted)]">Помощь в сборе необходимого пакета документов для подачи заявления в суд.</p>
-</div>
-<div class="card group hover:bg-[rgba(var(--color-secondary-rgb),0.05)] transition-all duration-300">
-<div class="relative">
-<img alt="Здание суда или зал судебных заседаний" class="rounded-lg mb-4 h-48 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHX6YMiXEw3kyIS3aJtjXi2wNNeqyGET5rjUebqCmmphKn1O84NxYtrm8VS_C2D9qqZLmf3y0a2NZa4rPihPdRsouOseEbRcH61Tq6snhjjKVumVh0DO8PVxn6MxUGXOM3QHF4x0ziWL-Otv18JCqBuMWx1LLiSJv0LVVMsQOigfV3xCepPPMN_jBhuURXjip6t6-odeNxaOtsmfOIhBEsY9O3tMP_XTSc7az_nlNcAdjtBJpj4xL03qOQc7rKaU42S_5N52T_qo1f"/>
-<div class="absolute inset-0 bg-black/20 rounded-lg group-hover:bg-black/5 transition-all duration-300"></div>
-<span class="material-icons icon text-[var(--color-secondary)] !bg-[rgba(var(--color-secondary-rgb),0.1)] absolute top-3 right-3 bg-white/80 !p-2 !text-2xl">account_balance</span>
-</div>
-<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Представительство в суде</h3>
-<p class="text-[var(--color-text-muted)]">Защита ваших интересов на всех этапах судебного процесса.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="quiz">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<section class="content-block" id="bankruptcy-info">
+<div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-12">
-<h2 class="section-title">Пройдите тест и узнайте, подходит ли вам банкротство</h2>
-<p class="section-subtitle !text-slate-300">Ответьте на несколько простых вопросов, чтобы получить предварительную оценку и первый шаг к решению проблемы.</p>
+<h2 class="section-title">Кто может списать долги по закону №127-ФЗ?</h2>
+<p class="section-subtitle">Узнайте, соответствуете ли вы основным критериям для начала процедуры банкротства.</p>
+<div class="section-divider"></div>
 </div>
-<div class="max-w-2xl mx-auto glass-effect p-8 md:p-10 rounded-xl border-slate-700 border-t-4 border-[var(--color-secondary)]">
+<div class="grid md:grid-cols-2 gap-8 items-start">
+<div class="p-6 rounded-lg shadow-xl">
+<h3 class="text-2xl font-semibold mb-4">Условия для банкротства:</h3>
+<ul class="space-y-3">
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">check_circle</span>
+<span>Общая сумма долгов от 300 000 рублей (в некоторых случаях можно и с меньшей суммой).</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">check_circle</span>
+<span>Просрочки по платежам более 3 месяцев (или предвидите невозможность платить).</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">check_circle</span>
+<span>Отсутствие судимости за экономические преступления.</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">check_circle</span>
+<span>Отсутствие фиктивного или преднамеренного банкротства в прошлом.</span>
+</li>
+</ul>
+</div>
+<div class="p-6 rounded-lg shadow-xl">
+<h3 class="text-2xl font-semibold mb-4">Какие долги можно списать?</h3>
+<ul class="space-y-3">
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">credit_card</span>
+<span>Кредиты и кредитные карты в банках.</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">receipt_long</span>
+<span>Микрозаймы (МФО).</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">handshake</span>
+<span>Долги по распискам перед физическими лицами.</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">account_balance</span>
+<span>Задолженность по налогам и сборам (кроме текущих).</span>
+</li>
+<li class="flex items-start">
+<span class="material-icons text-[var(--color-secondary)] mr-3 mt-1">home_repair_service</span>
+<span>Долги за коммунальные услуги (ЖКХ).</span>
+</li>
+</ul>
+<p class="mt-4 text-sm text-[var(--color-text-muted)]">Не списываются: алименты, возмещение вреда жизни/здоровью, текущие платежи.</p>
+</div>
+</div>
+<div class="text-center mt-10">
+<button class="btn btn-secondary group open-modal-btn">
+              Узнать больше и получить консультацию
+              <span class="material-icons ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<section class="content-block" id="quiz">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Пройдите тест: подходит ли вам банкротство?</h2>
+<p class="section-subtitle">Ответьте на несколько простых вопросов, чтобы получить предварительную оценку вашей ситуации.</p>
+<div class="section-divider"></div>
+</div>
+<div class="max-w-2xl mx-auto contact-form-card shadow-xl">
 <form id="quizForm">
 <div class="mb-6">
-<label class="block text-slate-200 font-semibold mb-2" for="debtAmount"><span class="material-icons text-lg align-middle mr-2 text-[var(--color-secondary)]">monetization_on</span>1. Какова общая сумма вашей задолженности (руб.)?</label>
-<input class="form-input" id="debtAmount" name="debtAmount" placeholder="Например, 750000" type="number"/>
+<label class="block text-sm font-medium text-[var(--color-text-dark)] mb-2" for="debtAmountQuiz">1. Какая у вас примерная общая сумма долга (руб.)?</label>
+<input class="form-input" id="debtAmountQuiz" min="0" placeholder="Например: 500000" required="" type="number"/>
 </div>
 <div class="mb-6">
-<label class="block text-slate-200 font-semibold mb-2"><span class="material-icons text-lg align-middle mr-2 text-[var(--color-secondary)]">event_busy</span>2. Есть ли у вас просрочки по платежам более 3 месяцев?</label>
-<div class="flex items-center space-x-6">
-<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="overduePayments" type="radio" value="yes"/> Да</label>
-<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="overduePayments" type="radio" value="no"/> Нет</label>
+<p class="block text-sm font-medium text-[var(--color-text-dark)] mb-2">2. Есть ли у вас просрочки по платежам более 3 месяцев?</p>
+<div class="flex space-x-4">
+<label class="flex items-center cursor-pointer">
+<input class="form-radio h-4 w-4 mr-1" name="overduePaymentsQuiz" required="" type="radio" value="yes"/>
+<span class="text-sm text-[var(--color-text-dark)]">Да</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="form-radio h-4 w-4 mr-1" name="overduePaymentsQuiz" required="" type="radio" value="no"/>
+<span class="text-sm text-[var(--color-text-dark)]">Нет</span>
+</label>
 </div>
 </div>
-<div class="mb-6">
-<label class="block text-slate-200 font-semibold mb-2"><span class="material-icons text-lg align-middle mr-2 text-[var(--color-secondary)]">work</span>3. Имеется ли у вас официальный источник дохода?</label>
-<div class="flex items-center space-x-6">
-<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="incomeSource" type="radio" value="yes"/> Да</label>
-<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="incomeSource" type="radio" value="no"/> Нет</label>
+<div class="mb-8">
+<p class="block text-sm font-medium text-[var(--color-text-dark)] mb-2">3. Есть ли у вас в собственности имущество (кроме единственного жилья), которое может быть реализовано?</p>
+<div class="flex space-x-4">
+<label class="flex items-center cursor-pointer">
+<input class="form-radio h-4 w-4 mr-1" name="propertyQuiz" required="" type="radio" value="yes"/>
+<span class="text-sm text-[var(--color-text-dark)]">Да (например, вторая квартира, машина, дача)</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="form-radio h-4 w-4 mr-1" name="propertyQuiz" required="" type="radio" value="no"/>
+<span class="text-sm text-[var(--color-text-dark)]">Нет, только единственное жилье или ничего</span>
+</label>
 </div>
 </div>
-<button class="btn btn-primary w-full group" type="submit">Получить результат <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform">quiz</span></button>
+<button class="btn btn-primary w-full text-base py-3 group" type="submit">
+                Узнать результат
+                <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform">psychology_alt</span>
+</button>
 </form>
-<div class="mt-6 p-5 rounded-md text-slate-200 hidden shadow" id="quizResult"></div>
+<div class="mt-6 p-5 rounded-md shadow-inner hidden" id="quizResult"></div>
+</div>
+</div>
+<div class="line-decoration line-decoration-1 secondary"></div>
+<div class="line-decoration line-decoration-2"></div>
+</section>
+<section class="content-block" id="contact-main">
+<div class="relative z-10">
+<div class="text-center mb-10">
+<h2 class="section-title">Нужна помощь? Свяжитесь с нами!</h2>
+<p class="section-subtitle">Оставьте заявку, и наши специалисты бесплатно проконсультируют вас по всем вопросам банкротства.</p>
+<div class="section-divider"></div>
+</div>
+<div class="max-w-2xl mx-auto contact-form-card">
+<form id="contactFormMain">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="form-label-group">
+<input class="form-input" id="nameMain" name="nameMain" placeholder=" " required="" type="text"/>
+<label for="nameMain">Ваше имя</label>
+</div>
+<div class="form-label-group">
+<input class="form-input" id="phoneMain" name="phoneMain" placeholder=" " required="" type="tel"/>
+<label for="phoneMain">Ваш телефон</label>
+</div>
+</div>
+<div class="form-label-group mt-6">
+<input class="form-input" id="emailMain" name="emailMain" placeholder=" " type="email"/>
+<label for="emailMain">Ваш Email (необязательно)</label>
+</div>
+<div class="form-label-group mt-6">
+<textarea class="form-input h-24 resize-none" id="messageMain" name="messageMain" placeholder=" "></textarea>
+<label for="messageMain">Краткое описание ситуации (необязательно)</label>
+</div>
+<div class="my-6">
+<label class="block text-sm font-medium text-[var(--color-text-muted)] mb-2">Удобное время для звонка:</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+<label class="flex items-center text-xs text-[var(--color-text-muted)]">
+<input class="form-radio h-3 w-3 mr-1" name="callTime" type="radio" value="9-12"/> 9-12
+                  </label>
+<label class="flex items-center text-xs text-[var(--color-text-muted)]">
+<input class="form-radio h-3 w-3 mr-1" name="callTime" type="radio" value="12-15"/> 12-15
+                  </label>
+<label class="flex items-center text-xs text-[var(--color-text-muted)]">
+<input class="form-radio h-3 w-3 mr-1" name="callTime" type="radio" value="15-18"/> 15-18
+                  </label>
+<label class="flex items-center text-xs text-[var(--color-text-muted)]">
+<input checked="" class="form-radio h-3 w-3 mr-1" name="callTime" type="radio" value="any"/> Любое
+                  </label>
+</div>
+</div>
+<div class="mb-6">
+<label class="inline-flex items-center">
+<input class="form-checkbox h-4 w-4" required="" type="checkbox"/>
+<span class="ml-2 text-xs text-[var(--color-text-muted)]">Я даю согласие на обработку моих персональных данных в соответствии с <a class="underline hover:text-[var(--color-primary)]" href="/privacy-policy" target="_blank">Политикой конфиденциальности</a>.</span>
+</label>
+</div>
+<button class="btn btn-secondary w-full text-base py-3.5 group" type="submit">
+                Получить консультацию
+                <span class="material-icons ml-2 transform group-hover:rotate-90 transition-transform">send</span>
+</button>
+<p class="mt-4 text-sm text-center text-[var(--color-text-muted)]" id="formStatusMain"></p>
+</form>
 </div>
 </div>
 </section>
-<section class="py-20 section-bg-gradient section-divider-bottom" id="calculator">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="section-title text-center">Калькулятор стоимости банкротства</h2>
-<p class="section-subtitle text-center">Рассчитайте примерную стоимость процедуры списания долгов и получите ориентир.</p>
-<div class="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-4 border-[var(--color-primary)]">
+<section class="content-block" id="completed-cases">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Успешно завершенные дела</h2>
+<p class="section-subtitle">Гордимся каждым клиентом, которому помогли начать новую жизнь без долгов. Вот некоторые из наших результатов.</p>
+<div class="section-divider"></div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+<div class="bg-white rounded-xl shadow-xl p-8 text-center transition-all duration-300 hover:shadow-2xl hover:scale-105 border-t-4 border-[var(--color-accent)]">
+<span class="material-icons text-5xl text-[var(--color-accent)] mb-4 inline-flex items-center justify-center bg-[rgba(var(--color-accent-rgb),0.1)] p-4 rounded-full">emoji_events</span>
+<h3 class="text-3xl font-bold text-[var(--color-primary)] mb-2">1 250 000 ₽</h3>
+<p class="text-[var(--color-text-muted)] text-lg mb-3">Сумма списанного долга</p>
+<p class="text-base text-[var(--color-text-dark)] font-medium">Ирина В., г. Москва</p>
+<p class="text-sm text-[var(--color-text-muted)]">Процедура завершена за 8 месяцев</p>
+</div>
+<div class="bg-white rounded-xl shadow-xl p-8 text-center transition-all duration-300 hover:shadow-2xl hover:scale-105 border-t-4 border-[var(--color-accent)]">
+<span class="material-icons text-5xl text-[var(--color-accent)] mb-4 inline-flex items-center justify-center bg-[rgba(var(--color-accent-rgb),0.1)] p-4 rounded-full">verified</span>
+<h3 class="text-3xl font-bold text-[var(--color-primary)] mb-2">870 000 ₽</h3>
+<p class="text-[var(--color-text-muted)] text-lg mb-3">Сумма списанного долга</p>
+<p class="text-base text-[var(--color-text-dark)] font-medium">Олег П., г. Санкт-Петербург</p>
+<p class="text-sm text-[var(--color-text-muted)]">Сохранено единственное жилье</p>
+</div>
+<div class="bg-white rounded-xl shadow-xl p-8 text-center transition-all duration-300 hover:shadow-2xl hover:scale-105 border-t-4 border-[var(--color-accent)]">
+<span class="material-icons text-5xl text-[var(--color-accent)] mb-4 inline-flex items-center justify-center bg-[rgba(var(--color-accent-rgb),0.1)] p-4 rounded-full">military_tech</span>
+<h3 class="text-3xl font-bold text-[var(--color-primary)] mb-2">3 500 000+ ₽</h3>
+<p class="text-[var(--color-text-muted)] text-lg mb-3">Сумма списанного долга</p>
+<p class="text-base text-[var(--color-text-dark)] font-medium">Семья Н., г. Казань</p>
+<p class="text-sm text-[var(--color-text-muted)]">Сложное дело с несколькими кредиторами</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] p-8 rounded-xl shadow-lg text-white">
+<div class="text-center p-4">
+<span class="text-4xl font-bold block mb-1">98%</span>
+<p class="text-sm opacity-90">Успешно завершенных дел</p>
+</div>
+<div class="text-center p-4">
+<span class="text-4xl font-bold block mb-1">500+</span>
+<p class="text-sm opacity-90">Довольных клиентов</p>
+</div>
+<div class="text-center p-4">
+<span class="text-4xl font-bold block mb-1">7+ лет</span>
+<p class="text-sm opacity-90">Опыта в банкротстве</p>
+</div>
+<div class="text-center p-4">
+<span class="text-4xl font-bold block mb-1">0 ₽</span>
+<p class="text-sm opacity-90">Первая консультация</p>
+</div>
+</div>
+</div>
+<div class="line-decoration secondary line-decoration-3"></div>
+<div class="line-decoration line-decoration-4"></div>
+</section>
+<section class="content-block" id="calculator">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Стоимость процедуры банкротства</h2>
+<p class="section-subtitle">Рассчитайте примерную стоимость и получите ориентир. Точная стоимость определяется индивидуально после анализа вашей ситуации.</p>
+<div class="section-divider"></div>
+</div>
+<div class="max-w-3xl mx-auto p-6 md:p-8 rounded-xl bg-[var(--color-bg-medium)] shadow-xl border border-[rgba(var(--color-primary-rgb),0.1)]">
 <form id="costCalculatorFormNew">
 <div class="space-y-8">
 <div>
 <label class="calculator-label text-lg" for="debtAmountSlider">Общая сумма долга: <span class="font-bold text-[var(--color-primary)] text-xl" id="debtAmountValue">500 000</span> руб.</label>
-<input class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer calculator-slider accent-[var(--color-primary)]" id="debtAmountSlider" max="5000000" min="50000" step="10000" type="range" value="500000"/>
+<input class="w-full h-3 bg-[rgba(var(--color-dark-rgb),0.1)] rounded-lg appearance-none cursor-pointer calculator-slider accent-[var(--color-primary)]" id="debtAmountSlider" max="5000000" min="50000" step="10000" type="range" value="500000"/>
 </div>
 <div>
 <label class="calculator-label text-lg" for="creditorsCountSlider">Количество кредиторов: <span class="font-bold text-[var(--color-primary)] text-xl" id="creditorsCountValue">1</span></label>
-<input class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer calculator-slider accent-[var(--color-primary)]" id="creditorsCountSlider" max="20" min="1" step="1" type="range" value="1"/>
+<input class="w-full h-3 bg-[rgba(var(--color-dark-rgb),0.1)] rounded-lg appearance-none cursor-pointer calculator-slider accent-[var(--color-primary)]" id="creditorsCountSlider" max="20" min="1" step="1" type="range" value="1"/>
 </div>
 <div>
-<span class="calculator-label text-lg">Наличие имущества для реализации (кроме единственного жилья):</span>
+<span class="calculator-label text-lg">Наличие имущества для реализации:</span>
 <div class="mt-3 flex space-x-6">
-<label class="flex items-center text-[var(--color-text-dark)] cursor-pointer">
-<input class="form-radio h-5 w-5 text-[var(--color-primary)] border-slate-400 focus:ring-[var(--color-primary)] mr-2" name="hasProperty" type="radio" value="yes"/>
+<label class="flex items-center cursor-pointer text-[var(--color-text-muted)] hover:text-[var(--color-text-dark)]">
+<input class="form-radio h-5 w-5 mr-2" name="hasProperty" type="radio" value="yes"/>
 <span>Да</span>
 </label>
-<label class="flex items-center text-[var(--color-text-dark)] cursor-pointer">
-<input checked="" class="form-radio h-5 w-5 text-[var(--color-primary)] border-slate-400 focus:ring-[var(--color-primary)] mr-2" name="hasProperty" type="radio" value="no"/>
+<label class="flex items-center cursor-pointer text-[var(--color-text-muted)] hover:text-[var(--color-text-dark)]">
+<input checked="" class="form-radio h-5 w-5 mr-2" name="hasProperty" type="radio" value="no"/>
 <span>Нет</span>
 </label>
 </div>
 </div>
-<div>
-<span class="calculator-label text-lg">Регион проживания:</span>
-<select class="calculator-input mt-2 focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]">
-<option value="msk_spb">Москва / Санкт-Петербург</option>
-<option value="region_million">Город-миллионник</option>
-<option selected="" value="region_other">Другой регион</option>
-</select>
-</div>
 </div>
 </form>
-<div class="mt-10 pt-8 border-t border-slate-300 text-center">
+<div class="mt-10 pt-8 border-t border-[rgba(var(--color-dark-rgb),0.1)] text-center">
 <h4 class="text-xl font-medium text-[var(--color-text-dark)]">Примерная стоимость услуг:</h4>
 <p class="text-4xl font-bold text-[var(--color-primary)] my-3" id="calculatedCostNew">от 120 000 руб.</p>
-<p class="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">Включает обязательные расходы (депозит фин. управляющему, публикации). Точная стоимость будет определена после бесплатной консультации.</p>
-<a class="btn btn-secondary mt-8 group" href="#contact">Узнать точную стоимость <span class="material-icons ml-2">price_check</span></a>
+<p class="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">Включает обязательные расходы. Окончательная цена формируется после бесплатной консультации и анализа документов.</p>
+<button class="btn btn-secondary mt-8 group open-modal-btn" data-form-title="Узнать точную стоимость">Узнать точную стоимость <span class="material-icons ml-2">price_check</span></button>
 </div>
 </div>
 </div>
 </section>
-<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="reviews">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="section-title text-center">Отзывы наших клиентов</h2>
-<p class="section-subtitle text-center !text-slate-300">Истории успеха тех, кто уже освободился от долгов с нашей помощью. Ваша история может быть следующей!</p>
+<section class="content-block" id="contact-promo">
+<div class="relative z-10">
+<div class="lg:flex lg:items-center lg:gap-12">
+<div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+<h2 class="section-title">Специальные предложения</h2>
+<p class="text-lg text-[var(--color-text-muted)] mb-6">Воспользуйтесь нашими акциями для еще более выгодного решения ваших финансовых проблем.</p>
+<div class="space-y-6">
+<div class="group relative p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-[var(--color-secondary)] to-yellow-400 text-white overflow-hidden">
+<div class="absolute -top-8 -right-8 w-32 h-32 bg-white/20 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
+<div class="relative z-10 flex items-center mb-2">
+<span class="material-icons text-4xl mr-4 p-2 bg-white/30 rounded-full">percent</span>
+<h3 class="text-2xl font-semibold">Рассрочка на услуги</h3>
+</div>
+<p class="relative z-10 text-white/90">Оплачивайте наши услуги частями на удобных условиях. Подробности у менеджера.</p>
+</div>
+<div class="group relative p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-[var(--color-primary)] to-blue-400 text-white overflow-hidden">
+<div class="absolute -bottom-8 -left-8 w-32 h-32 bg-white/20 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
+<div class="relative z-10 flex items-center mb-2">
+<span class="material-icons text-4xl mr-4 p-2 bg-white/30 rounded-full">elderly_woman</span>
+<h3 class="text-2xl font-semibold">Скидка для пенсионеров</h3>
+</div>
+<p class="relative z-10 text-white/90">Предоставляем специальную скидку 10% для пенсионеров на все виды услуг.</p>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2">
+<div class="contact-form-card shadow-xl">
+<h3 class="text-2xl font-semibold text-center mb-6 text-[var(--color-primary)]">Заявка на акцию</h3>
+<form id="contactFormPromo">
+<div class="form-label-group">
+<input class="form-input" id="namePromo" name="namePromo" placeholder=" " required="" type="text"/>
+<label for="namePromo">Ваше имя</label>
+</div>
+<div class="form-label-group">
+<input class="form-input" id="phonePromo" name="phonePromo" placeholder=" " required="" type="tel"/>
+<label for="phonePromo">Ваш телефон</label>
+</div>
+<div class="form-label-group">
+<select class="form-input" id="promoSelect" name="promoSelect">
+<option selected="" value="">Выберите акцию (необязательно)</option>
+<option value="installment">Рассрочка на услуги</option>
+<option value="pensioner_discount">Скидка для пенсионеров</option>
+</select>
+</div>
+<div class="mb-6">
+<label class="inline-flex items-center">
+<input class="form-checkbox h-4 w-4" required="" type="checkbox"/>
+<span class="ml-2 text-xs text-[var(--color-text-muted)]">Я согласен на обработку персональных данных.</span>
+</label>
+</div>
+<button class="btn btn-primary w-full text-base py-3.5 group" type="submit">
+                    Участвовать в акции
+                    <span class="material-icons ml-2 transform group-hover:scale-125 transition-transform">redeem</span>
+</button>
+<p class="mt-4 text-sm text-center text-[var(--color-text-muted)]" id="formStatusPromo"></p>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div class="line-decoration line-decoration-3"></div>
+<div class="line-decoration secondary line-decoration-4"></div>
+</section>
+<section class="content-block" id="stages">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Этапы списания долгов</h2>
+<p class="section-subtitle">Прозрачный и понятный процесс работы с нами, от первого звонка до полного освобождения от долгов.</p>
+<div class="section-divider"></div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="stage-card">
+<div class="stage-number-icon">1</div>
+<span class="material-icons icon">phone_in_talk</span>
+<h3>Консультация и анализ</h3>
+<p>Бесплатно анализируем вашу ситуацию, оцениваем риски и перспективы.</p>
+</div>
+<div class="stage-card">
+<div class="stage-number-icon">2</div>
+<span class="material-icons icon">folder_shared</span>
+<h3>Сбор документов</h3>
+<p>Помогаем собрать пакет документов, готовим заявление о банкротстве.</p>
+</div>
+<div class="stage-card">
+<div class="stage-number-icon">3</div>
+<span class="material-icons icon">gavel</span>
+<h3>Судебный процесс</h3>
+<p>Представляем ваши интересы в суде, взаимодействуем с фин. управляющим.</p>
+</div>
+<div class="stage-card">
+<div class="stage-number-icon">4</div>
+<span class="material-icons icon">task_alt</span>
+<h3>Списание долгов</h3>
+<p>Получаем решение суда о завершении процедуры и освобождении от долгов.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="content-block" id="client-benefits">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Что вы получаете после банкротства?</h2>
+<p class="section-subtitle">Результаты, которые кардинально изменят вашу финансовую жизнь к лучшему и вернут спокойствие.</p>
+<div class="section-divider !bg-gradient-to-r from-[var(--color-success)] to-green-400"></div>
+</div>
+<div class="swiper-container">
+<div class="swiper-wrapper">
+<div class="swiper-slide">
+<div class="card p-6 text-center">
+<img alt="Свобода от долгов" class="swiper-slide-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIhwqPmQwJAM3TJ86PPAzTEgxVo5YNffhrrNWtyY_pBj9pr19QA46Pno4S7Easwj0G9iZlnO4hFyr6y_9vkWZkYnevY5O26c2YXjfF6AKQI6QD5fnM6TcrPeX3ff_QiIhs0XbiEDIZl6oNs1oS4n0eeOYKVXW3mTSIcnu-PJK9je4mFSpBghBLHRFTHrvJ66fNNtM0-eq4GSGaoqbBhEvgovJ3YYW-KJ5DaafmPmcwCT7UI7Q2VtoHR9YwUJrXiPU2j-LfE8pnUYmW"/>
+<span class="icon !text-4xl !p-4">lock_open</span>
+<h3 class="text-xl font-semibold mb-2">Свобода от долгов</h3>
+<p>Полное списание всех долгов по кредитам, займам, налогам, ЖКХ (кроме алиментов и вреда здоровью).</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="card p-6 text-center">
+<img alt="Прекращение давления" class="swiper-slide-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfLHjBlCygbYINDtiJUA_0A4hF5Wl5a7icUDxwSB5OzrxAY61LbHx1R3DI0UQnw3b2eanQ5Z0hJrErwMwkkLttc-Ifijg3D_TuMWKnzOwSn_cXfqxm2N9cyhH3S1RgjFRmblY3Mjze7GHX1M8VSTpn9HwbtXlLn6GCMa4JOUZl-LsHi4y-z5qG29cTajbwgFFV0JACGv9O6NYLUf2wXlwR7HshnmLZ09r_IFa2UWvgz4GMEhGF1bBs0t2TiMltpkGfMaEYuAoU5tPE"/>
+<span class="icon !text-4xl !p-4">notifications_active</span>
+<h3 class="text-xl font-semibold mb-2">Прекращение давления</h3>
+<p>Остановка звонков от коллекторов и банков, прекращение исполнительных производств.</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="card p-6 text-center">
+<img alt="Новый финансовый старт" class="swiper-slide-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoUKz1ueBmiG_DicFjy-2090KAYs8oUoOKkGP3Ndon7k-E1UUs48aEjRIxCpiyJujPTARflRImL4hOkne4M3jmIBvnFY1a4yDtJrA-6C9d2AKrXSGXOhQL3p6RU2XMcClVYHjZtwptoa2LSeO0BwQ-MbMzxutEA9ZFW5Wp_kQIKTsBt1J2RnqJpWl9q9IAMZ78WMJpPlg-aLqWL2cfL2hBKgPYNHVfy0xtzvoUn7MMp6Dnx2vPM0s3pAReypKPrLVThffnMWqAOzgy"/>
+<span class="icon !text-4xl !p-4">trending_up</span>
+<h3 class="text-xl font-semibold mb-2">Новый финансовый старт</h3>
+<p>Возможность начать жизнь с чистого листа, без долгового бремени, планировать бюджет и сбережения.</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="card p-6 text-center">
+<img alt="Снятие ограничений" class="swiper-slide-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5S-7AJHk4nvo_a3o0TL-PYvLFLKWPfWeCr_fTB1hfsZg5lfAnT-80OIW4BfR82BtXbwCj5koba-PPXe2VjmBW6R5EO5s2VLjQTL_9jb6ULIhtNcYw0te5t5akQXRESvUFygv5oWZJP4g6JO0fFFAqTuOBc1YRjrP-GPaCr7pNo9iommdlGGTQVjC49oWHBka35N_farDkRJwpdHyQzah0OdXO2C5sKF1TKUvArUqiqt-SdaJ-p7QYhiI7WJAIUIBK4ZnKMiWt4FVd"/>
+<span class="icon !text-4xl !p-4">flight</span>
+<h3 class="text-xl font-semibold mb-2">Снятие ограничений</h3>
+<p>После завершения процедуры снимается запрет на выезд за границу (если он был наложен).</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="card p-6 text-center">
+<img alt="Сохранение жилья" class="swiper-slide-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk7F6B6DQ5TYMHdoeEqHwIFiPvNDUtj2gj9SouXcUETkktIci0zFOkX5O7EhCpmlbjREnV0UyqBqigUIoLEawHe06cH3Sls_0ushEz_X1shFkDUWTVHTv6dMcIg_O8PCk9JAAzcFKNliZUOjlhfGxAQRw0Wc-5o9aZNDaybbNhrs2Lyi6ih4f2rsWbvthP9hsmaToeWPvflN9nF1WehcuFQVxoLagifZCxsTiag6QyPKrLO2FFX7WeDlPnem84JDxwOJq6PfEUsK37"/>
+<span class="icon !text-4xl !p-4">home</span>
+<h3 class="text-xl font-semibold mb-2">Сохранение единственного жилья</h3>
+<p>Закон защищает ваше единственное жилье (если оно не в ипотеке) и предметы первой необходимости.</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="card p-6 text-center">
+<img alt="Спокойствие" class="swiper-slide-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjH3xuXUCgbGMNU3__LyCvHSz01IOWkjEiS6eF8PrvL_4xDkIkgLXv1NOFWCB_pHFtJ7a7msPdftrIYF0IdDOV0D0QlciRySFl7S4a8BT0L7_3ditLr515LSf7m84LoCMf7usHCf1cQsm3g89DGNaR3WeSpqse4CdhLb5TuZ0Ipz6q6WXS-qlUNa-Omx1iNSQVqYwFNatdQtJ-jI8sDg2vRQPA3f198t6l9LXcKpdCLpI3jj4OSk75zaVyYaYjR5U_MpHam8btSBNO"/>
+<span class="icon !text-4xl !p-4">self_improvement</span>
+<h3 class="text-xl font-semibold mb-2">Спокойствие и уверенность</h3>
+<p>Избавление от стресса, связанного с долгами, улучшение эмоционального состояния.</p>
+</div>
+</div>
+</div>
+<div class="swiper-pagination"></div>
+<div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+</div>
+</div>
+<div class="line-decoration line-decoration-1"></div>
+<div class="line-decoration secondary line-decoration-2"></div>
+</section>
+<section class="content-block dark-block parallax-bg py-20" id="credit-trap">
+<div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<span class="material-icons text-7xl mb-6 opacity-90 animate-pulse">report_problem</span>
+<h2 class="text-3xl sm:text-4xl font-bold mb-6 leading-tight">Почему кредиты — это <span class="underline decoration-wavy decoration-[var(--color-danger)]/70">пропасть</span>?</h2>
+<p class="text-lg sm:text-xl mb-10 max-w-3xl mx-auto">Постоянные платежи, растущие проценты, страх перед коллекторами – это замкнутый круг, из которого сложно выбраться самостоятельно. Долговая нагрузка разрушает не только финансы, но и здоровье, отношения с близкими.</p>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+<div class="bg-[rgba(var(--color-white-rgb),0.08)] p-5 rounded-lg">
+<h4 class="font-semibold text-lg mb-2 flex items-center"><span class="material-icons mr-2">trending_down</span>Растущие проценты</h4>
+<p class="text-sm">Даже небольшие просрочки приводят к штрафам и увеличению общей суммы долга.</p>
+</div>
+<div class="bg-[rgba(var(--color-white-rgb),0.08)] p-5 rounded-lg">
+<h4 class="font-semibold text-lg mb-2 flex items-center"><span class="material-icons mr-2">ring_volume</span>Звонки коллекторов</h4>
+<p class="text-sm">Постоянное психологическое давление, угрозы и ночные звонки.</p>
+</div>
+<div class="bg-[rgba(var(--color-white-rgb),0.08)] p-5 rounded-lg">
+<h4 class="font-semibold text-lg mb-2 flex items-center"><span class="material-icons mr-2">sick</span>Стресс и здоровье</h4>
+<p class="text-sm">Долги вызывают тревогу, бессонницу и могут привести к серьезным заболеваниям.</p>
+</div>
+</div>
+<p class="mt-10 text-lg">Не ждите, пока ситуация усугубится. Банкротство — это законный способ <span class="font-semibold underline">выйти из долговой пропасти</span> и начать жизнь с чистого листа.</p>
+<button class="btn btn-secondary mt-8 group open-modal-btn" data-form-title="Обсудить выход из долговой ямы">
+            Обсудить выход из долговой ямы
+            <span class="material-icons ml-2 transform group-hover:animate-bounce">contact_support</span>
+</button>
+</div>
+</section>
+<section class="content-block" id="debt-relief-benefits">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Выгоды списания долгов через "Новый Вектор"</h2>
+<p class="section-subtitle">Освободитесь от финансового бремени с нашей профессиональной поддержкой и откройте для себя новые возможности.</p>
+<div class="section-divider"></div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="card flex flex-col items-center text-center p-6">
+<span class="material-icons text-4xl text-[var(--color-primary)] mb-4 p-3 rounded-full bg-[rgba(var(--color-primary-rgb),0.1)] shadow-lg">account_balance_wallet</span>
+<h3 class="text-xl font-semibold mb-2">Сохранение дохода</h3>
+<p class="text-sm text-[var(--color-text-muted)] leading-relaxed">Ваш официальный доход (за вычетом прожиточного минимума) больше не уходит на погашение старых долгов.</p>
+</div>
+<div class="card flex flex-col items-center text-center p-6">
+<span class="material-icons text-4xl text-[var(--color-primary)] mb-4 p-3 rounded-full bg-[rgba(var(--color-primary-rgb),0.1)] shadow-lg">admin_panel_settings</span>
+<h3 class="text-xl font-semibold mb-2">Полная юридическая защита</h3>
+<p class="text-sm text-[var(--color-text-muted)] leading-relaxed">Обеспечиваем защиту от неправомерных действий кредиторов и коллекторов на всех этапах.</p>
+</div>
+<div class="card flex flex-col items-center text-center p-6">
+<span class="material-icons text-4xl text-[var(--color-primary)] mb-4 p-3 rounded-full bg-[rgba(var(--color-primary-rgb),0.1)] shadow-lg">history_edu</span>
+<h3 class="text-xl font-semibold mb-2">Улучшение кредитной истории</h3>
+<p class="text-sm text-[var(--color-text-muted)] leading-relaxed">После банкротства со временем можно начать формировать новую положительную кредитную историю.</p>
+</div>
+<div class="card flex flex-col items-center text-center p-6">
+<span class="material-icons text-4xl text-[var(--color-primary)] mb-4 p-3 rounded-full bg-[rgba(var(--color-primary-rgb),0.1)] shadow-lg">manage_accounts</span>
+<h3 class="text-xl font-semibold mb-2">Персональное сопровождение</h3>
+<p class="text-sm text-[var(--color-text-muted)] leading-relaxed">Наши юристы с вами на каждом этапе, от первой консультации до полного списания долгов.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="content-block" id="reviews">
+<div class="blob-decoration blob-3 !bg-[var(--color-secondary)] opacity-5"></div>
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Отзывы наших клиентов</h2>
+<p class="section-subtitle">Реальные истории людей, которые доверились "Новому Вектору" и начали жизнь без долгов.</p>
+<div class="section-divider"></div>
+</div>
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="card testimonial-card glass-effect p-6 hover:!bg-[rgba(var(--color-accent-rgb),0.1)]">
-<div class="flex items-center mb-4">
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
+<div class="testimonial-card-new">
+<img alt="Аватар клиента" class="testimonial-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv0V76x-a74fGRz9EX7CUN_3KJgi_iM4pD1EFYwaSdenqjFh0Tx5HS0iZt6Rwug_XM063bHbax4Km2bovqIgvBDvJRclwrRvZdn0Iy1a4PFTncZLSPhjTQy-I2eHkwTo-FvbYEOrIl3Mvax6fuHDB9DUo5bhXZcZPapmrsAY2OEpb4r_mFT9VM-GKf-nJ6LDQfGAEu4TdGbZ4jXuVlAT0Um9Xe99R34WpL-RR-pJw6E-ivsiHCjV761jc9OR5K1GLrm5wIx-suQs0T"/>
+<div class="testimonial-rating mb-3">
+<span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span>
 </div>
-<p class="text-slate-300 mb-4 italic">"Огромное спасибо компании 'Новый Вектор'! Думал, что из долгов уже не выберусь. Юристы все объяснили, помогли собрать документы и полностью сопровождали в суде. Теперь я свободен от кредитов!"</p>
-<p class="font-semibold text-[var(--color-accent)]">Александр П.</p>
-<p class="text-sm text-slate-400">г. Москва</p>
+<p class="testimonial-text">"Огромное спасибо команде 'Новый Вектор'! Думал, что из долговой ямы мне уже не выбраться. Ваши юристы вселили надежду, профессионально провели процедуру. Теперь я свободен от долгов и могу дышать полной грудью!"</p>
+<div>
+<p class="testimonial-author">Александр П.</p>
+<p class="testimonial-details">г. Москва, списано 1 350 000 ₽</p>
 </div>
-<div class="card testimonial-card glass-effect p-6 hover:!bg-[rgba(var(--color-accent-rgb),0.1)]">
-<div class="flex items-center mb-4">
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star_half</span>
 </div>
-<p class="text-slate-300 mb-4 italic">"Очень профессиональный подход. Боялась процедуры банкротства, но специалисты 'Нового Вектора' развеяли все страхи. Все прошло гораздо проще, чем я ожидала. Рекомендую!"</p>
-<p class="font-semibold text-[var(--color-accent)]">Елена В.</p>
-<p class="text-sm text-slate-400">г. Санкт-Петербург</p>
+<div class="testimonial-card-new">
+<img alt="Аватар клиента" class="testimonial-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwYFH9WsOnlgBcln58cVJrXUb0LB2gD0p_vRW7j6Lwr6gN1cXFBpxUC_iPzyUwOqwlM5dgJrSZTwM9Lvd7s2AxqZENwGZ5bYuUw1EItw_D-plv5wz4Rny7OM5LhqtnPZjjmfp9sVSH8ODptgvq_69DzBIuMwV0ebqDSxxEKFWiRvaiF-yuqt3EM8zVu7bICcLaJZwn5SDnDRpKSuDp5iHmrvYf3aaq-lCqjqIdHHpQTWRXnw8oqrI-K0HlBqBfsGlkIlyRMrVlrJm7"/>
+<div class="testimonial-rating mb-3">
+<span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star_half</span>
 </div>
-<div class="card testimonial-card glass-effect p-6 hover:!bg-[rgba(var(--color-accent-rgb),0.1)]">
-<div class="flex items-center mb-4">
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
-<span class="material-icons text-[var(--color-secondary)]">star</span>
+<p class="testimonial-text">"Я очень боялась процедуры банкротства, было много сомнений. Но специалисты 'Нового Вектора' развеяли все мои страхи. Подробно консультировали, всегда были на связи. Процесс прошел гораздо проще, чем я ожидала. Рекомендую!"</p>
+<div>
+<p class="testimonial-author">Елена В.</p>
+<p class="testimonial-details">г. Санкт-Петербург, списано 890 000 ₽</p>
 </div>
-<p class="text-slate-300 mb-4 italic">"Долго не решался на банкротство. Обратился в 'Новый Вектор' по совету знакомых и не пожалел. Грамотные юристы, всегда на связи. Процедура завершилась успешно, долги списаны."</p>
-<p class="font-semibold text-[var(--color-accent)]">Михаил С.</p>
-<p class="text-sm text-slate-400">г. Екатеринбург</p>
+</div>
+<div class="testimonial-card-new">
+<img alt="Аватар клиента" class="testimonial-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHbJPGVxZz2xHV7fghj0lDOqCapXrBiBoiIToKQ1qGz-s_hohffMHktWwXbGidmu_DtTV-JZDhnP6FibD7F9j-V3uwibr7nnQf3qTQCjwj6OMv_AorAV6WkLYnNKYd_aTL2GalDxG6qEd9VWDFNHNKXMULNDHlnWcgnsijqGrMeIvJnjkrNpZtjZkoyOovLfcSSTo28bSVdHZxplfCFWv8MlliN74ZZVBNJdPmNzzhG5Vn5Erz1F_QsBz7vW0bNVvT2JYqnNjG6YTd"/>
+<div class="testimonial-rating mb-3">
+<span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span>
+</div>
+<p class="testimonial-text">"Долго не решался на банкротство, копил долги. Обратился в 'Новый Вектор' по совету друга и не пожалел ни разу. Грамотные юристы, четкий план действий, полное сопровождение. Результат – все долги списаны! Спасибо!"</p>
+<div>
+<p class="testimonial-author">Михаил С.</p>
+<p class="testimonial-details">г. Екатеринбург, списано 2 100 000 ₽</p>
 </div>
 </div>
 </div>
+</div>
+<div class="line-decoration line-decoration-2 secondary"></div>
+<div class="line-decoration line-decoration-4"></div>
 </section>
-<section class="py-20 section-bg-gradient section-divider-bottom" id="faq">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<section class="content-block" id="faq">
+<div class="relative z-10">
 <div class="lg:flex lg:items-start lg:gap-12">
-<div class="lg:w-1/3 text-center lg:text-left">
+<div class="lg:w-1/3 text-center lg:text-left mb-8 lg:mb-0">
 <h2 class="section-title">Часто задаваемые вопросы</h2>
-<p class="section-subtitle !mb-8 lg:!mb-0 mx-auto lg:mx-0">Ответы на популярные вопросы о процедуре банкротства. Мы здесь, чтобы все разъяснить.</p>
-<span class="material-icons text-8xl text-[var(--color-primary)] opacity-20 hidden lg:block mt-8 mx-auto lg:mx-0">help_center</span>
+<p class="section-subtitle !mb-6 mx-auto lg:mx-0">Нашли ответы на самые популярные вопросы о процедуре банкротства физических лиц. Если вашего вопроса нет, свяжитесь с нами!</p>
+<div class="section-divider"></div>
+<span class="material-icons text-9xl text-[var(--color-primary)] opacity-10 hidden lg:block mt-8 mx-auto lg:mx-0">help_outline</span>
 </div>
 <div class="lg:w-2/3 max-w-3xl mx-auto lg:mx-0">
 <div class="space-y-4">
 <div class="faq-item border-t-2 border-[var(--color-primary)]">
 <div class="faq-question group" onclick="toggleFaq(this)">
-<span class="group-hover:text-[var(--color-primary)] transition-colors">Сколько времени занимает процедура банкротства?</span>
+<span>Сколько времени занимает процедура банкротства?</span>
 <span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
 </div>
 <div class="faq-answer hidden">
-<p class="text-[var(--color-text-muted)]">В среднем, процедура банкротства физического лица занимает от 6 до 12 месяцев. Сроки могут варьироваться в зависимости от сложности дела, наличия имущества и других факторов.</p>
+<p>В среднем, процедура банкротства физического лица занимает от 6 до 12 месяцев. Сроки могут варьироваться в зависимости от сложности дела, наличия имущества для реализации и загруженности суда.</p>
 </div>
 </div>
 <div class="faq-item border-t-2 border-[var(--color-primary)]">
 <div class="faq-question group" onclick="toggleFaq(this)">
-<span class="group-hover:text-[var(--color-primary)] transition-colors">Какие долги не списываются при банкротстве?</span>
+<span>Какие долги не списываются при банкротстве?</span>
 <span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
 </div>
 <div class="faq-answer hidden">
-<p class="text-[var(--color-text-muted)]">Не списываются долги по алиментам, возмещению вреда жизни или здоровью, вреда имуществу (причиненного умышленно или по грубой неосторожности), а также долги по заработной плате (если вы были ИП с наемными работниками).</p>
+<p>Не списываются долги по алиментам, возмещению вреда жизни или здоровью, выплате заработной платы и выходного пособия (если вы ИП-работодатель), а также долги, возникшие в результате совершения преступления или административного правонарушения (например, штрафы ГИБДД не списываются).</p>
 </div>
 </div>
 <div class="faq-item border-t-2 border-[var(--color-primary)]">
 <div class="faq-question group" onclick="toggleFaq(this)">
-<span class="group-hover:text-[var(--color-primary)] transition-colors">Смогу ли я выезжать за границу во время и после банкротства?</span>
+<span>Каковы последствия банкротства для меня?</span>
 <span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
 </div>
 <div class="faq-answer hidden">
-<p class="text-[var(--color-text-muted)]">Во время процедуры банкротства суд может наложить временное ограничение на выезд за границу. После завершения процедуры и списания долгов это ограничение снимается, и вы сможете свободно выезжать.</p>
+<p>Последствия включают: в течение 5 лет после банкротства вы обязаны сообщать о факте своего банкротства при обращении за кредитами или займами. В течение 3 лет нельзя занимать должности в органах управления юридического лица (например, быть директором). Повторно подать на банкротство можно не ранее чем через 5 лет.</p>
 </div>
 </div>
 <div class="faq-item border-t-2 border-[var(--color-primary)]">
 <div class="faq-question group" onclick="toggleFaq(this)">
-<span class="group-hover:text-[var(--color-primary)] transition-colors">Каковы последствия банкротства?</span>
+<span>Смогу ли я выезжать за границу во время и после банкротства?</span>
 <span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
 </div>
 <div class="faq-answer hidden">
-<p class="text-[var(--color-text-muted)]">В течение 5 лет после банкротства вы обязаны сообщать о факте своего банкротства при обращении за кредитами или займами. В течение 3 лет вы не сможете занимать руководящие должности в юридических лицах (например, быть директором). Повторно объявить себя банкротом можно не ранее чем через 5 лет.</p>
+<p>Суд может наложить временное ограничение на выезд за границу на период проведения процедуры реализации имущества. После завершения процедуры и списания долгов это ограничение снимается. Если ограничение было наложено приставами до банкротства, оно также снимается.</p>
 </div>
 </div>
 </div>
@@ -678,149 +1673,151 @@
 </div>
 </div>
 </section>
-<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="contact-info">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="section-title text-center">Наши контакты</h2>
-<p class="section-subtitle text-center !text-slate-300">Мы всегда готовы помочь. Свяжитесь с нами удобным для вас способом или посетите наш офис.</p>
-<div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-<div class="glass-effect p-8 rounded-xl border-slate-700 flex flex-col justify-between">
-<div>
-<h3 class="text-2xl font-semibold text-[var(--color-accent)] mb-6">Свяжитесь с нами</h3>
-<div class="space-y-5">
-<div class="flex items-start">
-<span class="material-icons contact-icon mr-4 mt-1 text-2xl">location_on</span>
-<div>
-<h4 class="font-semibold text-slate-200 text-lg">Адрес офиса:</h4>
-<p class="text-slate-300">г. Москва, ул. Примерная, д. 1, офис 101 (метро Примерное)</p>
+<section class="content-block" id="contact-final">
+<div class="relative z-10">
+<div class="text-center mb-12">
+<h2 class="section-title">Готовы начать путь к свободе от долгов?</h2>
+<p class="section-subtitle">Сделайте первый шаг к новой финансовой жизни уже сегодня. Оставьте свои контакты, и наш специалист свяжется с вами для бесплатной консультации и анализа вашей ситуации.</p>
+<div class="section-divider"></div>
 </div>
-</div>
-<div class="flex items-start">
-<span class="material-icons contact-icon mr-4 mt-1 text-2xl">phone_in_talk</span>
-<div>
-<h4 class="font-semibold text-slate-200 text-lg">Телефон:</h4>
-<a class="text-slate-300 hover:text-[var(--color-secondary)] transition-colors block" href="tel:+78001234567">+7 (800) 123-45-67 <span class="text-xs text-slate-400">(бесплатно по России)</span></a>
-<a class="text-slate-300 hover:text-[var(--color-secondary)] transition-colors block" href="tel:+74951234567">+7 (495) 123-45-67 <span class="text-xs text-slate-400">(для Москвы)</span></a>
-</div>
-</div>
-<div class="flex items-start">
-<span class="material-icons contact-icon mr-4 mt-1 text-2xl">alternate_email</span>
-<div>
-<h4 class="font-semibold text-slate-200 text-lg">Электронная почта:</h4>
-<a class="text-slate-300 hover:text-[var(--color-secondary)] transition-colors" href="mailto:info@newvector.ru">info@newvector.ru</a>
-</div>
-</div>
-<div class="flex items-start">
-<span class="material-icons contact-icon mr-4 mt-1 text-2xl">schedule</span>
-<div>
-<h4 class="font-semibold text-slate-200 text-lg">Время работы:</h4>
-<p class="text-slate-300">Понедельник - Пятница: 09:00 - 19:00 <br/>Суббота: 10:00 - 16:00 (по предварительной записи)</p>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-8 pt-6 border-t border-slate-600 flex space-x-4">
-<a class="text-slate-400 hover:text-[var(--color-secondary)] transition-colors" href="#" title="WhatsApp">
-<svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-<path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.33 3.43 16.79L2.05 22L7.31 20.63C8.72 21.41 10.33 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.81 19.07 4.96C17.22 3.11 14.76 2.08 12.04 2.08L12.04 2ZM10.13 6.13C10.31 6.13 10.48 6.14 10.62 6.15C10.81 6.17 10.91 6.24 10.99 6.46C11.13 6.82 11.45 7.76 11.54 7.93C11.62 8.1 11.59 8.28 11.45 8.42L10.92 9.03C10.82 9.14 10.77 9.23 10.92 9.49C11.06 9.75 11.59 10.54 12.28 11.17C13.13 11.96 13.82 12.23 14.07 12.37C14.33 12.51 14.43 12.48 14.59 12.3L15.17 11.69C15.36 11.49 15.63 11.44 15.86 11.53C16.09 11.62 17.11 12.11 17.38 12.23C17.65 12.36 17.83 12.43 17.91 12.58C17.98 12.74 17.98 13.37 17.72 13.85C17.47 14.34 16.73 14.84 16.11 14.93C15.49 15.02 14.92 15.05 14.36 14.86C13.6 14.6 12.51 14.23 11.3 13.14C9.82001 11.77 8.85001 10.09 8.69001 9.78003C8.53001 9.47003 7.98001 8.77003 7.98001 8.14003C7.98001 7.51003 8.37001 7.15003 8.55001 6.97003L8.69001 6.97003C8.83001 6.82003 8.96001 6.68003 9.13001 6.54003C9.30001 6.40003 9.44001 6.33003 9.61001 6.23003C9.79001 6.14003 9.96001 6.13003 10.13 6.13L10.13 6.13Z"></path>
-</svg>
-</a>
-<a class="text-slate-400 hover:text-[var(--color-secondary)] transition-colors" href="#" title="Telegram">
-<svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-<path d="M21.88299,6.30005L18.90299,19.85303C18.68099,20.74002,18.05699,20.98203,17.31699,20.54703L13.09399,17.424L11.03799,19.40604C10.82199,19.62302,10.57199,19.85303,10.20199,19.85303L10.54099,15.58804L18.03899,8.72104C18.39899,8.39902,17.92699,8.20401,17.47199,8.51102L8.13199,14.60904L3.94799,13.22702C3.07799,12.94504,3.06199,12.31702,4.12699,11.89102L20.47699,5.12805C21.20699,4.84503,21.99699,5.32602,21.88299,6.30005Z"></path>
-</svg>
-</a>
-</div>
-</div>
-<div class="h-80 md:h-auto rounded-xl shadow-xl overflow-hidden border-4 border-slate-700">
-<iframe allowfullscreen="" height="100%" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.384986075006!2d37.61556671593077!3d55.75222078055443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54afc73d4b3c9%3A0xba63311397acf359!2z0JzQvtGB0LrQstCwLCDQnNC-0YHQutCy0LA!5e0!3m2!1sru!2sru!4v1678886400000!5m2!1sru!2sru" style="border:0;" width="100%"></iframe>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 section-bg-gradient" id="contact">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="section-title text-center">Закажите бесплатную консультацию</h2>
-<p class="section-subtitle text-center">Оставьте заявку, и наш специалист свяжется с вами в ближайшее время, чтобы обсудить вашу ситуацию и предложить наилучшее решение.</p>
 <div class="max-w-2xl mx-auto contact-form-card">
-<form id="contactForm">
-<div class="grid md:grid-cols-2 gap-x-6">
+<form id="contactFormFinal">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="form-label-group">
-<input class="form-input" id="name" name="name" placeholder=" " required="" type="text"/>
-<label for="name">Ваше имя</label>
-</div>
-<div class="form-label-group">
-<input class="form-input" id="phone" name="phone" placeholder=" " required="" type="tel"/>
-<label for="phone">Ваш телефон</label>
-</div>
+<input class="form-input" id="nameFinal" name="nameFinal" placeholder=" " required="" type="text"/>
+<label for="nameFinal">Ваше имя</label>
 </div>
 <div class="form-label-group">
-<input class="form-input" id="email" name="email" placeholder=" " type="email"/>
-<label for="email">Ваш Email (необязательно)</label>
+<input class="form-input" id="phoneFinal" name="phoneFinal" placeholder=" " required="" type="tel"/>
+<label for="phoneFinal">Ваш телефон</label>
 </div>
-<div class="form-label-group">
-<textarea class="form-input h-28" id="message" name="message" placeholder=" " rows="3"></textarea>
-<label for="message">Кратко опишите вашу ситуацию (необязательно)</label>
 </div>
-<div class="mb-6">
+<div class="form-label-group mt-6">
+<input class="form-input" id="cityFinal" name="cityFinal" placeholder=" " type="text"/>
+<label for="cityFinal">Ваш город</label>
+</div>
+<div class="form-label-group mt-6">
+<textarea class="form-input h-24 resize-none" id="questionFinal" name="questionFinal" placeholder=" "></textarea>
+<label for="questionFinal">Ваш вопрос или комментарий (необязательно)</label>
+</div>
+<div class="mb-6 mt-6">
 <label class="inline-flex items-center">
-<input class="form-checkbox h-4 w-4 text-[var(--color-primary)] border-slate-400 rounded focus:ring-[var(--color-primary)]" required="" type="checkbox"/>
-<span class="ml-2 text-[var(--color-text-muted)] text-xs">Я даю согласие на обработку моих персональных данных в соответствии с <a class="text-[var(--color-primary)] hover:underline" href="/privacy-policy">Политикой конфиденциальности</a>.</span>
+<input class="form-checkbox h-4 w-4" required="" type="checkbox"/>
+<span class="ml-2 text-xs text-[var(--color-text-muted)]">Я даю согласие на обработку моих персональных данных в соответствии с <a class="underline hover:text-[var(--color-primary)]" href="/privacy-policy" target="_blank">Политикой конфиденциальности</a>.</span>
 </label>
 </div>
-<button class="btn btn-primary w-full text-base py-3.5 group" type="submit"> Отправить заявку <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform">send</span>
+<button class="btn btn-secondary w-full text-base py-3.5 group" type="submit">Начать новую жизнь <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform">celebration</span>
 </button>
-<p class="mt-4 text-sm text-center" id="formStatus"></p>
+<p class="mt-4 text-sm text-center text-[var(--color-text-muted)]" id="formStatusFinal"></p>
 </form>
 </div>
 </div>
+<div class="line-decoration line-decoration-1 secondary"></div>
+<div class="line-decoration line-decoration-3"></div>
 </section>
-<footer class="bg-[var(--color-bg-dark)] text-slate-300 py-16 section-divider-dark-top">
+</main>
+<footer class="footer-dark py-16 mt-8 rounded-t-xl">
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid md:grid-cols-3 gap-10">
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
 <div>
 <div class="logo-container mb-5">
-<img alt="Логотип Новый Вектор" class="logo-image filter invert brightness-0 saturate-100 hue-rotate-[200deg] contrast-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrm6mDqC8d_v9qG0lP5Wn_N3eY0T2KjX5sR6zHqA4fB7w_Z8cV-1bO0gX3L_N9YmC-A6b_X0eR_P1JcIqW-R1S_E0jJvXnE9D_FwUvPqJkI_M-A8pQh_S7tZ6vN_WwR_D-X_V_E1fA2gP4QzS3dYjL_K5xG9zC8bA4iR7eT0uL"/>
-<span class="logo-text text-white">НОВЫЙ <span class="text-[var(--color-secondary)]">ВЕКТОР</span></span>
+<img alt="Логотип Новый Вектор" class="logo-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrm6mDqC8d_v9qG0lP5Wn_N3eY0T2KjX5sR6zHqA4fB7w_Z8cV-1bO0gX3L_N9YmC-A6b_X0eR_P1JcIqW-R1S_E0jJvXnE9D_FwUvPqJkI_M-A8pQh_S7tZ6vN_WwR_D-X_V_E1fA2gP4QzS3dYjL_K5xG9zC8bA4iR7eT0uL"/>
+<span class="logo-text">НОВЫЙ <span class="text-[var(--color-secondary)]">ВЕКТОР</span></span>
 </div>
-<p class="text-sm text-slate-400">Юридическая компания по банкротству физических лиц. Помогаем списать долги законно и начать новую финансовую жизнь.</p>
+<p class="text-sm">Юридическая компания по банкротству физических лиц. Законно. Надежно. Конфиденциально.</p>
 </div>
 <div>
-<h5 class="text-lg font-semibold text-white mb-4">Навигация</h5>
+<h5 class="text-lg font-semibold mb-4">Навигация</h5>
 <ul class="space-y-2 text-sm">
-<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#about">О нас</a></li>
-<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#services">Услуги</a></li>
-<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#reviews">Отзывы</a></li>
-<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#faq">FAQ</a></li>
-<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#contact-info">Контакты</a></li>
-<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="/privacy-policy">Политика конфиденциальности</a></li>
+<li><a class="transition-colors" href="#about">О компании</a></li>
+<li><a class="transition-colors" href="#stages">Этапы работы</a></li>
+<li><a class="transition-colors" href="#calculator">Стоимость услуг</a></li>
+<li><a class="transition-colors" href="#reviews">Отзывы клиентов</a></li>
+<li><a class="transition-colors" href="#faq">Частые вопросы</a></li>
+<li><a class="transition-colors" href="#contact-final">Контакты</a></li>
 </ul>
 </div>
 <div>
-<h5 class="text-lg font-semibold text-white mb-4">Контакты</h5>
+<h5 class="text-lg font-semibold mb-4">Услуги</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="transition-colors" href="#bankruptcy-info">Банкротство физ. лиц</a></li>
+<li><a class="transition-colors" href="#debt-relief-benefits">Списание кредитов</a></li>
+<li><a class="transition-colors" href="#client-benefits">Защита от коллекторов</a></li>
+<li><button class="transition-colors open-modal-btn" data-form-title="Запрос юридической консультации">Юридическая консультация</button></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold mb-4">Контакты</h5>
 <ul class="space-y-3 text-sm">
-<li class="flex items-center">
-<span class="material-icons mr-2 text-[var(--color-secondary)] text-xl">location_on</span>
-<span class="text-slate-400">г. Москва, ул. Примерная, д. 1, оф. 101</span>
+<li class="flex items-start">
+<span class="material-icons mr-2 text-xl">location_city</span>
+<span>г. Москва, ул. Примерная, д. 1, оф. 101 (головной офис)</span>
 </li>
 <li class="flex items-center">
-<span class="material-icons mr-2 text-[var(--color-secondary)] text-xl">phone_in_talk</span>
-<a class="hover:text-[var(--color-secondary)] transition-colors text-slate-400" href="tel:+78001234567">+7 (800) 123-45-67</a>
+<span class="material-icons mr-2 text-xl">call</span>
+<a class="transition-colors" href="tel:+78001234567">+7 (800) 123-45-67</a>
 </li>
 <li class="flex items-center">
-<span class="material-icons mr-2 text-[var(--color-secondary)] text-xl">alternate_email</span>
-<a class="hover:text-[var(--color-secondary)] transition-colors text-slate-400" href="mailto:info@newvector.ru">info@newvector.ru</a>
+<span class="material-icons mr-2 text-xl">email</span>
+<a class="transition-colors" href="mailto:info@newvector.ru">info@newvector.ru</a>
+</li>
+<li class="flex items-center">
+<span class="material-icons mr-2 text-xl">schedule</span>
+<span>Пн-Пт: 9:00 - 19:00, Сб: 10:00 - 16:00</span>
 </li>
 </ul>
 </div>
 </div>
-<div class="border-t border-slate-700 mt-10 pt-8 text-center text-sm">
-<p class="text-slate-400">© <span id="currentYear"></span> Новый Вектор. Все права защищены.</p>
-<p class="text-xs text-slate-500 mt-2 max-w-2xl mx-auto">Информация на сайте не является публичной офертой и носит исключительно информационный характер. Для получения подробной информации об условиях и стоимости услуг, пожалуйста, обращайтесь к специалистам компании.</p>
+<div class="border-t mt-10 pt-8 text-center text-sm">
+<p>© <span id="currentYear"></span> ООО "Новый Вектор". Все права защищены.</p>
+<p class="text-xs opacity-70 mt-2 max-w-2xl mx-auto">Информация, представленная на сайте, не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса РФ. Для получения подробной информации о стоимости и условиях оказания услуг, пожалуйста, обращайтесь к специалистам компании "Новый Вектор".</p>
+<p class="text-xs opacity-70 mt-1"><a class="underline hover:text-[var(--color-secondary)]" href="/privacy-policy">Политика конфиденциальности</a> | <a class="underline hover:text-[var(--color-secondary)]" href="/terms-of-use">Пользовательское соглашение</a></p>
 </div>
 </div>
 </footer>
+</div>
+<div class="modal-overlay" id="contactModal">
+<div class="modal-container" id="modalContent">
+<button class="modal-close-btn" id="modalCloseBtn" type="button">
+<span class="material-icons">close</span>
+</button>
+<h3 class="text-2xl font-semibold text-center mb-6 text-[var(--color-primary)]" id="modalTitle">Оставить заявку</h3>
+<form id="modalContactForm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="form-label-group">
+<input class="form-input" id="modalName" name="modalName" placeholder=" " required="" type="text"/>
+<label for="modalName">Ваше имя</label>
+</div>
+<div class="form-label-group">
+<input class="form-input" id="modalPhone" name="modalPhone" placeholder=" " required="" type="tel"/>
+<label for="modalPhone">Ваш телефон</label>
+</div>
+</div>
+<div class="form-label-group mt-6">
+<select class="form-input" id="modalService" name="modalService">
+<option selected="" value="">Какая услуга вас интересует?</option>
+<option value="bankruptcy">Банкротство физ. лиц</option>
+<option value="debt_write_off">Списание кредитов</option>
+<option value="collector_protection">Защита от коллекторов</option>
+<option value="consultation">Юридическая консультация</option>
+<option value="other">Другое</option>
+</select>
+</div>
+<div class="mb-6 mt-6">
+<label class="inline-flex items-center">
+<input class="form-checkbox h-4 w-4" required="" type="checkbox"/>
+<span class="ml-2 text-xs text-[var(--color-text-muted)]">Я даю согласие на обработку моих персональных данных в соответствии с <a class="underline hover:text-[var(--color-primary)]" href="/privacy-policy" target="_blank">Политикой конфиденциальности</a>.</span>
+</label>
+</div>
+<button class="btn btn-secondary w-full text-base py-3.5 group" type="submit">
+          Отправить заявку
+          <span class="material-icons ml-2">send</span>
+</button>
+<p class="mt-4 text-sm text-center text-[var(--color-text-muted)]" id="modalFormStatus"></p>
+</form>
+</div>
+</div>
 <script>
-    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -833,7 +1830,6 @@
         }
       });
     });
-    // Mobile menu toggle
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const mobileMenu = document.getElementById('mobileMenu');
     if (mobileMenuButton && mobileMenu) {
@@ -841,126 +1837,189 @@
         mobileMenu.classList.toggle('hidden');
         mobileMenuButton.querySelector('.material-icons').textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
       });
-      // Close mobile menu when a link is clicked
-      mobileMenu.querySelectorAll('a').forEach(link => {
+      mobileMenu.querySelectorAll('a, button.open-modal-btn').forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
           mobileMenuButton.querySelector('.material-icons').textContent = 'menu';
         });
       });
     }
-    // FAQ Toggle
     function toggleFaq(element) {
       const answer = element.nextElementSibling;
-      const icon = element.querySelector('.material-icons');
+      const icon = element.querySelector('.material-icons:last-child');
       const allAnswers = document.querySelectorAll('.faq-answer');
-      const allIcons = document.querySelectorAll('.faq-question .material-icons');
-      // Close other open FAQs
+      const allIcons = document.querySelectorAll('.faq-question .material-icons:last-child');
       allAnswers.forEach(ans => {
         if (ans !== answer && !ans.classList.contains('hidden')) {
           ans.classList.add('hidden');
-          ans.previousElementSibling.querySelector('.material-icons').classList.remove('rotate-180');
+          const otherIcon = ans.previousElementSibling.querySelector('.material-icons:last-child');
+          if (otherIcon) {
+            otherIcon.classList.remove('rotate-180');
+            otherIcon.textContent = 'expand_more';
+          }
         }
       });
-      if (answer.classList.contains('hidden')) {
-        answer.classList.remove('hidden');
-        icon.classList.add('rotate-180');
-      } else {
-        answer.classList.add('hidden');
-        icon.classList.remove('rotate-180');
+      answer.classList.toggle('hidden');
+      if (icon) {
+        icon.classList.toggle('rotate-180');
+        icon.textContent = answer.classList.contains('hidden') ? 'expand_more' : 'expand_less';
       }
     }
-    // Quiz Logic
     const quizForm = document.getElementById('quizForm');
     const quizResult = document.getElementById('quizResult');
     if (quizForm) {
       quizForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        const debtAmount = parseInt(document.getElementById('debtAmount').value);
-        const overduePayments = document.querySelector('input[name="overduePayments"]:checked');
+        const debtAmount = parseInt(document.getElementById('debtAmountQuiz').value);
+        const overduePayments = document.querySelector('input[name="overduePaymentsQuiz"]:checked');
+        const property = document.querySelector('input[name="propertyQuiz"]:checked');
         let resultText = "";
-        quizResult.classList.remove('hidden'); // Show result box
-        quizResult.className = 'mt-6 p-5 rounded-md shadow'; // Reset classes
-        if (isNaN(debtAmount) || !overduePayments) {
-          resultText = "<strong class='font-semibold'>Пожалуйста, ответьте на все вопросы.</strong>";
-          quizResult.classList.add('bg-red-700/30', 'border', 'border-red-500', 'text-red-100');
+        quizResult.classList.remove('hidden');
+        quizResult.className = 'mt-6 p-6 rounded-lg shadow-inner text-center'; // Base classes
+        if (isNaN(debtAmount) || !overduePayments || !property) {
+          resultText = "<strong class='font-semibold text-lg block mb-2 text-red-600'>Пожалуйста, ответьте на все вопросы.</strong>";
+          quizResult.classList.add('bg-red-50', 'border', 'border-red-300');
         } else if (debtAmount >= 300000 && overduePayments.value === 'yes') {
-          resultText = "<strong class='font-semibold'>Высока вероятность, что процедура банкротства вам подходит.</strong> Рекомендуем получить бесплатную консультацию для детального анализа вашей ситуации.";
-          quizResult.classList.add('bg-green-700/30', 'border', 'border-green-500', 'text-green-100');
-        } else if (debtAmount < 300000 && debtAmount > 0 && overduePayments.value === 'yes') {
-          resultText = "<strong class='font-semibold'>Процедура банкротства возможна, но нужно оценить все риски и выгоды.</strong> Свяжитесь с нами для консультации.";
-          quizResult.classList.add('bg-yellow-700/30', 'border', 'border-yellow-500', 'text-yellow-100');
+          resultText = "<strong class='font-semibold text-xl block mb-3 text-green-700'>Высока вероятность, что процедура банкротства вам подходит!</strong><p class='text-base text-gray-700'>Рекомендуем получить бесплатную консультацию для детального анализа вашей ситуации и разработки индивидуальной стратегии списания долгов.</p> <button class='btn btn-primary mt-5 text-lg px-6 py-3 open-modal-btn' data-form-title='Консультация по результатам теста'>Получить консультацию эксперта</button>";
+          quizResult.classList.add('bg-green-50', 'border', 'border-green-400');
         } else {
-          resultText = "<strong class='font-semibold'>Возможно, банкротство не является для вас оптимальным решением на данный момент.</strong> Однако, для точной оценки рекомендуем проконсультироваться с юристом.";
-          quizResult.classList.add('bg-blue-700/30', 'border', 'border-blue-500', 'text-blue-100');
+          resultText = "<strong class='font-semibold text-xl block mb-3 text-yellow-700'>Требуется дополнительный анализ.</strong><p class='text-base text-gray-700'>Возможно, банкротство не является единственным решением, или необходима дополнительная информация для точной оценки. Наши специалисты помогут подобрать наилучший вариант решения ваших финансовых проблем.</p> <button class='btn btn-primary mt-5 text-lg px-6 py-3 open-modal-btn' data-form-title='Консультация по результатам теста'>Получить консультацию эксперта</button>";
+          quizResult.classList.add('bg-yellow-50', 'border', 'border-yellow-500');
         }
-        quizResult.innerHTML = resultText; // Use innerHTML for strong tag
+        quizResult.innerHTML = resultText;
+        attachModalEventListeners(); // Re-attach for new buttons
       });
     }
-    // New Cost Calculator Logic
     const debtAmountSlider = document.getElementById('debtAmountSlider');
     const debtAmountValue = document.getElementById('debtAmountValue');
     const creditorsCountSlider = document.getElementById('creditorsCountSlider');
     const creditorsCountValue = document.getElementById('creditorsCountValue');
     const hasPropertyRadios = document.querySelectorAll('input[name="hasProperty"]');
-    const regionSelect = document.querySelector('#calculator select'); // More specific selector
     const calculatedCostNewP = document.getElementById('calculatedCostNew');
     function formatCurrency(value) {
       return new Intl.NumberFormat('ru-RU').format(value);
     }
     function updateCalculatorDisplay() {
-      if (debtAmountSlider && debtAmountValue) {
-        debtAmountValue.textContent = formatCurrency(debtAmountSlider.value);
-      }
-      if (creditorsCountSlider && creditorsCountValue) {
-        creditorsCountValue.textContent = creditorsCountSlider.value;
-      }
-      const debt = debtAmountSlider ? parseInt(debtAmountSlider.value) : 500000;
-      const creditors = creditorsCountSlider ? parseInt(creditorsCountSlider.value) : 1;
-      const property = document.querySelector('input[name="hasProperty"]:checked') ? document.querySelector('input[name="hasProperty"]:checked').value === 'yes' : false;
-      const region = regionSelect ? regionSelect.value : 'region_other';
-      let baseCost = 80000;
-      const mandatoryCosts = 25000 + 15000;
-      if (debt > 1000000) baseCost += 20000;
-      if (debt > 3000000) baseCost += 30000;
-      if (debt < 300000 && debt > 0) baseCost -= 10000;
-      if (creditors > 3) baseCost += (creditors - 3) * 5000;
+      if (!debtAmountSlider || !debtAmountValue || !creditorsCountSlider || !creditorsCountValue || !calculatedCostNewP) return;
+      debtAmountValue.textContent = formatCurrency(debtAmountSlider.value);
+      creditorsCountValue.textContent = creditorsCountSlider.value;
+      const debt = parseInt(debtAmountSlider.value);
+      const creditors = parseInt(creditorsCountSlider.value);
+      const property = document.querySelector('input[name="hasProperty"]:checked').value === 'yes';
+      let baseCost = 70000;
+      const mandatoryCosts = 25000 + 10000; // Fixed costs example
+      if (debt > 1000000) baseCost += 15000;
+      if (debt > 3000000) baseCost += 25000;
+      if (debt < 300000 && debt >= 50000) baseCost -= 5000; // Example adjustments
+      if (creditors > 3) baseCost += (creditors - 3) * 4000;
       if (property) baseCost += 20000;
-      if (region === 'msk_spb') baseCost += 20000;
-      if (region === 'region_million') baseCost += 10000;
-      let totalEstimatedCost = Math.max(baseCost, 60000) + mandatoryCosts;
-      totalEstimatedCost = Math.max(totalEstimatedCost, 100000); // Absolute minimum, e.g. 100k
-      totalEstimatedCost = Math.round(totalEstimatedCost / 5000) * 5000; // Round to nearest 5000
-      if (calculatedCostNewP) {
-        calculatedCostNewP.textContent = `от ${formatCurrency(totalEstimatedCost)} руб.`;
-      }
+      let totalEstimatedCost = Math.max(baseCost, 60000) + mandatoryCosts; // Ensure minimum base + fixed
+      totalEstimatedCost = Math.max(totalEstimatedCost, 95000); // Overall minimum
+      totalEstimatedCost = Math.round(totalEstimatedCost / 1000) * 1000; // Round to nearest 1000
+      calculatedCostNewP.textContent = `от ${formatCurrency(totalEstimatedCost)} руб.`;
     }
     if (debtAmountSlider) debtAmountSlider.addEventListener('input', updateCalculatorDisplay);
     if (creditorsCountSlider) creditorsCountSlider.addEventListener('input', updateCalculatorDisplay);
     if (hasPropertyRadios) hasPropertyRadios.forEach(radio => radio.addEventListener('change', updateCalculatorDisplay));
-    if (regionSelect) regionSelect.addEventListener('change', updateCalculatorDisplay);
-    updateCalculatorDisplay(); // Initial calculation
-    // Contact Form
-    const contactForm = document.getElementById('contactForm');
-    const formStatus = document.getElementById('formStatus');
-    if (contactForm) {
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        formStatus.textContent = 'Отправка заявки...';
-        formStatus.className = 'mt-4 text-sm text-center text-[var(--color-primary)]';
-        // Simulate form submission
-        setTimeout(() => {
-          formStatus.textContent = 'Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.';
-          formStatus.className = 'mt-4 text-sm text-center text-green-600';
-          contactForm.reset();
-        }, 2000);
-      });
+    updateCalculatorDisplay(); // Initial call
+    function handleFormSubmit(formId, statusId, isModal = false) {
+      const form = document.getElementById(formId);
+      const statusElement = document.getElementById(statusId);
+      if (form && statusElement) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          statusElement.textContent = 'Отправка...';
+          statusElement.className = 'mt-4 text-sm text-center text-[var(--color-primary)]';
+          setTimeout(() => {
+            statusElement.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
+            statusElement.className = 'mt-4 text-sm text-center text-green-600';
+            form.reset();
+            if (isModal) {
+              setTimeout(() => {
+                closeModal();
+              }, 2000);
+            }
+          }, 1500);
+        });
+      }
     }
-    // Set current year in footer
+    handleFormSubmit('contactFormMain', 'formStatusMain');
+    handleFormSubmit('contactFormPromo', 'formStatusPromo');
+    handleFormSubmit('contactFormFinal', 'formStatusFinal');
+    handleFormSubmit('modalContactForm', 'modalFormStatus', true);
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
       currentYearSpan.textContent = new Date().getFullYear();
     }
+    const modalOverlay = document.getElementById('contactModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalTitleElem = document.getElementById('modalTitle');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    function openModal(event) {
+      const button = event.currentTarget;
+      const formTitleText = button.dataset.formTitle || "Оставить заявку";
+      if (modalTitleElem) modalTitleElem.textContent = formTitleText;
+      if (modalOverlay) modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      if (modalOverlay) modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      const modalFormStatus = document.getElementById('modalFormStatus');
+      if (modalFormStatus) modalFormStatus.textContent = '';
+      const modalForm = document.getElementById('modalContactForm');
+      if (modalForm) modalForm.reset();
+    }
+    function attachModalEventListeners() {
+      document.querySelectorAll('.open-modal-btn').forEach(btn => {
+        btn.removeEventListener('click', openModal); // Prevent multiple listeners
+        btn.addEventListener('click', openModal);
+      });
+    }
+    attachModalEventListeners();
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', closeModal);
+    }
+    if (modalOverlay) {
+      modalOverlay.addEventListener('click', (event) => {
+        if (event.target === modalOverlay) {
+          closeModal();
+        }
+      });
+    }
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
+    // Swiper for client benefits
+    var clientBenefitsSwiper = new Swiper('#client-benefits .swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '#client-benefits .swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '#client-benefits .swiper-button-next',
+          prevEl: '#client-benefits .swiper-button-prev',
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 30,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          }
+        }
+      });
   </script>
 
 </body></html>
