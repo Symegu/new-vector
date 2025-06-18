@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Новый Вектор - Банкротство физических лиц</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    :root {
+      --color-primary: #1E3A8A;
+      --color-primary-dark: #1E40AF;
+      --color-secondary: #F59E0B;
+      --color-secondary-dark: #D97706;
+      --color-accent: #10B981;
+      --color-text-light: #F9FAFB;
+      --color-text-dark: #1F2937;
+      --color-text-muted: #4B5563;--color-bg-light: #F3F4F6;
+      --color-bg-dark: #111827;
+      --color-primary-rgb: 30, 58, 138;
+      --color-secondary-rgb: 245, 158, 11;
+      --color-accent-rgb: 16, 185, 129;
+      --color-bg-light-rgb: 243, 244, 246;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--color-bg-light);
+      color: var(--color-text-dark);
+    }
+    .hero-bg {
+      background-image: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 64, 175, 0.9)), url('https://images.unsplash.com/photo-1579000149998-360017093b76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--color-primary);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    .section-subtitle {
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 3rem;
+      color: var(--color-text-muted);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    }
+    .card {
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.15), 0 10px 10px -5px rgba(30, 58, 138, 0.1);
+    }
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+    }
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: white;
+      border: 1px solid var(--color-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+    .btn-secondary {
+      background-color: var(--color-secondary);
+      color: var(--color-text-dark);
+      border: 1px solid var(--color-secondary);
+    }
+    .btn-secondary:hover {
+      background-color: var(--color-secondary-dark);
+      color: white;
+      border-color: var(--color-secondary-dark);
+    }
+    .btn-outline {
+      background-color: transparent;
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+    .btn-outline:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      padding: 0.75rem;
+      border-radius: 50%;
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+      color: var(--color-primary);
+    }.section-divider-top {
+      border-top: 2px solid rgba(0, 0, 0, 0.05);
+    }
+    .section-divider-bottom {
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    }
+    .section-divider-dark-top {
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .section-divider-dark-bottom {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid #9CA3AF;border-radius: 0.375rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      color: var(--color-text-dark);
+      background-color: #FFFFFF;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.2);
+    }
+    .testimonial-card {
+      background-color: var(--color-bg-light);
+      border-left: 4px solid var(--color-secondary);
+    }
+    .faq-item {
+      border: 1px solid #D1D5DB;border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1.25rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      color: var(--color-text-dark);
+      transition: background-color 0.2s ease;
+    }
+    .faq-question:hover {
+      background-color: #f9fafb;
+    }
+    .faq-answer {
+      padding: 1.5rem;
+      border-top: 1px solid #D1D5DB;background-color: #fdfdff;
+      color: var(--color-text-muted);
+    }
+    .logo-text {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    .logo-image {
+      width: 40px;
+      height: 40px;
+      margin-right: 0.75rem;
+    }
+    .calculator-input {
+      border: 1px solid #9CA3AF;border-radius: 0.375rem;
+      padding: 0.75rem;
+      width: 100%;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      color: var(--color-text-dark);
+      background-color: #FFFFFF;
+    }
+    .calculator-label {
+      font-weight: 500;
+      color: var(--color-text-dark);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .calculator-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--color-primary);
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .calculator-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: var(--color-primary);
+      cursor: pointer;
+      border-radius: 50%;
+      border: none;
+    }
+    .contact-icon {
+      font-size: 1.5rem;
+      color: var(--color-secondary);
+    }
+    .header-glass {
+      background: rgba(243, 244, 246, 0.9);backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .section-bg-gradient {
+      background: linear-gradient(135deg, var(--color-bg-light) 0%, #ffffff 100%);
+    }
+    .section-bg-dark-gradient {
+      background: linear-gradient(135deg, var(--color-bg-dark) 0%, #1F2937 100%);
+      color: var(--color-text-light);
+    }
+    .section-bg-dark-gradient .section-title,
+    .section-bg-dark-gradient .section-subtitle,
+    .section-bg-dark-gradient p,
+    .section-bg-dark-gradient h3,
+    .section-bg-dark-gradient label,
+    .section-bg-dark-gradient span,
+    .section-bg-dark-gradient li {
+      color: var(--color-text-light);
+    }
+    .section-bg-dark-gradient .section-subtitle {
+      color: #D1D5DB;}
+    .section-bg-dark-gradient .section-title {
+      color: var(--color-secondary);
+    }
+    .section-bg-dark-gradient .card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.15);}
+    .section-bg-dark-gradient .card:hover {
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+    .section-bg-dark-gradient .card h3,
+    .section-bg-dark-gradient .card p {
+      color: var(--color-text-light) !important;
+    }
+    .section-bg-dark-gradient .card h3 {
+      color: var(--color-secondary) !important;
+    }
+    .section-bg-dark-gradient .icon {
+      background-color: rgba(var(--color-accent-rgb), 0.15);
+      color: var(--color-accent);
+    }
+    .section-bg-dark-gradient .form-input {
+      background-color: rgba(var(--color-bg-light-rgb), 0.1);
+      border-color: rgba(255, 255, 255, 0.3);color: var(--color-text-light);
+    }
+    .section-bg-dark-gradient .form-input:focus {
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(var(--color-secondary-rgb), 0.3);
+    }
+    .section-bg-dark-gradient .form-input::placeholder {
+      color: #9CA3AF;}
+    .section-bg-dark-gradient .calculator-label {
+      color: var(--color-text-light);
+    }
+    .section-bg-dark-gradient .calculator-input {
+      background-color: rgba(var(--color-bg-light-rgb), 0.1);
+      border-color: rgba(255, 255, 255, 0.3);color: var(--color-text-light);
+    }
+    .section-bg-dark-gradient .calculator-input:focus {
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(var(--color-secondary-rgb), 0.3);
+    }
+    .section-bg-dark-gradient .calculator-slider::-webkit-slider-thumb {
+      background: var(--color-secondary);
+    }
+    .section-bg-dark-gradient .calculator-slider::-moz-range-thumb {
+      background: var(--color-secondary);
+    }
+    .section-bg-dark-gradient .testimonial-card {
+      background-color: rgba(var(--color-bg-light-rgb), 0.05);
+      border-left-color: var(--color-accent);
+    }
+    .section-bg-dark-gradient .testimonial-card p:not(.font-semibold) {
+      color: #D1D5DB;}.contact-form-card {
+      background-color: #ffffff;padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-form-card::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background-color: rgba(var(--color-primary-rgb), 0.05);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .contact-form-card::after {
+      content: "";
+      position: absolute;
+      bottom: -70px;
+      right: -70px;
+      width: 250px;
+      height: 250px;
+      background-color: rgba(var(--color-secondary-rgb), 0.08);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .contact-form-card form {
+      position: relative;
+      z-index: 1;
+    }
+    .contact-form-card .form-input {
+      background-color: var(--color-bg-light);
+      border-color: #D1D5DB;
+    }
+    .contact-form-card .form-input:focus {
+      background-color: white;
+    }
+    .form-label-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .form-label-group .form-input {
+      padding-top: 1.25rem;
+      margin-bottom: 0;
+    }
+    .form-label-group label {
+      position: absolute;
+      top: 0.85rem;
+      left: 1rem;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    .form-label-group .form-input:focus~label,
+    .form-label-group .form-input:not(:placeholder-shown)~label {
+      top: 0.3rem;
+      left: 0.8rem;
+      font-size: 0.7rem;
+      color: var(--color-primary);
+      background-color: var(--color-bg-light);
+      padding: 0 0.25rem;
+      border-radius: 0.25rem;
+    }
+    .form-label-group .form-input:focus {
+      padding-top: 1.25rem;}
+  </style>
+</head>
+<body class="bg-[var(--color-bg-light)]">
+<header class="header-glass shadow-lg sticky top-0 z-50 py-3">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+<div class="logo-container">
+<img alt="Логотип Новый Вектор" class="logo-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrm6mDqC8d_v9qG0lP5Wn_N3eY0T2KjX5sR6zHqA4fB7w_Z8cV-1bO0gX3L_N9YmC-A6b_X0eR_P1JcIqW-R1S_E0jJvXnE9D_FwUvPqJkI_M-A8pQh_S7tZ6vN_WwR_D-X_V_E1fA2gP4QzS3dYjL_K5xG9zC8bA4iR7eT0uL"/>
+<span class="logo-text text-[var(--color-text-dark)]">НОВЫЙ <span class="text-[var(--color-primary)]">ВЕКТОР</span></span>
+</div>
+<nav class="hidden lg:flex space-x-6 items-center">
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#about">О нас</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#bankruptcy-info">О банкротстве</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#services">Услуги</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#calculator">Калькулятор</a>
+<a class="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm font-semibold" href="#contact-info">Контакты</a>
+</nav>
+<div class="flex items-center space-x-4">
+<a class="text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors flex items-center" href="tel:+78001234567">
+<span class="material-icons mr-1 text-lg text-[var(--color-primary)]">phone_in_talk</span> +7 (800) 123-45-67
+        </a>
+<a class="btn btn-secondary text-sm px-5 py-2.5 hidden sm:inline-flex items-center group" href="#contact"> Заказать звонок <span class="material-icons ml-2 text-base transform group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+</a>
+<button class="lg:hidden text-[var(--color-text-muted)] hover:text-[var(--color-primary)]" id="mobileMenuButton">
+<span class="material-icons text-3xl">menu</span>
+</button>
+</div>
+</div>
+<div class="lg:hidden hidden header-glass" id="mobileMenu">
+<nav class="px-4 pt-2 pb-4 border-t border-slate-300 space-y-1">
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#about">О нас</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#bankruptcy-info">О банкротстве</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#services">Услуги</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#calculator">Калькулятор</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-slate-200 hover:text-[var(--color-primary)]" href="#contact-info">Контакты</a>
+<a class="block sm:hidden w-full mt-2 btn btn-secondary text-sm" href="#contact">Заказать звонок <span class="material-icons ml-2 text-base">arrow_forward</span></a>
+</nav>
+</div>
+</header>
+<section class="hero-bg relative">
+<div class="absolute inset-0 bg-gradient-to-br from-[rgba(var(--color-primary-rgb),0.85)] via-[rgba(var(--color-primary-rgb),0.75)] to-[rgba(var(--color-primary-dark-rgb,30,64,175),0.7)]"></div>
+<div class="relative container mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-40 text-center">
+<h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight"> Законное списание долгов <br class="hidden sm:inline"/>и <span class="text-[var(--color-secondary)]">новая</span> финансовая жизнь </h1>
+<p class="text-lg sm:text-xl text-slate-100 mb-12 max-w-3xl mx-auto"> Компания "Новый Вектор" поможет вам пройти процедуру банкротства физических лиц быстро, эффективно и с полной юридической поддержкой. Начните свой путь к свободе от долгов уже сегодня! </p>
+<a class="btn btn-secondary text-lg px-10 py-4 group" href="#contact"> Получить бесплатную консультацию <span class="material-icons ml-2 transform group-hover:rotate-12 transition-transform duration-300">rocket_launch</span>
+</a>
+</div>
+</section>
+<section class="py-20 section-bg-gradient section-divider-bottom" id="about">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="section-title">О компании "Новый Вектор"</h2>
+<p class="section-subtitle">Мы — команда опытных юристов, специализирующихся на процедурах банкротства физических лиц. Наша миссия — помочь вам освободиться от долгового бремени и обрести финансовую свободу с минимальными затратами времени и нервов.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="card text-center border-t-4 border-[var(--color-primary)] hover:bg-[rgba(var(--color-primary-rgb),0.05)]">
+<span class="material-icons icon text-[var(--color-primary)]">gavel</span>
+<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Опыт и экспертиза</h3>
+<p class="text-[var(--color-text-muted)]">Многолетний опыт успешного ведения дел о банкротстве. Знаем все тонкости закона.</p>
+</div>
+<div class="card text-center border-t-4 border-[var(--color-accent)] hover:bg-[rgba(var(--color-accent-rgb),0.05)]">
+<span class="material-icons icon text-[var(--color-accent)] !bg-[rgba(var(--color-accent-rgb),0.1)]">shield_lock</span>
+<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Надежность и Защита</h3>
+<p class="text-[var(--color-text-muted)]">Гарантируем полную конфиденциальность и юридическую защиту на всех этапах.</p>
+</div>
+<div class="card text-center border-t-4 border-[var(--color-secondary)] hover:bg-[rgba(var(--color-secondary-rgb),0.05)]">
+<span class="material-icons icon text-[var(--color-secondary)] !bg-[rgba(var(--color-secondary-rgb),0.1)]">sentiment_very_satisfied</span>
+<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Доверие клиентов</h3>
+<p class="text-[var(--color-text-muted)]">Сотни довольных клиентов, избавившихся от долгов с нашей помощью. Ваши интересы - наш приоритет.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="bankruptcy-info">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col lg:flex-row items-center gap-12">
+<div class="lg:w-1/2">
+<img alt="Документы и калькулятор, символизирующие процесс банкротства" class="rounded-xl shadow-2xl w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFUe1eCaTrPOjd7hhSRg7TcB4qOJDduydgjRqG6Il-ofPnhybSggZZZ-R68P-J9P1y6b9ab3y53dw0xqEn1uCcNVh-VHwEcdoD29zaVBqT5wz_64uPSxPkDnvsk4Na6iiqFfHLPAjQSKw-7Nz_XkU7fDoy-4ZzXtLtC0ql0drZGUpHRnP9w2TquQ3PatgfKNhJoKpy3k6HA7E5MjFUycFheoMRuLDSIjNPyMfRHaX8K5RsSWYv0vhX_lNw7XUucWswHXIxnDOUVOWl"/>
+</div>
+<div class="lg:w-1/2 lg:text-left">
+<h2 class="section-title text-left lg:text-left">Что такое банкротство физических лиц?</h2>
+<p class="section-subtitle text-left lg:text-left !text-slate-300 mx-0 max-w-none">Узнайте больше о процедуре, ее этапах и преимуществах, которые она открывает.</p>
+<div class="glass-effect p-8 rounded-xl border-slate-700">
+<p class="text-slate-300 mb-4 leading-relaxed">Банкротство физического лица — это законная процедура, позволяющая гражданину, неспособному исполнять свои финансовые обязательства, освободиться от долгов. Процедура регулируется Федеральным законом № 127-ФЗ "О несостоятельности (банкротстве)".</p>
+<h3 class="text-lg font-semibold text-[var(--color-accent)] mt-6 mb-3">Ключевые моменты:</h3>
+<ul class="list-disc list-inside text-slate-300 space-y-2 leading-relaxed marker:text-[var(--color-accent)]">
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Списание большинства видов долгов (кредиты, займы, налоги, ЖКХ).</li>
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Прекращение начисления процентов, пеней и штрафов.</li>
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Остановка исполнительных производств и давления со стороны коллекторов.</li>
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">check_circle_outline</span>Возможность начать жизнь с чистого финансового листа.</li>
+</ul>
+<h3 class="text-lg font-semibold text-[var(--color-accent)] mt-6 mb-3">Когда стоит задуматься о банкротстве?</h3>
+<ul class="list-disc list-inside text-slate-300 space-y-2 leading-relaxed marker:text-[var(--color-accent)]">
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">help_outline</span>Общая сумма долга превышает 300 000 рублей.</li>
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">help_outline</span>Просрочки по платежам составляют более 3 месяцев.</li>
+<li><span class="material-icons text-sm align-middle mr-1 text-[var(--color-accent)]">help_outline</span>Вы понимаете, что не сможете погасить долги в обозримом будущем.</li>
+</ul>
+<p class="text-slate-300 mt-6 leading-relaxed">Наша команда поможет вам разобраться во всех нюансах процедуры и выбрать оптимальный путь решения вашей финансовой проблемы.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-gradient section-divider-bottom" id="services">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="section-title text-center">Наши услуги</h2>
+<p class="section-subtitle text-center">Полный спектр юридической помощи в процедуре банкротства — от первой консультации до полного списания долгов.</p>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="card group hover:bg-[rgba(var(--color-primary-rgb),0.05)] transition-all duration-300">
+<div class="relative">
+<img alt="Юрист консультирует клиента по вопросам банкротства" class="rounded-lg mb-4 h-48 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMHtXelE0o-lB5STdYO7HO3vpSheDi8Yo5x4R7uVTmx4mwmIF-QG6nq4Lkrtr5jiaaIzH5DxCxkZ9qZL1RL_FU9iOy9_vKikb4YedG06pqQ9CBABzWnCRiuYfC-iyvXzcsvtAadUhFDclOVtgmfQl3QrKh2-0lL8o6vzPN2x3nyYXAlWifTCAk2EILX_qfWLVwxBO8Tssx4toHCTg5b0lrj8ulY5Ysth2sL6G-CbXugAE8zt0iSo-jllujhajVplqskq5fGZJRpZYX"/>
+<div class="absolute inset-0 bg-black/20 rounded-lg group-hover:bg-black/5 transition-all duration-300"></div>
+<span class="material-icons icon text-[var(--color-primary)] absolute top-3 right-3 bg-white/80 !p-2 !text-2xl">assignment</span>
+</div>
+<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Консультация и анализ</h3>
+<p class="text-[var(--color-text-muted)]">Подробный разбор вашей финансовой ситуации и оценка перспектив банкротства.</p>
+</div>
+<div class="card group hover:bg-[rgba(var(--color-accent-rgb),0.05)] transition-all duration-300">
+<div class="relative">
+<img alt="Стопка документов для процедуры банкротства" class="rounded-lg mb-4 h-48 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaPffJcW-4HEi9975YwzNcWGLeOWD4IrCEnie3-FV3RoJryOMvEthgNPHFy1DbjGPp1mgttWLadvwAVFF6179QR6bMfXtlq5tzsn5GICxlJzhADyLQwKwFgL4Y-9xUHrNXEQRB-KzQWSZ-moZs0PxD6BGqheVIeUdcJhwj7HqYK8z5L27iwMXdiKvjxEPT8KwZ7Qu3A1IwHyhmSwJGsD-rm8GrVNn3fKQskYpXVYcIhPtoRFUynD1q0Jg2UtR4G_yE5uuOcZjFv2ZX"/>
+<div class="absolute inset-0 bg-black/20 rounded-lg group-hover:bg-black/5 transition-all duration-300"></div>
+<span class="material-icons icon text-[var(--color-accent)] !bg-[rgba(var(--color-accent-rgb),0.1)] absolute top-3 right-3 bg-white/80 !p-2 !text-2xl">folder_shared</span>
+</div>
+<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Сбор документов</h3>
+<p class="text-[var(--color-text-muted)]">Помощь в сборе необходимого пакета документов для подачи заявления в суд.</p>
+</div>
+<div class="card group hover:bg-[rgba(var(--color-secondary-rgb),0.05)] transition-all duration-300">
+<div class="relative">
+<img alt="Здание суда или зал судебных заседаний" class="rounded-lg mb-4 h-48 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHX6YMiXEw3kyIS3aJtjXi2wNNeqyGET5rjUebqCmmphKn1O84NxYtrm8VS_C2D9qqZLmf3y0a2NZa4rPihPdRsouOseEbRcH61Tq6snhjjKVumVh0DO8PVxn6MxUGXOM3QHF4x0ziWL-Otv18JCqBuMWx1LLiSJv0LVVMsQOigfV3xCepPPMN_jBhuURXjip6t6-odeNxaOtsmfOIhBEsY9O3tMP_XTSc7az_nlNcAdjtBJpj4xL03qOQc7rKaU42S_5N52T_qo1f"/>
+<div class="absolute inset-0 bg-black/20 rounded-lg group-hover:bg-black/5 transition-all duration-300"></div>
+<span class="material-icons icon text-[var(--color-secondary)] !bg-[rgba(var(--color-secondary-rgb),0.1)] absolute top-3 right-3 bg-white/80 !p-2 !text-2xl">account_balance</span>
+</div>
+<h3 class="text-xl font-semibold mb-2 text-[var(--color-text-dark)]">Представительство в суде</h3>
+<p class="text-[var(--color-text-muted)]">Защита ваших интересов на всех этапах судебного процесса.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="quiz">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h2 class="section-title">Пройдите тест и узнайте, подходит ли вам банкротство</h2>
+<p class="section-subtitle !text-slate-300">Ответьте на несколько простых вопросов, чтобы получить предварительную оценку и первый шаг к решению проблемы.</p>
+</div>
+<div class="max-w-2xl mx-auto glass-effect p-8 md:p-10 rounded-xl border-slate-700 border-t-4 border-[var(--color-secondary)]">
+<form id="quizForm">
+<div class="mb-6">
+<label class="block text-slate-200 font-semibold mb-2" for="debtAmount"><span class="material-icons text-lg align-middle mr-2 text-[var(--color-secondary)]">monetization_on</span>1. Какова общая сумма вашей задолженности (руб.)?</label>
+<input class="form-input" id="debtAmount" name="debtAmount" placeholder="Например, 750000" type="number"/>
+</div>
+<div class="mb-6">
+<label class="block text-slate-200 font-semibold mb-2"><span class="material-icons text-lg align-middle mr-2 text-[var(--color-secondary)]">event_busy</span>2. Есть ли у вас просрочки по платежам более 3 месяцев?</label>
+<div class="flex items-center space-x-6">
+<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="overduePayments" type="radio" value="yes"/> Да</label>
+<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="overduePayments" type="radio" value="no"/> Нет</label>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-slate-200 font-semibold mb-2"><span class="material-icons text-lg align-middle mr-2 text-[var(--color-secondary)]">work</span>3. Имеется ли у вас официальный источник дохода?</label>
+<div class="flex items-center space-x-6">
+<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="incomeSource" type="radio" value="yes"/> Да</label>
+<label class="flex items-center cursor-pointer text-slate-200"><input class="form-radio h-5 w-5 text-[var(--color-secondary)] border-slate-500 focus:ring-[var(--color-secondary)] mr-2" name="incomeSource" type="radio" value="no"/> Нет</label>
+</div>
+</div>
+<button class="btn btn-primary w-full group" type="submit">Получить результат <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform">quiz</span></button>
+</form>
+<div class="mt-6 p-5 rounded-md text-slate-200 hidden shadow" id="quizResult"></div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-gradient section-divider-bottom" id="calculator">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="section-title text-center">Калькулятор стоимости банкротства</h2>
+<p class="section-subtitle text-center">Рассчитайте примерную стоимость процедуры списания долгов и получите ориентир.</p>
+<div class="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-4 border-[var(--color-primary)]">
+<form id="costCalculatorFormNew">
+<div class="space-y-8">
+<div>
+<label class="calculator-label text-lg" for="debtAmountSlider">Общая сумма долга: <span class="font-bold text-[var(--color-primary)] text-xl" id="debtAmountValue">500 000</span> руб.</label>
+<input class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer calculator-slider accent-[var(--color-primary)]" id="debtAmountSlider" max="5000000" min="50000" step="10000" type="range" value="500000"/>
+</div>
+<div>
+<label class="calculator-label text-lg" for="creditorsCountSlider">Количество кредиторов: <span class="font-bold text-[var(--color-primary)] text-xl" id="creditorsCountValue">1</span></label>
+<input class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer calculator-slider accent-[var(--color-primary)]" id="creditorsCountSlider" max="20" min="1" step="1" type="range" value="1"/>
+</div>
+<div>
+<span class="calculator-label text-lg">Наличие имущества для реализации (кроме единственного жилья):</span>
+<div class="mt-3 flex space-x-6">
+<label class="flex items-center text-[var(--color-text-dark)] cursor-pointer">
+<input class="form-radio h-5 w-5 text-[var(--color-primary)] border-slate-400 focus:ring-[var(--color-primary)] mr-2" name="hasProperty" type="radio" value="yes"/>
+<span>Да</span>
+</label>
+<label class="flex items-center text-[var(--color-text-dark)] cursor-pointer">
+<input checked="" class="form-radio h-5 w-5 text-[var(--color-primary)] border-slate-400 focus:ring-[var(--color-primary)] mr-2" name="hasProperty" type="radio" value="no"/>
+<span>Нет</span>
+</label>
+</div>
+</div>
+<div>
+<span class="calculator-label text-lg">Регион проживания:</span>
+<select class="calculator-input mt-2 focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]">
+<option value="msk_spb">Москва / Санкт-Петербург</option>
+<option value="region_million">Город-миллионник</option>
+<option selected="" value="region_other">Другой регион</option>
+</select>
+</div>
+</div>
+</form>
+<div class="mt-10 pt-8 border-t border-slate-300 text-center">
+<h4 class="text-xl font-medium text-[var(--color-text-dark)]">Примерная стоимость услуг:</h4>
+<p class="text-4xl font-bold text-[var(--color-primary)] my-3" id="calculatedCostNew">от 120 000 руб.</p>
+<p class="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">Включает обязательные расходы (депозит фин. управляющему, публикации). Точная стоимость будет определена после бесплатной консультации.</p>
+<a class="btn btn-secondary mt-8 group" href="#contact">Узнать точную стоимость <span class="material-icons ml-2">price_check</span></a>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="reviews">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="section-title text-center">Отзывы наших клиентов</h2>
+<p class="section-subtitle text-center !text-slate-300">Истории успеха тех, кто уже освободился от долгов с нашей помощью. Ваша история может быть следующей!</p>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="card testimonial-card glass-effect p-6 hover:!bg-[rgba(var(--color-accent-rgb),0.1)]">
+<div class="flex items-center mb-4">
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+</div>
+<p class="text-slate-300 mb-4 italic">"Огромное спасибо компании 'Новый Вектор'! Думал, что из долгов уже не выберусь. Юристы все объяснили, помогли собрать документы и полностью сопровождали в суде. Теперь я свободен от кредитов!"</p>
+<p class="font-semibold text-[var(--color-accent)]">Александр П.</p>
+<p class="text-sm text-slate-400">г. Москва</p>
+</div>
+<div class="card testimonial-card glass-effect p-6 hover:!bg-[rgba(var(--color-accent-rgb),0.1)]">
+<div class="flex items-center mb-4">
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star_half</span>
+</div>
+<p class="text-slate-300 mb-4 italic">"Очень профессиональный подход. Боялась процедуры банкротства, но специалисты 'Нового Вектора' развеяли все страхи. Все прошло гораздо проще, чем я ожидала. Рекомендую!"</p>
+<p class="font-semibold text-[var(--color-accent)]">Елена В.</p>
+<p class="text-sm text-slate-400">г. Санкт-Петербург</p>
+</div>
+<div class="card testimonial-card glass-effect p-6 hover:!bg-[rgba(var(--color-accent-rgb),0.1)]">
+<div class="flex items-center mb-4">
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+<span class="material-icons text-[var(--color-secondary)]">star</span>
+</div>
+<p class="text-slate-300 mb-4 italic">"Долго не решался на банкротство. Обратился в 'Новый Вектор' по совету знакомых и не пожалел. Грамотные юристы, всегда на связи. Процедура завершилась успешно, долги списаны."</p>
+<p class="font-semibold text-[var(--color-accent)]">Михаил С.</p>
+<p class="text-sm text-slate-400">г. Екатеринбург</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-gradient section-divider-bottom" id="faq">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="lg:flex lg:items-start lg:gap-12">
+<div class="lg:w-1/3 text-center lg:text-left">
+<h2 class="section-title">Часто задаваемые вопросы</h2>
+<p class="section-subtitle !mb-8 lg:!mb-0 mx-auto lg:mx-0">Ответы на популярные вопросы о процедуре банкротства. Мы здесь, чтобы все разъяснить.</p>
+<span class="material-icons text-8xl text-[var(--color-primary)] opacity-20 hidden lg:block mt-8 mx-auto lg:mx-0">help_center</span>
+</div>
+<div class="lg:w-2/3 max-w-3xl mx-auto lg:mx-0">
+<div class="space-y-4">
+<div class="faq-item border-t-2 border-[var(--color-primary)]">
+<div class="faq-question group" onclick="toggleFaq(this)">
+<span class="group-hover:text-[var(--color-primary)] transition-colors">Сколько времени занимает процедура банкротства?</span>
+<span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
+</div>
+<div class="faq-answer hidden">
+<p class="text-[var(--color-text-muted)]">В среднем, процедура банкротства физического лица занимает от 6 до 12 месяцев. Сроки могут варьироваться в зависимости от сложности дела, наличия имущества и других факторов.</p>
+</div>
+</div>
+<div class="faq-item border-t-2 border-[var(--color-primary)]">
+<div class="faq-question group" onclick="toggleFaq(this)">
+<span class="group-hover:text-[var(--color-primary)] transition-colors">Какие долги не списываются при банкротстве?</span>
+<span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
+</div>
+<div class="faq-answer hidden">
+<p class="text-[var(--color-text-muted)]">Не списываются долги по алиментам, возмещению вреда жизни или здоровью, вреда имуществу (причиненного умышленно или по грубой неосторожности), а также долги по заработной плате (если вы были ИП с наемными работниками).</p>
+</div>
+</div>
+<div class="faq-item border-t-2 border-[var(--color-primary)]">
+<div class="faq-question group" onclick="toggleFaq(this)">
+<span class="group-hover:text-[var(--color-primary)] transition-colors">Смогу ли я выезжать за границу во время и после банкротства?</span>
+<span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
+</div>
+<div class="faq-answer hidden">
+<p class="text-[var(--color-text-muted)]">Во время процедуры банкротства суд может наложить временное ограничение на выезд за границу. После завершения процедуры и списания долгов это ограничение снимается, и вы сможете свободно выезжать.</p>
+</div>
+</div>
+<div class="faq-item border-t-2 border-[var(--color-primary)]">
+<div class="faq-question group" onclick="toggleFaq(this)">
+<span class="group-hover:text-[var(--color-primary)] transition-colors">Каковы последствия банкротства?</span>
+<span class="material-icons transform transition-transform duration-300 text-[var(--color-primary)]">expand_more</span>
+</div>
+<div class="faq-answer hidden">
+<p class="text-[var(--color-text-muted)]">В течение 5 лет после банкротства вы обязаны сообщать о факте своего банкротства при обращении за кредитами или займами. В течение 3 лет вы не сможете занимать руководящие должности в юридических лицах (например, быть директором). Повторно объявить себя банкротом можно не ранее чем через 5 лет.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-dark-gradient section-divider-dark-bottom" id="contact-info">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="section-title text-center">Наши контакты</h2>
+<p class="section-subtitle text-center !text-slate-300">Мы всегда готовы помочь. Свяжитесь с нами удобным для вас способом или посетите наш офис.</p>
+<div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+<div class="glass-effect p-8 rounded-xl border-slate-700 flex flex-col justify-between">
+<div>
+<h3 class="text-2xl font-semibold text-[var(--color-accent)] mb-6">Свяжитесь с нами</h3>
+<div class="space-y-5">
+<div class="flex items-start">
+<span class="material-icons contact-icon mr-4 mt-1 text-2xl">location_on</span>
+<div>
+<h4 class="font-semibold text-slate-200 text-lg">Адрес офиса:</h4>
+<p class="text-slate-300">г. Москва, ул. Примерная, д. 1, офис 101 (метро Примерное)</p>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-icons contact-icon mr-4 mt-1 text-2xl">phone_in_talk</span>
+<div>
+<h4 class="font-semibold text-slate-200 text-lg">Телефон:</h4>
+<a class="text-slate-300 hover:text-[var(--color-secondary)] transition-colors block" href="tel:+78001234567">+7 (800) 123-45-67 <span class="text-xs text-slate-400">(бесплатно по России)</span></a>
+<a class="text-slate-300 hover:text-[var(--color-secondary)] transition-colors block" href="tel:+74951234567">+7 (495) 123-45-67 <span class="text-xs text-slate-400">(для Москвы)</span></a>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-icons contact-icon mr-4 mt-1 text-2xl">alternate_email</span>
+<div>
+<h4 class="font-semibold text-slate-200 text-lg">Электронная почта:</h4>
+<a class="text-slate-300 hover:text-[var(--color-secondary)] transition-colors" href="mailto:info@newvector.ru">info@newvector.ru</a>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-icons contact-icon mr-4 mt-1 text-2xl">schedule</span>
+<div>
+<h4 class="font-semibold text-slate-200 text-lg">Время работы:</h4>
+<p class="text-slate-300">Понедельник - Пятница: 09:00 - 19:00 <br/>Суббота: 10:00 - 16:00 (по предварительной записи)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-600 flex space-x-4">
+<a class="text-slate-400 hover:text-[var(--color-secondary)] transition-colors" href="#" title="WhatsApp">
+<svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.33 3.43 16.79L2.05 22L7.31 20.63C8.72 21.41 10.33 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.81 19.07 4.96C17.22 3.11 14.76 2.08 12.04 2.08L12.04 2ZM10.13 6.13C10.31 6.13 10.48 6.14 10.62 6.15C10.81 6.17 10.91 6.24 10.99 6.46C11.13 6.82 11.45 7.76 11.54 7.93C11.62 8.1 11.59 8.28 11.45 8.42L10.92 9.03C10.82 9.14 10.77 9.23 10.92 9.49C11.06 9.75 11.59 10.54 12.28 11.17C13.13 11.96 13.82 12.23 14.07 12.37C14.33 12.51 14.43 12.48 14.59 12.3L15.17 11.69C15.36 11.49 15.63 11.44 15.86 11.53C16.09 11.62 17.11 12.11 17.38 12.23C17.65 12.36 17.83 12.43 17.91 12.58C17.98 12.74 17.98 13.37 17.72 13.85C17.47 14.34 16.73 14.84 16.11 14.93C15.49 15.02 14.92 15.05 14.36 14.86C13.6 14.6 12.51 14.23 11.3 13.14C9.82001 11.77 8.85001 10.09 8.69001 9.78003C8.53001 9.47003 7.98001 8.77003 7.98001 8.14003C7.98001 7.51003 8.37001 7.15003 8.55001 6.97003L8.69001 6.97003C8.83001 6.82003 8.96001 6.68003 9.13001 6.54003C9.30001 6.40003 9.44001 6.33003 9.61001 6.23003C9.79001 6.14003 9.96001 6.13003 10.13 6.13L10.13 6.13Z"></path>
+</svg>
+</a>
+<a class="text-slate-400 hover:text-[var(--color-secondary)] transition-colors" href="#" title="Telegram">
+<svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+<path d="M21.88299,6.30005L18.90299,19.85303C18.68099,20.74002,18.05699,20.98203,17.31699,20.54703L13.09399,17.424L11.03799,19.40604C10.82199,19.62302,10.57199,19.85303,10.20199,19.85303L10.54099,15.58804L18.03899,8.72104C18.39899,8.39902,17.92699,8.20401,17.47199,8.51102L8.13199,14.60904L3.94799,13.22702C3.07799,12.94504,3.06199,12.31702,4.12699,11.89102L20.47699,5.12805C21.20699,4.84503,21.99699,5.32602,21.88299,6.30005Z"></path>
+</svg>
+</a>
+</div>
+</div>
+<div class="h-80 md:h-auto rounded-xl shadow-xl overflow-hidden border-4 border-slate-700">
+<iframe allowfullscreen="" height="100%" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.384986075006!2d37.61556671593077!3d55.75222078055443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54afc73d4b3c9%3A0xba63311397acf359!2z0JzQvtGB0LrQstCwLCDQnNC-0YHQutCy0LA!5e0!3m2!1sru!2sru!4v1678886400000!5m2!1sru!2sru" style="border:0;" width="100%"></iframe>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 section-bg-gradient" id="contact">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="section-title text-center">Закажите бесплатную консультацию</h2>
+<p class="section-subtitle text-center">Оставьте заявку, и наш специалист свяжется с вами в ближайшее время, чтобы обсудить вашу ситуацию и предложить наилучшее решение.</p>
+<div class="max-w-2xl mx-auto contact-form-card">
+<form id="contactForm">
+<div class="grid md:grid-cols-2 gap-x-6">
+<div class="form-label-group">
+<input class="form-input" id="name" name="name" placeholder=" " required="" type="text"/>
+<label for="name">Ваше имя</label>
+</div>
+<div class="form-label-group">
+<input class="form-input" id="phone" name="phone" placeholder=" " required="" type="tel"/>
+<label for="phone">Ваш телефон</label>
+</div>
+</div>
+<div class="form-label-group">
+<input class="form-input" id="email" name="email" placeholder=" " type="email"/>
+<label for="email">Ваш Email (необязательно)</label>
+</div>
+<div class="form-label-group">
+<textarea class="form-input h-28" id="message" name="message" placeholder=" " rows="3"></textarea>
+<label for="message">Кратко опишите вашу ситуацию (необязательно)</label>
+</div>
+<div class="mb-6">
+<label class="inline-flex items-center">
+<input class="form-checkbox h-4 w-4 text-[var(--color-primary)] border-slate-400 rounded focus:ring-[var(--color-primary)]" required="" type="checkbox"/>
+<span class="ml-2 text-[var(--color-text-muted)] text-xs">Я даю согласие на обработку моих персональных данных в соответствии с <a class="text-[var(--color-primary)] hover:underline" href="/privacy-policy">Политикой конфиденциальности</a>.</span>
+</label>
+</div>
+<button class="btn btn-primary w-full text-base py-3.5 group" type="submit"> Отправить заявку <span class="material-icons ml-2 transform group-hover:scale-110 transition-transform">send</span>
+</button>
+<p class="mt-4 text-sm text-center" id="formStatus"></p>
+</form>
+</div>
+</div>
+</section>
+<footer class="bg-[var(--color-bg-dark)] text-slate-300 py-16 section-divider-dark-top">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid md:grid-cols-3 gap-10">
+<div>
+<div class="logo-container mb-5">
+<img alt="Логотип Новый Вектор" class="logo-image filter invert brightness-0 saturate-100 hue-rotate-[200deg] contrast-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrm6mDqC8d_v9qG0lP5Wn_N3eY0T2KjX5sR6zHqA4fB7w_Z8cV-1bO0gX3L_N9YmC-A6b_X0eR_P1JcIqW-R1S_E0jJvXnE9D_FwUvPqJkI_M-A8pQh_S7tZ6vN_WwR_D-X_V_E1fA2gP4QzS3dYjL_K5xG9zC8bA4iR7eT0uL"/>
+<span class="logo-text text-white">НОВЫЙ <span class="text-[var(--color-secondary)]">ВЕКТОР</span></span>
+</div>
+<p class="text-sm text-slate-400">Юридическая компания по банкротству физических лиц. Помогаем списать долги законно и начать новую финансовую жизнь.</p>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Навигация</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#about">О нас</a></li>
+<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#services">Услуги</a></li>
+<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#reviews">Отзывы</a></li>
+<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#faq">FAQ</a></li>
+<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="#contact-info">Контакты</a></li>
+<li><a class="hover:text-[var(--color-secondary)] transition-colors" href="/privacy-policy">Политика конфиденциальности</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Контакты</h5>
+<ul class="space-y-3 text-sm">
+<li class="flex items-center">
+<span class="material-icons mr-2 text-[var(--color-secondary)] text-xl">location_on</span>
+<span class="text-slate-400">г. Москва, ул. Примерная, д. 1, оф. 101</span>
+</li>
+<li class="flex items-center">
+<span class="material-icons mr-2 text-[var(--color-secondary)] text-xl">phone_in_talk</span>
+<a class="hover:text-[var(--color-secondary)] transition-colors text-slate-400" href="tel:+78001234567">+7 (800) 123-45-67</a>
+</li>
+<li class="flex items-center">
+<span class="material-icons mr-2 text-[var(--color-secondary)] text-xl">alternate_email</span>
+<a class="hover:text-[var(--color-secondary)] transition-colors text-slate-400" href="mailto:info@newvector.ru">info@newvector.ru</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-slate-700 mt-10 pt-8 text-center text-sm">
+<p class="text-slate-400">© <span id="currentYear"></span> Новый Вектор. Все права защищены.</p>
+<p class="text-xs text-slate-500 mt-2 max-w-2xl mx-auto">Информация на сайте не является публичной офертой и носит исключительно информационный характер. Для получения подробной информации об условиях и стоимости услуг, пожалуйста, обращайтесь к специалистам компании.</p>
+</div>
+</div>
+</footer>
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.querySelector('.material-icons').textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+      });
+      // Close mobile menu when a link is clicked
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.querySelector('.material-icons').textContent = 'menu';
+        });
+      });
+    }
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('.material-icons');
+      const allAnswers = document.querySelectorAll('.faq-answer');
+      const allIcons = document.querySelectorAll('.faq-question .material-icons');
+      // Close other open FAQs
+      allAnswers.forEach(ans => {
+        if (ans !== answer && !ans.classList.contains('hidden')) {
+          ans.classList.add('hidden');
+          ans.previousElementSibling.querySelector('.material-icons').classList.remove('rotate-180');
+        }
+      });
+      if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        answer.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+    // Quiz Logic
+    const quizForm = document.getElementById('quizForm');
+    const quizResult = document.getElementById('quizResult');
+    if (quizForm) {
+      quizForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const debtAmount = parseInt(document.getElementById('debtAmount').value);
+        const overduePayments = document.querySelector('input[name="overduePayments"]:checked');
+        let resultText = "";
+        quizResult.classList.remove('hidden'); // Show result box
+        quizResult.className = 'mt-6 p-5 rounded-md shadow'; // Reset classes
+        if (isNaN(debtAmount) || !overduePayments) {
+          resultText = "<strong class='font-semibold'>Пожалуйста, ответьте на все вопросы.</strong>";
+          quizResult.classList.add('bg-red-700/30', 'border', 'border-red-500', 'text-red-100');
+        } else if (debtAmount >= 300000 && overduePayments.value === 'yes') {
+          resultText = "<strong class='font-semibold'>Высока вероятность, что процедура банкротства вам подходит.</strong> Рекомендуем получить бесплатную консультацию для детального анализа вашей ситуации.";
+          quizResult.classList.add('bg-green-700/30', 'border', 'border-green-500', 'text-green-100');
+        } else if (debtAmount < 300000 && debtAmount > 0 && overduePayments.value === 'yes') {
+          resultText = "<strong class='font-semibold'>Процедура банкротства возможна, но нужно оценить все риски и выгоды.</strong> Свяжитесь с нами для консультации.";
+          quizResult.classList.add('bg-yellow-700/30', 'border', 'border-yellow-500', 'text-yellow-100');
+        } else {
+          resultText = "<strong class='font-semibold'>Возможно, банкротство не является для вас оптимальным решением на данный момент.</strong> Однако, для точной оценки рекомендуем проконсультироваться с юристом.";
+          quizResult.classList.add('bg-blue-700/30', 'border', 'border-blue-500', 'text-blue-100');
+        }
+        quizResult.innerHTML = resultText; // Use innerHTML for strong tag
+      });
+    }
+    // New Cost Calculator Logic
+    const debtAmountSlider = document.getElementById('debtAmountSlider');
+    const debtAmountValue = document.getElementById('debtAmountValue');
+    const creditorsCountSlider = document.getElementById('creditorsCountSlider');
+    const creditorsCountValue = document.getElementById('creditorsCountValue');
+    const hasPropertyRadios = document.querySelectorAll('input[name="hasProperty"]');
+    const regionSelect = document.querySelector('#calculator select'); // More specific selector
+    const calculatedCostNewP = document.getElementById('calculatedCostNew');
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('ru-RU').format(value);
+    }
+    function updateCalculatorDisplay() {
+      if (debtAmountSlider && debtAmountValue) {
+        debtAmountValue.textContent = formatCurrency(debtAmountSlider.value);
+      }
+      if (creditorsCountSlider && creditorsCountValue) {
+        creditorsCountValue.textContent = creditorsCountSlider.value;
+      }
+      const debt = debtAmountSlider ? parseInt(debtAmountSlider.value) : 500000;
+      const creditors = creditorsCountSlider ? parseInt(creditorsCountSlider.value) : 1;
+      const property = document.querySelector('input[name="hasProperty"]:checked') ? document.querySelector('input[name="hasProperty"]:checked').value === 'yes' : false;
+      const region = regionSelect ? regionSelect.value : 'region_other';
+      let baseCost = 80000;
+      const mandatoryCosts = 25000 + 15000;
+      if (debt > 1000000) baseCost += 20000;
+      if (debt > 3000000) baseCost += 30000;
+      if (debt < 300000 && debt > 0) baseCost -= 10000;
+      if (creditors > 3) baseCost += (creditors - 3) * 5000;
+      if (property) baseCost += 20000;
+      if (region === 'msk_spb') baseCost += 20000;
+      if (region === 'region_million') baseCost += 10000;
+      let totalEstimatedCost = Math.max(baseCost, 60000) + mandatoryCosts;
+      totalEstimatedCost = Math.max(totalEstimatedCost, 100000); // Absolute minimum, e.g. 100k
+      totalEstimatedCost = Math.round(totalEstimatedCost / 5000) * 5000; // Round to nearest 5000
+      if (calculatedCostNewP) {
+        calculatedCostNewP.textContent = `от ${formatCurrency(totalEstimatedCost)} руб.`;
+      }
+    }
+    if (debtAmountSlider) debtAmountSlider.addEventListener('input', updateCalculatorDisplay);
+    if (creditorsCountSlider) creditorsCountSlider.addEventListener('input', updateCalculatorDisplay);
+    if (hasPropertyRadios) hasPropertyRadios.forEach(radio => radio.addEventListener('change', updateCalculatorDisplay));
+    if (regionSelect) regionSelect.addEventListener('change', updateCalculatorDisplay);
+    updateCalculatorDisplay(); // Initial calculation
+    // Contact Form
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        formStatus.textContent = 'Отправка заявки...';
+        formStatus.className = 'mt-4 text-sm text-center text-[var(--color-primary)]';
+        // Simulate form submission
+        setTimeout(() => {
+          formStatus.textContent = 'Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.';
+          formStatus.className = 'mt-4 text-sm text-center text-green-600';
+          contactForm.reset();
+        }, 2000);
+      });
+    }
+    // Set current year in footer
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
+      currentYearSpan.textContent = new Date().getFullYear();
+    }
+  </script>
+
+</body></html>
