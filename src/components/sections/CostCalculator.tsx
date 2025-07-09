@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 
 export default function CostCalculator() {
   // Статические данные для демонстрации
-  const basePrice = 50000;
-  const propertyFee = 20000;
-  const creditorsFee = 10000;
-  const totalPrice = basePrice + propertyFee + creditorsFee;
-  const installmentPrice = Math.round(totalPrice / 3);
+  // const basePrice = 50000;
+  // const propertyFee = 20000;
+  // const creditorsFee = 10000;
+  // const totalPrice = basePrice + propertyFee + creditorsFee;
+  // const installmentPrice = Math.round(totalPrice / 3);
 
   return (
     <section id="calculator" className="section-padding bg-neutral-white">
