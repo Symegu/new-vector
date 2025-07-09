@@ -1,0 +1,42 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 38 48 60; /* #26303c */
+  }
+  
+  .dark {
+    --background: 38 48 60; /* #26303c */
+    --foreground: 255 255 255;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))] font-sans antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-light text-white font-bold py-3 px-8 rounded-lg transition shadow-button;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/90 text-primary-dark font-bold py-3 px-8 rounded-lg transition border-2 border-primary;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-custom {
+    @apply container mx-auto px-4 max-w-6xl;
+  }
+}
