@@ -15,6 +15,7 @@ import ConsultationForm from '@/components/sections/ConsultationForm';
 import FAQSection from '@/components/sections/FAQSection';
 import Footer from '@/components/layout/Footer';
 
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-white text-primary-dark">
