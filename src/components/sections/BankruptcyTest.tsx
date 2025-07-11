@@ -3,10 +3,7 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
-type AnswerOption = {
-  label: string;
-  value: number;
-};
+type AnswerOption = (number | null)[];
 
 const questions = [
   {
@@ -65,7 +62,7 @@ const questions = [
 ];
 
 // Логика определения результата
-const getResultByAnswers = (answers) => {
+const getResultByAnswers = (answers: AnswerOption) => {
   const [q1, q2, q3, q4, q5] = answers;
 
   if (
@@ -161,15 +158,15 @@ export default function BankruptcyTest() {
     setIsFinished(true);
   }
 
-  // Обработка отправки формы
-  const handleSubmit = () => {
-    if (answers.some(a => a === null)) {
-      alert('Пожалуйста, выберите ответы на все вопросы');
-      return;
-    }
+  // // Обработка отправки формы
+  // const handleSubmit = () => {
+  //   if (answers.some(a => a === null)) {
+  //     alert('Пожалуйста, выберите ответы на все вопросы');
+  //     return;
+  //   }
 
-    goToNextQuestion();
-  }
+  //   goToNextQuestion();
+  // }
 
   if (testPassed && !isFinished) {
     return (
