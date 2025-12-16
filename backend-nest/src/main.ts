@@ -7,12 +7,22 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: false,
-      transform: true,
+      whitelist: true,
       forbidNonWhitelisted: false,
+      transform: true,
       exceptionFactory: (errors) => {
-        console.log('Validation errors:', errors); // ← Добавь
-        return new BadRequestException(errors);
+        // соберём ошибки по полям в простой объект
+        const fieldErrors: Record<string, string> = {};
+        for (const err of errors) {
+          if (err.constraints) {
+            fieldErrors[err.property] = Object.values(err.constraints)[0];
+          }
+        }
+
+        return new BadRequestException({
+          status: 'validation_error',
+          errors: fieldErrors,
+        });
       },
     }),
   );

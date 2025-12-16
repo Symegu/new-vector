@@ -7,6 +7,7 @@ import { FadeInSection } from "../ui/fadeIn";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Badge } from "../ui/badge";
+import { LeadForm } from "../forms/LeadForm";
 
 export function QuizSection() {
   return (
@@ -40,7 +41,7 @@ export function QuizSection() {
         </FadeInSection>
 
         <FadeInSection delay={0.2}>
-          <Card className="shadow-nv-card border-slate-100">
+          <Card className="border-slate-100">
             <Quiz />
           </Card>
         </FadeInSection>
@@ -67,7 +68,9 @@ type QuizResult = {
   message: string;
 };
 
-const STORAGE_KEY = "nv_quiz_result";
+
+const RESULT_STORAGE_KEY = "nv_quiz_result";
+const QUIZ_ID_STORAGE_KEY = "nv_quiz_result_id";
 
 const steps: StepKey[] = ["debt", "overdue", "enforcement", "assets", "ready"];
 const debtOptions: { value: DebtLevel; label: string }[] = [
@@ -108,6 +111,90 @@ function calculateResult(answers: QuizAnswers): QuizResult {
   return { score, level, title, message };
 }
 
+function buildReadableAnswers(a: QuizAnswers): string[] {
+  const list: string[] = [];
+
+  if (a.debt) {
+    list.push(
+      a.debt === "small"
+        ? "Долг: до 300 000 ₽"
+        : a.debt === "medium"
+        ? "Долг: 300 000–700 000 ₽"
+        : "Долг: более 700 000 ₽",
+    );
+  }
+
+  if (a.overdue) {
+    list.push(
+      a.overdue === "yes"
+        ? "Просрочки: есть / платить тяжело"
+        : "Просрочки: нет, плачу вовремя",
+    );
+  }
+
+  if (a.enforcement) {
+    list.push(
+      a.enforcement === "yes"
+        ? "Есть решения суда / исполнительные производства"
+        : "Решений суда и приставов пока нет",
+    );
+  }
+
+  if (a.assets && a.assets.length > 0) {
+    const map: Record<string, string> = {
+      flat: "Квартира",
+      house: "Дом / дача",
+      car: "Автомобиль",
+      no_assets: "Ценного имущества нет",
+    };
+    list.push(
+      "Имущество: " +
+        a.assets
+          .map((v) => map[v] || v)
+          .join(", "),
+    );
+  }
+
+  if (a.ready) {
+    const mapReady: Record<NonNullable<QuizAnswers["ready"]>, string> = {
+      not_sure: "Пока просто изучает варианты",
+      yes: "Готов(а) подробно обсудить банкротство",
+      no: "Скорее хочет рассмотреть другие решения",
+    };
+    list.push("Настрой: " + mapReady[a.ready]);
+  }
+
+  return list;
+}
+
+async function saveQuizResultOnBackend(result: QuizResult, answersReadable: string[]) {
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+  try {
+    const res = await fetch(`${apiUrl}/api/public/quiz-results`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        score: result.score,
+        level: result.level,
+        title: result.title,
+        message: result.message,
+        answers: answersReadable,
+      }),
+    });
+
+    if (!res.ok) return null;
+    const data = (await res.json()) as { id?: string };
+    if (data?.id && typeof window !== "undefined") {
+      window.localStorage.setItem(QUIZ_ID_STORAGE_KEY, data.id);
+      return data.id;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+
 export function Quiz() {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [stepIndex, setStepIndex] = useState(0);
@@ -117,6 +204,7 @@ export function Quiz() {
   const [leadForm, setLeadForm] = useState({
     name: "",
     phone: "",
+    email: "",
     comment: "",
   });
 
@@ -124,7 +212,7 @@ export function Quiz() {
     setIsHydrated(true);
 
     if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored = window.localStorage.getItem(RESULT_STORAGE_KEY);
     if (!stored) return;
 
     try {
@@ -138,15 +226,17 @@ export function Quiz() {
   const currentStep = steps[stepIndex];
   const progress = ((stepIndex + 1) / steps.length) * 100;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (stepIndex < steps.length - 1) {
       setStepIndex((i) => i + 1);
     } else {
       const res = calculateResult(answers);
       setResult(res);
       if (typeof window !== "undefined") {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(res));
+        window.localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(res));
       }
+      const readable = buildReadableAnswers(answers);
+      await saveQuizResultOnBackend(res, readable);
     }
   };
 
@@ -172,27 +262,24 @@ export function Quiz() {
     });
   };
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Lead from quiz:", { leadForm, result, answers });
-  };
-
   if (isHydrated && result) {
     return (
       <div className="grid md:grid-cols-2 gap-6">
         {/* Итог квиза */}
-        <div className="rounded-2xl bg-slate-50 p-6 md:p-8 flex flex-col">
+        <div className="rounded-2xl bg-white p-6 md:p-8 flex flex-col justify-between shadow-nv-soft">
           <div className="flex items-center mb-4">
             <CheckCircle2 className="h-6 w-6 text-emerald-500 mr-2" />
-            <span className="text-sm font-medium text-emerald-700">
+            <span className="text-lg font-medium text-emerald-700">
               Результат вашего теста
             </span>
           </div>
-          <h3 className="text-xl font-semibold text-primary mb-3">
-            {result.title}
-          </h3>
-          <p className="text-secondary mb-4">{result.message}</p>
-          <div className="mt-auto">
+          <div className="bg-nv-badge p-8 rounded-xl">
+            <h4 className="text-primary mb-3">
+              {result.title}
+            </h4>
+            <p className="text-secondary mb-4">{result.message}</p>
+          </div>
+          <div className="">
             <p className="text-xs text-muted">
               Этот тест носит ориентировочный характер и не заменяет
               индивидуальную юридическую консультацию. Окончательное решение
@@ -202,70 +289,17 @@ export function Quiz() {
         </div>
 
         {/* Форма записи на консультацию */}
-        <form
-          onSubmit={handleLeadSubmit}
-          className="rounded-2xl border border-slate-100 bg-white p-6 md:p-8 flex flex-col gap-4 shadow-nv-soft"
-        >
-          <h3 className="text-xl font-semibold text-primary">
-            Записаться на консультацию
-          </h3>
-          <p className="text-secondary text-sm">
-            Оставьте контакты, и юрист «Нового Вектора» свяжется с вами,
-            чтобы обсудить результат теста и подобрать безопасное решение по долгам.
-          </p>
-          <div className="space-y-3 mt-2">
-            <div>
-              <label className="block text-sm text-secondary mb-1">
-                Имя
-              </label>
-              <Input
-                value={leadForm.name}
-                onChange={(e) =>
-                  setLeadForm((f) => ({ ...f, name: e.target.value }))
-                }
-                required
-                placeholder="Как к вам обращаться"
-              />
-            </div>
-            <div>
-              <label className="block text-sm text-secondary mb-1">
-                Телефон
-              </label>
-              <Input
-                type="tel"
-                value={leadForm.phone}
-                onChange={(e) =>
-                  setLeadForm((f) => ({ ...f, phone: e.target.value }))
-                }
-                required
-                placeholder="+7 (921) 010-46-26"
-              />
-            </div>
-            <div>
-              <label className="block text-sm text-secondary mb-1">
-                Комментарий (по желанию)
-              </label>
-              <Textarea
-                rows={3}
-                value={leadForm.comment}
-                onChange={(e) =>
-                  setLeadForm((f) => ({ ...f, comment: e.target.value }))
-                }
-                placeholder="Например: сумма долгов, количество кредиторов, важные детали."
-              />
-            </div>
-          </div>
-          <button type="submit" className="btn-nv-blue mt-2">
-            <span className="flex items-center justify-center gap-2">
-              Отправить и получить консультацию
-              {/* <ArrowRight /> */}
-            </span>
-          </button>
-          <p className="text-[11px] text-muted mt-1">
-            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
-            Данные не передаются третьим лицам.
-          </p>
-        </form>
+        <div className="rounded-2xl border border-slate-100 bg-white p-6 md:p-8 flex flex-col gap-4 shadow-nv-soft">
+  <LeadForm
+    title="Записаться на консультацию"
+    description="Оставьте контакты, и юрист «Нового Вектора» свяжется с вами, чтобы обсудить результат теста и подобрать бережное решение по долгам."
+    submitLabel="Отправить и получить консультацию"
+    submitLoadingLabel="Отправляем…"
+    buttonClassName="btn-nv-blue mt-2"
+    compact
+    showModals={true}
+  />
+</div>
       </div>
     );
   }
@@ -284,113 +318,189 @@ export function Quiz() {
 
       <div className="border border-slate-100 rounded-2xl bg-white p-6 md:p-8 space-y-6">
         {currentStep === "debt" && (
-          <>
+          <div>
             <h3 className="text-lg font-semibold text-primary mb-2">
               Примерная сумма ваших долгов
             </h3>
-            <p className="text-sm text-secondary mb  -4">
+            <p className="text-sm text-secondary mb-4">
               Учитывайте кредиты, займы, задолженности по налогам и ЖКХ.
             </p>
-            <div className="grid gap-3">
-              {debtOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() =>
-                    setAnswers((prev) => ({ ...prev, debt: opt.value }))
-                  }
-                  className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition ${
-                    answers.debt === opt.value
-                      ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:border-emerald-400 hover:bg-slate-50"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
 
+            <div className="flex flex-col gap-2">
+              {debtOptions.map((opt) => {
+                const selected = answers.debt === opt.value;
+
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, debt: opt.value }))
+                    }
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition
+                      ${
+                        selected
+                          ? "border-emerald-500 bg-emerald-50 shadow-sm"
+                          : "border-slate-200 bg-slate-50/40 hover:border-emerald-400 hover:bg-slate-50"
+                      }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* точка-селектор */}
+                      <span
+                        className={`inline-flex h-4 w-4 items-center justify-center rounded-full border
+                          ${
+                            selected
+                              ? "border-emerald-500 bg-emerald-500"
+                              : "border-slate-300 bg-white"
+                          }`}
+                      >
+                        {selected && (
+                          <span className="block h-1.5 w-1.5 rounded-full bg-white" />
+                        )}
+                      </span>
+                      <span className="text-primary">{opt.label}</span>
+                    </div>
+
+                    {/* маленькая подсказка справа, чтобы блоки чуть отличались визуально */}
+                    {/* <span className="text-[11px] text-slate-500">
+                      {opt.value === "small"
+                        ? "Небольшая нагрузка"
+                        : opt.value === "medium"
+                        ? "Существенный долг"
+                        : "Крупная задолженность"}
+                    </span> */}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
         {currentStep === "overdue" && (
-          <>
+          <div>
             <h3 className="text-lg font-semibold text-primary mb-2">
               Есть ли просрочки по платежам
             </h3>
             <p className="text-sm text-secondary mb-4">
               В том числе по кредитам, займам, налогам или ЖКХ.
             </p>
-            <div className="grid gap-3">
-              <button
-                type="button"
-                onClick={() =>
-                  setAnswers((prev) => ({ ...prev, overdue: "no" }))
-                }
-                className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition ${
-                  answers.overdue === "no"
-                    ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:border-emerald-400 hover:bg-slate-50"
-                }`}
-              >
-                Плачу вовремя, просрочек нет
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setAnswers((prev) => ({ ...prev, overdue: "yes" }))
-                }
-                className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition ${
-                  answers.overdue === "yes"
-                    ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:border-emerald-400 hover:bg-slate-50"
-                }`}
-              >
-                Есть просрочки / платить стало тяжело
-              </button>
-            </div>
-          </>
-        )}
 
+            <div className="flex flex-col gap-2">
+              {[
+                {
+                  value: "no" as const,
+                  label: "Плачу вовремя, просрочек нет",
+                  // hint: "Ситуация под контролем, но важно следить за нагрузкой.",
+                },
+                {
+                  value: "yes" as const,
+                  label: "Есть просрочки / платить стало тяжело",
+                  // hint: "Лучше обсудить с юристом, чтобы не усугубить ситуацию.",
+                },
+              ].map((opt) => {
+                const selected = answers.overdue === opt.value;
+
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, overdue: opt.value }))
+                    }
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition
+                      ${
+                        selected
+                          ? "border-emerald-500 bg-emerald-50 shadow-sm"
+                          : "border-slate-200 bg-slate-50/40 hover:border-emerald-400 hover:bg-slate-50"
+                      }`}
+                  >
+                    <div className="flex items-center gap-3 text-left">
+                      <span
+                        className={`inline-flex h-4 w-4 items-center justify-center rounded-full border
+                          ${
+                            selected
+                              ? "border-emerald-500 bg-emerald-500"
+                              : "border-slate-300 bg-white"
+                          }`}
+                      >
+                        {selected && (
+                          <span className="block h-1.5 w-1.5 rounded-full bg-white" />
+                        )}
+                      </span>
+                      <span className="text-primary">{opt.label}</span>
+                    </div>
+
+                    {/* <span className="hidden sm:block text-[11px] text-slate-500 ml-4">
+                      {opt.hint}
+                    </span> */}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
         {currentStep === "enforcement" && (
-          <>
+          <div>
             <h3 className="text-lg font-semibold text-primary mb-2">
               Требования от кредиторов и приставов
             </h3>
             <p className="text-sm text-secondary mb-4">
-              Были ли решения суда, исполнительные производства или активные
-              звонки и письма от взыскателей.
+              Были ли решения суда, исполнительные производства или активные звонки и письма от взыскателей.
             </p>
-            <div className="grid gap-3">
-              <button
-                type="button"
-                onClick={() =>
-                  setAnswers((prev) => ({ ...prev, enforcement: "no" }))
-                }
-                className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition ${
-                  answers.enforcement === "no"
-                    ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:border-emerald-400 hover:bg-slate-50"
-                }`}
-              >
-                Пока нет решений суда и приставов
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setAnswers((prev) => ({ ...prev, enforcement: "yes" }))
-                }
-                className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition ${
-                  answers.enforcement === "yes"
-                    ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:border-emerald-400 hover:bg-slate-50"
-                }`}
-              >
-                Есть решения суда / исполнительные производства
-              </button>
-            </div>
-          </>
-        )}
 
+            <div className="flex flex-col gap-2">
+              {[
+                {
+                  value: "no" as const,
+                  label: "Пока нет решений суда и приставов",
+                  hint: "Важно не доводить до суда, можно обсудить ситуацию заранее.",
+                },
+                {
+                  value: "yes" as const,
+                  label: "Есть решения суда / исполнительные производства",
+                  hint: "Это серьёзный сигнал, стоит обсудить защиту и списание долгов.",
+                },
+              ].map((opt) => {
+                const selected = answers.enforcement === opt.value;
+
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, enforcement: opt.value }))
+                    }
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition
+                      ${
+                        selected
+                          ? "border-emerald-500 bg-emerald-50 shadow-sm"
+                          : "border-slate-200 bg-slate-50/40 hover:border-emerald-400 hover:bg-slate-50"
+                      }`}
+                  >
+                    <div className="flex items-center gap-3 text-left">
+                      <span
+                        className={`inline-flex h-4 w-4 items-center justify-center rounded-full border
+                          ${
+                            selected
+                              ? "border-emerald-500 bg-emerald-500"
+                              : "border-slate-300 bg-white"
+                          }`}
+                      >
+                        {selected && (
+                          <span className="block h-1.5 w-1.5 rounded-full bg-white" />
+                        )}
+                      </span>
+                      <span className="text-primary">{opt.label}</span>
+                    </div>
+
+                    {/* <span className="hidden sm:block text-[11px] text-slate-500 ml-4">
+                      {opt.hint}
+                    </span> */}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
         {currentStep === "assets" && (
           <>
             <h3 className="text-lg font-semibold text-primary mb-2">
@@ -434,47 +544,76 @@ export function Quiz() {
             </div>
           </>
         )}
-
         {currentStep === "ready" && (
-          <>
+          <div>
             <h3 className="text-lg font-semibold text-primary mb-2">
               Насколько вы готовы рассматривать банкротство
             </h3>
             <p className="text-sm text-secondary mb-4">
               Ответ нужен, чтобы понять, как лучше построить консультацию.
             </p>
-            <div className="grid gap-3">
+
+            <div className="flex flex-col gap-2">
               {[
-                { value: "not_sure", label: "Пока просто изучаю варианты" },
                 {
-                  value: "yes",
+                  value: "not_sure" as const,
+                  label: "Пока просто изучаю варианты",
+                  hint: "Можно задать любые вопросы без обязательств.",
+                },
+                {
+                  value: "yes" as const,
                   label: "Готов(а) обсудить процедуру подробно",
+                  hint: "Подберём безопасный план списания долгов.",
                 },
                 {
-                  value: "no",
+                  value: "no" as const,
                   label: "Скорее хочу рассмотреть другие решения",
+                  hint: "Обсудим альтернативы банкротству и мягкие варианты.",
                 },
-              ].map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() =>
-                    setAnswers((prev) => ({
-                      ...prev,
-                      ready: opt.value as QuizAnswers["ready"],
-                    }))
-                  }
-                  className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition ${
-                    answers.ready === opt.value
-                      ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:border-emerald-400 hover:bg-slate-50"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
+              ].map((opt) => {
+                const selected = answers.ready === opt.value;
+
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() =>
+                      setAnswers((prev) => ({
+                        ...prev,
+                        ready: opt.value as QuizAnswers["ready"],
+                      }))
+                    }
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition
+                      ${
+                        selected
+                          ? "border-emerald-500 bg-emerald-50 shadow-sm"
+                          : "border-slate-200 bg-slate-50/40 hover:border-emerald-400 hover:bg-slate-50"
+                      }`}
+                  >
+                    <div className="flex items-center gap-3 text-left">
+                      <span
+                        className={`inline-flex h-4 w-4 items-center justify-center rounded-full border
+                          ${
+                            selected
+                              ? "border-emerald-500 bg-emerald-500"
+                              : "border-slate-300 bg-white"
+                          }`}
+                      >
+                        {selected && (
+                          <span className="block h-1.5 w-1.5 rounded-full bg-white" />
+                        )}
+                      </span>
+                      <span className="text-primary">{opt.label}</span>
+                    </div>
+
+                    {/* <span className="hidden sm:block text-[11px] text-slate-500 ml-4">
+                      {opt.hint}
+                    </span> */}
+                  </button>
+                );
+              })}
             </div>
-          </>
+          </div>
         )}
       </div>
 

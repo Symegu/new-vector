@@ -9,6 +9,8 @@ import { QuizResult } from './entities/quiz-result.entity';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { AuthModule } from './auth/auth.module';
 import { LeadsModule } from './leads/leads.module';
+import { QuizResultsModule } from './quiz-results/quiz-results.module';
+import { PublicModule } from './public/public.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { LeadsModule } from './leads/leads.module';
     }),
     AuthModule,
     LeadsModule,
+    QuizResultsModule,
+    PublicModule,
   ],
   controllers: [AppController],
   providers: [AppService],

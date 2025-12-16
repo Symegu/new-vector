@@ -1,0 +1,70 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ========== Dependencies ==========
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.npm
+.pnpm
+
+# ========== Builds / Artifacts ==========
+# Next.js
+.next/
+out/
+
+# Production builds (общие, в т.ч. для Nest)
+dist/
+build/
+backend-nest/*
+
+# Testing
+coverage/
+.nyc_output
+
+# ========== Logs ==========
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# ========== Environment variables ==========
+# общий вариант (если хочешь что-то закоммитить — переименуешь)
+.env*
+.env
+.env.local
+.env.*.local
+
+# ========== OS files ==========
+.DS_Store
+Thumbs.db
+
+# ========== Editors ==========
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ========== TypeScript ==========
+*.tsbuildinfo
+next-env.d.ts
+
+# ========== Runtime data ==========
+pids
+*.pid
+*.seed
+*.pid.lock
+.node_repl_history
+
+# ========== Tools / Misc ==========
+docker-compose.override.yml
+.eslintcache
+*.pem
+
+# ========== Vercel / Hosting ==========
+.vercel

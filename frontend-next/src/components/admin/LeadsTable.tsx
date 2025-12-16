@@ -115,6 +115,9 @@ export default function LeadsTable() {
 
   return (
     <div className="p-8 space-y-6">
+      <h2 className='pb-5'>
+        Заявки
+      </h2>
       {/* Filters */}
       <div className="space-y-4">
         {/* Поиск */}

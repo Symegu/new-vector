@@ -83,7 +83,7 @@ export function HeroSection() {
           </div>
 
           {/* Benefit Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {[
               { icon: Shield, text: "100% законно" },
               { icon: Clock, text: "От 6 месяцев" },

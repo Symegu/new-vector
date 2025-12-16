@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import Image from "next/image";
 
-export function Header() {
+type HeaderProps = {
+  onOpenLeadModal: () => void;
+};
+
+export function Header({ onOpenLeadModal }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -79,7 +83,7 @@ export function Header() {
           </nav>
 
           {/* Desktop Contact Info + CTA */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <div className="flex items-center gap-2 text-on-dark-secondary">
               <Phone className="icon-sm shrink-0 icon-light" />
               <span className="whitespace-nowrap text-sm font-normal">
@@ -88,7 +92,7 @@ export function Header() {
             </div>
             <button
               type="button"
-              onClick={() => scrollToSection("contactForm")}
+              onClick={onOpenLeadModal}
               className="btn-nv-blue"
             >
               Консультация
@@ -136,7 +140,7 @@ export function Header() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => scrollToSection("contactForm")}
+                  onClick={onOpenLeadModal}
                   className="btn-nv-blue"
                 >
                   Консультация

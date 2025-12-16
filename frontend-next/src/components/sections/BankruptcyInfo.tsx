@@ -316,7 +316,7 @@ export function BankruptcyInfoSection() {
                         >
                           <category.icon className="h-6 w-6 text-white" />
                         </div>
-                        <h5 className="text-primary mb-4">
+                        <h5 className="text-primary mb-4 !md:text-lg">
                           {category.title}
                         </h5>
                       </div>
