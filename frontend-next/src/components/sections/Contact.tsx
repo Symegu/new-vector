@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Sparkles, Phone, Mail, MapPin, Clock, CheckCircle2, Shield } from 'lucide-react'
-import { ConsultationForm } from '../forms/ConsultationForm'
+// import { ConsultationForm } from '../forms/ConsultationForm'
 import { Card } from '../ui/card'
 import { FadeInSection } from '../ui/fadeIn'
+import { LeadForm } from '../forms/LeadForm'
 
 export function ContactSection() {
   return (
@@ -76,7 +77,141 @@ export function ContactSection() {
         </FadeInSection>
 
         {/* Form + contacts + map + benefit cards */}
-        <ConsultationForm />
+        <FadeInSection delay={0.3}>
+          <div className="max-w-5xl mx-auto" id="contactForm">
+            <Card className="bg-white/95 backdrop-blur-xl border-blue-600 shadow-nv-card overflow-hidden">
+              <div className="grid lg:grid-cols-2">
+                <LeadForm
+                  title="Заполните форму"
+                  description="Расскажите в двух словах о долгах. Юрист лично свяжется с вами, чтобы предложить безопасный вариант решения."
+                  submitLabel="Получить консультацию"
+                  submitLoadingLabel="Отправляем…"
+                  buttonClassName="btn-nv-gold w-full py-7 text-xl rounded-xl shadow-nv-card"
+                  formClass='p-8 md:p-12'
+                />
+                {/* Info + Map Side */}
+                <div className="bg-light p-8 md:p-12 text-white relative overflow-hidden">
+                  <div className="relative z-10 flex flex-col gap-8 h-full">
+                    {/* Контакты */}
+                    {/* <h3 className="mb-8 text-on-dark">Контакты</h3> */}
+                    <div className="space-y-5">
+                      <div className="flex flex-col items-start space-x-3 gap-2">
+                        <div className='flex items-center gap-2'>
+                          <Phone className="h-5 w-5 text-blue-200" />
+                          <p className="text-on-dark-secondary text-blue-200"
+                            style={{margin: '0'}}
+                          >Телефон</p>
+                        </div>
+                        <a
+                            href="tel:+79210104626"
+                            className="text-lg text-on-dark"
+                          >
+                            +7 (921) 010-46-26
+                          </a>
+                      </div>
+
+                      <div className="flex flex-col items-start space-x-3 gap-2">
+                        <div className='flex items-center gap-2'>
+                          <Mail className="h-5 w-5 text-blue-200" />
+                          <p className="text-on-dark-secondary text-blue-200"
+                            style={{margin: '0'}}
+                          >Email</p>
+                        </div>
+                          <a
+                            href="mailto:info@vector.ru"
+                            className="text-lg text-on-dark"
+                          >
+                            info@vector.ru
+                          </a>
+                      </div>
+
+                      <div className="flex flex-col items-start space-x-3 gap-2">
+                        <div className='flex items-center gap-2'>
+                          <Clock className="h-5 w-5 text-blue-200" />
+                          <p className="text-on-dark-secondary text-blue-200"
+                            style={{margin: '0'}}>Режим работы</p>
+                        </div>
+                          <p className="text-lg text-on-dark" style={{margin: '0'}}>Ежедневно 9:00 – 21:00</p>
+                      </div>
+
+                      <div className="flex flex-col items-start space-x-3 gap-2">
+                        <div className='flex items-center gap-2'>
+                          <MapPin className="h-5 w-5 text-blue-200" />
+                          <p className="text-on-dark-secondary text-blue-200"
+                            style={{margin: '0'}}>Адрес филиала 1</p>
+                        </div>
+                          <p className="text-lg text-on-dark" style={{margin: '0'}}>
+                            Олонец, офис «Новый Вектор»
+                          </p>
+                      </div>
+
+                      {/* <div className="flex items-center space-x-3 opacity-70">
+                        <MapPin className="h-5 w-5 text-blue-200" />
+                        <div>
+                          <p className="text-sm text-blue-200">Адрес филиала 2</p>
+                          <p className="text-lg text-on-dark">
+                            Будущий офис (адрес уточняется)
+                          </p>
+                        </div>
+                      </div> */}
+                    </div>
+
+                    {/* Карта */}
+                    <div className="mt-auto">
+                      <div className="rounded-2xl overflow-hidden border border-white/20 shadow-nv-soft bg-slate-900/40">
+                        <div style={{ position: 'relative', overflow: 'hidden' }}>
+                          {/* Ссылки от Яндекса можно оставить для атрибуции, 
+                              но скрыть визуально, если нужно, через sr-only */}
+                          <a
+                            href="https://yandex.ru/maps/org/novy_vektor/87852798729/?utm_medium=mapframe&utm_source=maps"
+                            style={{
+                              color: '#eee',
+                              fontSize: 12,
+                              position: 'absolute',
+                              top: 0,
+                            }}
+                          >
+                            Новый вектор
+                          </a>
+                          <a
+                            href="https://yandex.ru/maps/20129/olonets/category/legal_services/184105630/?utm_medium=mapframe&utm_source=maps"
+                            style={{
+                              color: '#eee',
+                              fontSize: 12,
+                              position: 'absolute',
+                              top: 14,
+                            }}
+                          >
+                            Юридические услуги в Олонце
+                          </a>
+                          <a
+                            href="https://yandex.ru/maps/20129/olonets/category/bankruptcy_of_individuals/93680225448/?utm_medium=mapframe&utm_source=maps"
+                            style={{
+                              color: '#eee',
+                              fontSize: 12,
+                              position: 'absolute',
+                              top: 28,
+                            }}
+                          >
+                            Банкротство физических лиц в Олонце
+                          </a>
+                          <iframe
+                            src="https://yandex.ru/map-widget/v1/org/novy_vektor/87852798729/?ll=32.972673%2C60.977810&z=16.49"
+                            width="100%"
+                            height="360"
+                            frameBorder="1"
+                            allowFullScreen={true}
+                            style={{ position: 'relative' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </FadeInSection>
 
         {/* Benefit Cards (desktop + tablet only) */}
         <FadeInSection delay={0.4}>
