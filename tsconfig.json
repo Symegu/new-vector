@@ -18,6 +18,10 @@
         "name": "next"
       }
     ],
+<<<<<<< Updated upstream:tsconfig.json
+=======
+    "baseUrl": "./",
+>>>>>>> Stashed changes:frontend-next/tsconfig.json
     "paths": {
       "@/*": ["./src/*"]
     }
