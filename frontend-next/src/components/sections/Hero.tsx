@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, Shield, Clock, Award, ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 
 export function HeroSection() {
   const { scrollY } = useScroll();

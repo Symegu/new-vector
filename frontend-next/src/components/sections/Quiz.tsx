@@ -1,13 +1,12 @@
 "use client";
-
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { FadeInSection } from "@/components/ui/fadeIn";
 import { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Progress } from "@/components/ui/progress";
 import { CheckCircle2, ArrowRight, Home, Car, Building2 } from "lucide-react";
+import { Progress } from "@radix-ui/react-progress";
+import { Card } from "../ui/card";
+import { FadeInSection } from "../ui/fadeIn";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Badge } from "../ui/badge";
 
 export function QuizSection() {
   return (

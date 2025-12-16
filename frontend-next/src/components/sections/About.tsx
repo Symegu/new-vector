@@ -12,11 +12,10 @@ import {
   Star,
   Target,
 } from "lucide-react";
+import { Progress } from "../ui/progress";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
+import { Card } from "../ui/card";
 
-import { Card } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
 
 function FadeInSection({
   children,

@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import AdminSidebar from '@/components/admin/AdminSidebar'
-import AdminHeader from '@/components/admin/AdminHeader'
-import '@/styles/admin-globals.css'
+import AdminHeader from '@/src/components/admin/AdminHeader'
+import AdminSidebar from '@/src/components/admin/AdminSidebar'
+import '../../styles/admin-globals.css'
 
 export default function AdminLayout({
   children,

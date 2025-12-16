@@ -3,9 +3,9 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Sparkles, Phone, Mail, MapPin, Clock, CheckCircle2, Shield } from 'lucide-react'
-import { FadeInSection } from '@/components/ui/fadeIn'
 import { ConsultationForm } from '../forms/ConsultationForm'
 import { Card } from '../ui/card'
+import { FadeInSection } from '../ui/fadeIn'
 
 export function ContactSection() {
   return (

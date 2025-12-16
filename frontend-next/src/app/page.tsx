@@ -1,16 +1,15 @@
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
-import { AboutSection } from "@/components/sections/About";
-import { BankruptcyInfoSection } from "@/components/sections/BankruptcyInfo";
-//import { BenefitsSection } from "@/components/sections/Benefits";
-import { ContactSection } from "@/components/sections/Contact";
-import { FAQSection } from "@/components/sections/FAQ";
-import { HeroSection } from "@/components/sections/Hero";
-import { ProcessStepsSection } from "@/components/sections/ProcessSteps";
-import { QuizSection } from "@/components/sections/Quiz";
-import { SuccessStoriesSection } from "@/components/sections/SuccessStories";
-//import { TestimonialsSection } from "@/components/sections/Testimonials";
-import { TrustBarSection } from "@/components/sections/TrustBar";
+import { Footer } from "../components/layout/Footer";
+import { Header } from "../components/layout/Header";
+import { AboutSection } from "../components/sections/About";
+import { BankruptcyInfoSection } from "../components/sections/BankruptcyInfo";
+import { ContactSection } from "../components/sections/Contact";
+import { FAQSection } from "../components/sections/FAQ";
+import { HeroSection } from "../components/sections/Hero";
+import { ProcessStepsSection } from "../components/sections/ProcessSteps";
+import { QuizSection } from "../components/sections/Quiz";
+import { SuccessStoriesSection } from "../components/sections/SuccessStories";
+import { TrustBarSection } from "../components/sections/TrustBar";
+
 
 export default function Home() {
   return (

@@ -1,14 +1,10 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@/components/ui/accordion'
-import { FadeInSection } from '@/components/ui/fadeIn'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion"
+import { Card } from "../ui/card"
+import { FadeInSection } from "../ui/fadeIn"
+import { Badge } from "../ui/badge";
+
 
 export function FAQSection() {
   return (

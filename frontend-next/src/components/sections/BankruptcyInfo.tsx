@@ -14,10 +14,10 @@ import {
   Briefcase,
   Home,
 } from "lucide-react";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
+import { Badge } from "../ui/badge";
 
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 function FadeInSection({
   children,
@@ -60,7 +60,7 @@ export function BankruptcyInfoSection() {
         <FadeInSection>
           <div className="text-center mb-16">
             <Badge className="inline-flex items-center space-x-2 bg-linear-to-r from-blue-100 to-amber-100 text-blue-700 hover:from-blue-200 hover:to-amber-200 border-0 px-6 py-3 rounded-full shadow-nv-soft text-md">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+              {/* <div className="w-2 h-2 bg-blue-500 rounded-full" /> */}
               <span>Банкротство и работа с долгами</span>
             </Badge>
             {/* <p className="text-secondary max-w-2xl mx-auto text-lg">
@@ -149,10 +149,10 @@ export function BankruptcyInfoSection() {
           {/* CTA & Steps Card */}
           <div className="space-y-8">
             <FadeInSection delay={0.4}>
-              <Card className="relative grad-nv-blue-main border-0 shadow-nv-card p-8 text-white overflow-hidden">
+              <Card className="relative bg-light border-0 shadow-nv-card p-8 text-white overflow-hidden">
                 {/* Decorative elements */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl" />
+                {/* <div className="absolute top-0 right-0 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl" /> */}
 
                 <div className="relative z-10">
                   <div className="flex gap-3 items-center mb-4">

@@ -4,9 +4,15 @@ import * as React from "react";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
 import { cn } from "./utils";
 
+// ✅ Расширьте типы явно
+interface ProgressProps {
+  className?: string;
+  value?: number;
+}
+
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
+  HTMLDivElement, // ✅ Явный тип ref
+  ProgressProps  // ✅ Собственные props
 >(({ className, value = 0, ...props }, ref) => (
   <ProgressPrimitive.Root
     ref={ref}
@@ -15,13 +21,15 @@ const Progress = React.forwardRef<
       className
     )}
     {...props}
+    value={value} // ✅ Передача value наверх
   >
     <ProgressPrimitive.Indicator
-      className="h-full w-full flex-1 bg-blue-600 transition-all"
-      style={{ transform: `translateX(-${100 - value}%)` }}
+      className="h-full bg-blue-600 transition-all rounded-full"
+      style={{ width: `${value}%` }} // ✅ Простой width
     />
   </ProgressPrimitive.Root>
 ));
-Progress.displayName = ProgressPrimitive.Root.displayName;
+
+Progress.displayName = "Progress";
 
 export { Progress };
