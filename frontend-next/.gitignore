@@ -19,7 +19,7 @@
 
 # production
 /build
-/backend-nest
+backend-nest/*
 # misc
 .DS_Store
 *.pem
