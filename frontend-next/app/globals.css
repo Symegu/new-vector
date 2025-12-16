@@ -1,0 +1,894 @@
+@import "tailwindcss";
+
+/* ========================================
+   БАЗОВАЯ РАЗМЕТКА И RESET
+   ======================================== */
+
+html,
+body {
+  padding: 0;
+  margin: 0 auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ========================================
+   ДИЗАЙН-ТОКЕНЫ И CSS ПЕРЕМЕННЫЕ
+   ======================================== */
+
+:root {
+  /* ——————————————— ТИПОГРАФИКА ——————————————— */
+  
+  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Размеры шрифтов (модульная шкала 1.125x) */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+
+  /* Вес шрифтов */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Высота строк */
+  --leading-tight: 1.2;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Межбуквенный интервал */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wider: 0.012em;
+
+  /* ——————————————— ЦВЕТА БРЕНДА И ТЕКСТА ——————————————— */
+  
+  --background: #ffffff;
+  --foreground: #1f2937;  /* почти чёрный для лучшей читаемости */
+
+  /* Цвета текста в разных контекстах */
+  --text-primary: #374151;     /* основной тёмный текст */
+  --text-secondary: #6b7280;   /* вторичный серый текст */
+  --text-light: #d1d5db;       /* светлый текст */
+  --text-muted: #9ca3af;       /* приглушённый текст */
+  
+  /* Текст на тёмном фоне */
+  --text-on-dark: #f9fafb;     /* светлый текст на тёмном */
+  --text-on-dark-secondary: #d1d5db;  /* вторичный светлый */
+
+  /* Brand colors */
+  --nv-bg: #26303c;          /* тёмный фон сайта */
+  --nv-blue-light: #4f8fe0;  /* светлый фирменный синий */
+  --nv-blue: #3c78d2;        /* основной фирменный синий (цвет логотипа) */
+  --nv-blue-mid: #1f4fa8;    /* промежуточный глубокий синий */
+  --nv-blue-dark: #003d9c;   /* тёмный фирменный синий */
+  --nv-neutral: #685d5f;
+  --nv-text: #ffffff;
+  --nv-gold-light: #f4d96a;
+  --nv-gold: #FFD637;
+  --nv-gold-deep: #fe9a00;
+
+  /* ——————————————— ГРАДИЕНТЫ ——————————————— */
+  
+  --nv-gradient-hero: linear-gradient(to bottom right, #020617, #0f172a, #192533);
+  --nv-gradient-section-light: linear-gradient(
+    to bottom right,
+    #ffffff,
+    #f8fafc,
+    #e5edf9
+  );
+  --nv-gradient-badge: linear-gradient(to bottom right, #dbeafe, #fef3c6);
+
+  /* Основной синий бренд-градиент */
+  --nv-grad-blue-main: linear-gradient(
+    135deg,
+    #3c78d2,
+    #003d9c
+  );
+
+  /* Мягкие однотонные градиенты для карточек */
+  --nv-grad-blue-soft: linear-gradient(
+    to bottom right,
+    #eff6ff,
+    #cee2ee
+  );
+  --nv-grad-gold-soft: linear-gradient(
+    to bottom right,
+    #fef3c7,
+    #f3d459
+  );
+
+  /* ——————————————— ТЕНИ ——————————————— */
+  
+  --nv-shadow-card: 0 18px 35px rgba(15, 23, 42, 0.20);
+  --nv-shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.10);
+  --nv-shadow-header: 0 6px 10px rgba(15, 23, 42, 0.35);
+
+  /* ——————————————— LAYOUT ——————————————— */
+  
+  --nv-section-y: 5rem; /* 80px */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========================================
+   БАЗОВЫЕ СТИЛИ СТРАНИЦЫ
+   ======================================== */
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+}
+
+/* ========================================
+   ЗАГОЛОВКИ (H1–H6)
+   ======================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  color: #374151;  /* более мягкий серый вместо чёрного */
+  letter-spacing: var(--tracking-wide);
+}
+
+h1 {
+  font-size: var(--text-5xl);
+}
+
+h2 {
+  font-size: var(--text-4xl);
+}
+
+h3 {
+  font-size: var(--text-3xl);
+}
+
+h4 {
+  font-size: var(--text-2xl);
+}
+
+h5 {
+  font-size: var(--text-xl);
+}
+
+h6 {
+  font-size: var(--text-lg);
+}
+
+/* ========================================
+   ПАРАГРАФЫ И ТЕКСТОВЫЕ ЭЛЕМЕНТЫ
+   ======================================== */
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+}
+
+p.lead {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+}
+
+small {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   ССЫЛКИ
+   ======================================== */
+
+a {
+  font-family: var(--font-body);
+  color: var(--nv-blue);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--nv-blue-dark);
+}
+
+/* ========================================
+   СПИСКИ
+   ======================================== */
+
+ul,
+ol {
+  font-family: var(--font-body);
+  margin: 0 0 1rem 1.5rem;
+  padding-left: 0;
+  line-height: var(--leading-relaxed);
+  color: var(--text-primary);
+}
+
+li {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+/* ========================================
+   TAILWIND THEME BRIDGE
+   ======================================== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/* ========================================
+   LAYOUT UTILITIES
+   ======================================== */
+
+.nv-section {
+  padding-top: var(--nv-section-y);
+  padding-bottom: var(--nv-section-y);
+}
+
+.nv-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .nv-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nv-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.nv-section-lg {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .nv-section-lg {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nv-section-lg {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* ========================================
+   ФОНЫ СЕКЦИЙ
+   ======================================== */
+
+.bg-nv-hero {
+  background: var(--nv-gradient-hero);
+}
+
+.bg-nv-section-light {
+  background: var(--nv-gradient-section-light);
+}
+
+.bg-nv-badge {
+  background: var(--nv-gradient-badge);
+}
+.bg-nv-badge:hover {
+  background: var(--nv-gradient-badge);
+}
+
+.bg-nv-dark {
+  background-color: #020617;
+}
+
+.bg-nv-dark-soft {
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+.bg-light {
+  background: var(--nv-grad-blue-main)
+}
+
+.orb-nv-blue {
+  background-color: rgba(59, 130, 246, 0.15);
+}
+
+.orb-nv-amber {
+  background-color: rgba(245, 158, 11, 0.15);
+}
+
+/* ========================================
+   ТЕНИ
+   ======================================== */
+
+.shadow-nv-card {
+  box-shadow: var(--nv-shadow-card);
+}
+
+.shadow-nv-soft {
+  box-shadow: var(--nv-shadow-soft);
+}
+
+.shadow-nv-header {
+  box-shadow: var(--nv-shadow-header);
+}
+
+/* ========================================
+   КНОПКИ И CTA
+   ======================================== */
+
+/* Базовые стили для всех кнопок */
+button,
+[role="button"],
+.btn-nv-blue,
+.btn-nv-gold {
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: inherit;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.75rem;
+  gap: 0.5rem;
+}
+
+.button-raw {
+  all: unset;      /* или all: unset; см. ниже */
+}
+/* Синяя кнопка на градиенте */
+.btn-nv-blue {
+  background-image: linear-gradient(
+    to right,
+    var(--nv-blue-mid),
+    var(--nv-blue-dark)
+  );
+  color: #ffffff;
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+  border: 1px solid var(--color-blue-600);
+  border-color: color-mix(in oklab, var(--color-blue-600) 40%, transparent);
+  box-shadow: 0 14px 30px rgba(59, 130, 246, 0.25);
+  transform: translateY(0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  min-width: 200px;
+  padding: 0.75rem 1.5rem;
+  transition:
+    box-shadow var(--duration-normal) var(--ease-standard),
+    transform var(--duration-normal) var(--ease-standard),
+    background-image var(--duration-normal) var(--ease-standard);
+}
+
+.btn-nv-blue:hover {
+  background-image: linear-gradient(
+    to right,
+    var(--nv-blue),
+    var(--nv-blue-mid)
+  );
+  box-shadow: 0 18px 40px rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-nv-blue:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+}
+
+.btn-nv-blue:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-nv-blue:focus-visible {
+  outline: 2px solid var(--nv-blue-light);
+  outline-offset: 2px;
+}
+
+/* Жёлтая кнопка на градиенте */
+.btn-nv-gold {
+  background-image: linear-gradient(
+    to right,
+    var(--nv-gold),
+    var(--nv-gold-deep)
+  );
+  color: #26303c;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: var(--font-medium);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  box-shadow: 0 12px 28px rgba(190, 148, 40, 0.3);
+  transform: translateY(0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  min-height: 50px;
+  padding: 0.75rem 1.5rem;
+  transition:
+    box-shadow var(--duration-normal) var(--ease-standard),
+    transform var(--duration-normal) var(--ease-standard),
+    background-image var(--duration-normal) var(--ease-standard);
+}
+
+.btn-nv-gold:hover {
+  background-image: linear-gradient(
+    to right,
+    var(--nv-gold-light),
+    var(--nv-gold)
+  );
+  box-shadow: 0 16px 36px rgba(190, 148, 40, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-nv-gold:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 20px rgba(190, 148, 40, 0.45);
+}
+
+.btn-nv-gold:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-nv-gold:focus-visible {
+  outline: 2px solid var(--nv-gold-light);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   ГРАДИЕНТНЫЕ ПЛАШКИ
+   ======================================== */
+
+/* .grad-nv-blue-main {
+  background-image: var(--nv-grad-blue-main);
+}
+
+.grad-nv-blue-soft {
+  background-image: var(--nv-grad-blue-soft);
+}
+
+.grad-nv-gold-soft {
+  background-image: var(--nv-grad-gold-soft);
+}
+
+.pill-nv-blue-soft {
+  background-image: var(--nv-grad-blue-soft);
+} */
+
+/* ========================================
+   ТИПОГРАФИКА В СВЕТЛЫХ СЕКЦИЯХ
+   ======================================== */
+
+.nv-title {
+  color: var(--text-primary);
+}
+
+.nv-subtitle {
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   ТИПОГРАФИКА В ТЁМНЫХ СЕКЦИЯХ
+   ======================================== */
+
+.text-on-dark {
+  color: var(--text-on-dark);
+}
+
+.text-on-dark-secondary {
+  color: var(--text-on-dark-secondary);
+}
+
+/* ========================================
+   UTILITY КЛАССЫ ДЛЯ ТИПОГРАФИКИ
+   ======================================== */
+
+/* Размеры текста */
+.text-xs {
+  font-size: var(--text-xs);
+}
+
+.text-sm {
+  font-size: var(--text-sm);
+}
+
+.text-base {
+  font-size: var(--text-base);
+}
+
+.text-lg {
+  font-size: var(--text-lg);
+}
+
+.text-xl {
+  font-size: var(--text-xl);
+}
+
+.text-2xl {
+  font-size: var(--text-2xl);
+}
+
+.text-3xl {
+  font-size: var(--text-3xl);
+}
+
+.text-4xl {
+  font-size: var(--text-4xl);
+}
+
+.text-5xl {
+  font-size: var(--text-5xl);
+}
+
+/* Вес шрифтов */
+.font-light {
+  font-weight: var(--font-light);
+}
+
+.font-normal {
+  font-weight: var(--font-normal);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+.font-semibold {
+  font-weight: var(--font-semibold);
+}
+
+.font-bold {
+  font-weight: var(--font-bold);
+}
+
+.font-extrabold {
+  font-weight: var(--font-extrabold);
+}
+
+/* Выравнивание */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* Цвет текста */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-light {
+  color: var(--text-light);
+}
+
+/* Стиль текста */
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.normal-case {
+  text-transform: none;
+}
+
+
+/* ========================================
+   АДАПТИВНЫЕ РАЗМЕРЫ (МОБИЛЬНОСТЬ)
+   ======================================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--text-4xl);
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+  }
+
+  h3 {
+    font-size: var(--text-2xl);
+  }
+
+  h4 {
+    font-size: var(--text-xl);
+  }
+
+  p {
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: var(--text-3xl);
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+  }
+
+  h4 {
+    font-size: var(--text-lg);
+  }
+
+  p {
+    font-size: var(--text-sm);
+  }
+
+  .nv-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .nv-section-lg {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+/* ========================================
+   ИКОНКИ И SVG
+   ======================================== */
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* SVG в кнопках */
+.btn-nv-blue svg,
+.btn-nv-gold svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+/* SVG иконки в контентных блоках */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-sm {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.icon-md {
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon-lg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.icon-xl {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Иконки с синим фоном (как на картинке) */
+.icon-bg-blue {
+  background: var(--nv-grad-blue-main);
+  border-radius: 0.5rem;
+  color: #ffffff;
+}
+
+/* Иконки с золотым фоном */
+.icon-bg-gold {
+  background: var(--nv-grad-gold-soft);
+  border-radius: 0.5rem;
+  color: #26303c;
+}
+
+/* Иконки с белым фоном */
+.icon-bg-white {
+  background: #ffffff;
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+}
+
+/* Иконки на тёмном фоне */
+.icon-light {
+  color: var(--text-on-dark);
+}
+
+.icon-dark {
+  color: var(--text-primary);
+}
+
+/* SVG stroke цвет */
+svg[stroke="currentColor"] {
+  stroke: currentColor;
+  fill: none;
+}
+
+/* SVG fill цвет */
+svg[fill="currentColor"] {
+  fill: currentColor;
+}
+
+/* Размеры SVG по умолчанию */
+svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* 01 — темный чистый синий */
+.grad-step-1 {
+  background-image: linear-gradient(
+    135deg,  /* nv-blue (логотип) */
+    #3C79D2,
+    #8DB2E9   /* nv-blue-mid */
+  );
+}
+
+/* 01 — темный чистый синий */
+.grad-step-2 {
+  background-image: linear-gradient(
+    135deg,  /* nv-blue (логотип) */
+    #5A44D6,
+    #A092EB   /* nv-blue-mid */
+  );
+}
+
+
+/* 03 — глубокий профессиональный зеленый */
+.grad-step-3 {
+  background-image: linear-gradient(
+    135deg,
+    #2DCFAF,
+    #83E7D4 /* чистый темный изумруд */
+  );
+}
+
+/* 04 — насыщенный темно-синий */
+.grad-step-4 {
+  background-image: linear-gradient(
+    135deg,
+    #FFB537,  /* nv-blue-dark */
+    #FFD691   /* nv-bg */
+  );
+}
+
+/* 02 — насыщенный темный золотой */
+.grad-step-5 {
+  background-image: linear-gradient(
+    135deg,
+    #FFE991,  /* nv-gold */
+    #FFD637   /* nv-gold-deep */
+  );
+}
+
+/* 02 — насыщенный темный золотой */
+.grad-step-6 {
+  background-image: linear-gradient(
+    135deg,
+    #6C9EE8,  /* nv-gold */
+    #134388   /* nv-gold-deep */
+  );
+}
+
+.grad-step-7 {
+  background-image: linear-gradient(
+    135deg,
+    #FFBC91,  /* nv-gold */
+    #FF8637   /* nv-gold-deep */
+  );
+}

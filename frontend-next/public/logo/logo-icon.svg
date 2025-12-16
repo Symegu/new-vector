@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="9 11 44 44">
+  <defs>
+    <linearGradient id="nvIconBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3c78d2"/>
+      <stop offset="1" stop-color="#cee2ee"/>
+    </linearGradient>
+    <linearGradient id="nvIconBlueReversed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cee2ee"/>
+      <stop offset="1" stop-color="#3c78d2"/>
+    </linearGradient>
+
+    <linearGradient id="nvIconCorner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0" stop-color="#e2bc36"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+
+    <!-- Маска для вырезания квадрата, но с полностью прозрачным фоном -->
+    <mask id="cutoutMask">
+      <!-- Белое = видимо, чёрное = скрыто -->
+      <rect x="10" y="26" width="28" height="28" fill="white"/>
+      <!-- Вырезаем прямоугольник -->
+      <rect x="21" y="28" width="15" height="17" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- нижний голубой квадрат с маской -->
+  <rect x="10" y="26" width="28" height="28" fill="url(#nvIconBlue)" mask="url(#cutoutMask)"/>
+  <rect x="10" y="26" width="28" height="28" fill="none" stroke="url(#nvIconBlueReversed)" stroke-width="4" mask="url(#cutoutMask)"/>
+
+  <!-- верхний квадрат-рамка (только контур) -->
+  <rect x="20" y="12" width="32" height="32" fill="none" stroke="#f5f5f5" stroke-width="2"/>
+
+  <!-- уголок с градиентом -->
+  <path d="M49 15 L49 24 L40 15 Z" fill="url(#nvIconCorner)"/>
+</svg>
