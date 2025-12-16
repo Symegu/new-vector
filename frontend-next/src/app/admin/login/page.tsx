@@ -1,104 +1,107 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export default function LoginPage() {
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
+  const [login, setLogin] = useState('admin')
+  const [password, setPassword] = useState('passkey')
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
+
+  useEffect(() => {
+    if (document.cookie.includes('admin_token=')) {
+      router.push('/admin?tab=leads')
+    }
+  }, [router])
+
+  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
 
     try {
-      // TODO: POST /api/admin/auth/login
-      // Пока что заглушка
-      if (login === 'admin' && password === 'admin') {
-        // Сохранить токен / сессию
-        localStorage.setItem('admin_token', 'mock_token')
-        router.push('/admin')
-      } else {
-        setError('Неверный логин или пароль')
-      }
-    } catch (err) {
-      setError('Ошибка при входе')
+      const res = await fetch(`${API_URL}/api/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login, password }),
+        credentials: 'include',
+      })
+
+      if (!res.ok) throw new Error('Неверный логин или пароль')
+
+      document.cookie = `admin_token=${(await res.json()).accessToken}; path=/; max-age=900; SameSite=Strict`
+      router.push('/admin?tab=leads')
+    } catch {
+      setError('Неверный логин или пароль')
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'var(--admin-bg-light)',
-      }}
-    >
-      <div
-        className="card"
-        style={{
-          width: '100%',
-          maxWidth: '400px',
-        }}
-      >
-        <div style={{ textAlign: 'center', marginBottom: 'var(--admin-spacing-xl)' }}>
+    <div className="absolute top-0 left-0 z-[100] min-w-screen min-h-screen bg-gray-900 flex items-center justify-center p-8">
+      <div className="w-full max-w-sm">
+        {/* Logo */}
+        <div className="text-center mb-10">
           <Image
             src="/logo/logo-icon.svg"
-            alt="NV"
+            alt="Admin"
             width={48}
             height={48}
-            style={{ margin: '0 auto' }}
+            className="mx-auto mb-4"
           />
-          <h1 style={{ marginTop: 'var(--admin-spacing-md)', fontSize: 'var(--admin-font-size-lg)' }}>
-            Админ-панель
-          </h1>
+          <h1 className="text-2xl font-bold text-on-dark">Админ-панель</h1>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--admin-spacing-md)' }}>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label style={{ display: 'block', marginBottom: 'var(--admin-spacing-sm)', fontWeight: 'var(--admin-font-weight-medium)' }}>
-              Логин
-            </label>
             <input
               type="text"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
-              placeholder="Введите логин"
+              placeholder="Логин"
+              disabled={isLoading}
               required
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50"
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: 'var(--admin-spacing-sm)', fontWeight: 'var(--admin-font-weight-medium)' }}>
-              Пароль
-            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Введите пароль"
+              placeholder="Пароль"
+              disabled={isLoading}
               required
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50"
             />
           </div>
 
           {error && (
-            <p style={{ color: 'var(--admin-error)', fontSize: 'var(--admin-font-size-sm)' }}>
+            <p className="p-3 mt-0 text-red-400 text-sm bg-red-900/30 border border-red-500/30 rounded-lg"
+            style={{color: "red"}}>
               {error}
             </p>
           )}
 
-          <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }}>
-            Войти
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 px-4 btn-nv-gold text-white font-medium rounded-lg transition-all duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          >
+            {isLoading ? '⏳ Вход...' : 'Войти'}
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', marginTop: 'var(--admin-spacing-lg)', fontSize: 'var(--admin-font-size-xs)', color: 'var(--admin-text-muted)' }}>
-          Тестовые учетные данные: admin / admin
+        <p className="mt-6 text-center text-xs text-gray-400">
+          admin / passkey
         </p>
       </div>
     </div>

@@ -1,15 +1,16 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
-import Image from 'next/image'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 export default function AdminSidebar() {
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const activeTab = searchParams.get('tab') || 'leads'
 
   const tabs = [
     { id: 'leads', label: 'Заявки', icon: '📋' },
-    { id: 'quiz', label: 'Результаты тестов', icon: '✅' },
+    { id: 'quiz', label: 'Тесты', icon: '✅' },
     { id: 'analytics', label: 'Аналитика', icon: '📊' },
   ]
 
@@ -18,66 +19,26 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="admin-sidebar">
-      <div style={{ marginBottom: 'var(--admin-spacing-xl)' }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--admin-spacing-md)',
-            marginBottom: 'var(--admin-spacing-lg)',
-          }}
-        >
-          <Image
-            src="/logo/logo-icon.svg"
-            alt="NV"
-            width={32}
-            height={32}
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
-          <span
-            style={{
-              fontSize: 'var(--admin-font-size-lg)',
-              fontWeight: 'var(--admin-font-weight-semibold)',
-            }}
-          >
-            Admin
-          </span>
-        </div>
-      </div>
+    <aside className="admin-sidebar w-64 bg-gray-900 border-r border-gray-800 flex flex-col h-screen">
 
-      <nav className="admin-nav">
+      {/* Navigation */}
+      <nav className="flex-1 p-4 gap-8">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
-            className={`admin-nav-item ${
-              pathname.includes(tab.id) ? 'active' : ''
+            style={{marginBottom: "16px"}}
+            className={`w-full flex items-center px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 ${
+              activeTab === tab.id
+                ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                : 'text-gray-300 hover:bg-gray-800 hover:text-white'
             }`}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--admin-spacing-md)',
-            }}
           >
             <span>{tab.icon}</span>
             <span>{tab.label}</span>
           </button>
         ))}
       </nav>
-
-      <div
-        style={{
-          marginTop: 'var(--admin-spacing-2xl)',
-          paddingTop: 'var(--admin-spacing-xl)',
-          borderTop: `1px solid var(--admin-dark-border)`,
-          fontSize: 'var(--admin-font-size-xs)',
-          color: 'var(--admin-dark-text)',
-          opacity: 0.7,
-        }}
-      >
-        v1.0 Beta
-      </div>
     </aside>
   )
 }
