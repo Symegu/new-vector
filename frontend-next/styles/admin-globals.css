@@ -1,0 +1,494 @@
+/* ========================================
+   АДМИНКА — ГЛОБАЛЬНЫЕ СТИЛИ
+   ======================================== */
+
+:root {
+  /* ——— Типографика ——— */
+  --admin-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    sans-serif;
+  --admin-font-size-xs: 12px;
+  --admin-font-size-sm: 13px;
+  --admin-font-size-base: 14px;
+  --admin-font-size-md: 15px;
+  --admin-font-size-lg: 16px;
+  --admin-font-weight-normal: 400;
+  --admin-font-weight-medium: 500;
+  --admin-font-weight-semibold: 600;
+
+  /* ——— Цвета: основная палитра ——— */
+  --admin-bg-light: #f8f9fa;
+  --admin-bg-white: #ffffff;
+  --admin-text-primary: #1a1d23;
+  --admin-text-secondary: #6c757d;
+  --admin-text-muted: #adb5bd;
+  --admin-border-light: #dee2e6;
+  --admin-border-medium: #ced4da;
+
+  /* ——— Тёмные компоненты (sidebar, header) ——— */
+  --admin-dark-bg: #2c3e50;
+  --admin-dark-text: #ecf0f1;
+  --admin-dark-border: #34495e;
+
+  /* ——— Бренд-цвета ——— */
+  --admin-primary: #3c78d2; /* синий */
+  --admin-primary-light: #e3f2fd;
+  --admin-primary-hover: #2961a8;
+  --admin-accent: #e2bc36; /* жёлтый */
+  --admin-accent-light: #fffbea;
+
+  /* ——— Статусы и состояния ——— */
+  --admin-status-new: #dc3545; /* красный для "не просмотрена" */
+  --admin-status-viewed: #0dcaf0; /* голубой для "просмотрена" */
+  --admin-status-processed: #198754; /* зелёный для "обработана" */
+
+  --admin-status-low: #6c757d; /* серый для low */
+  --admin-status-medium: #ffc107; /* жёлтый для medium */
+  --admin-status-high: #dc3545; /* красный для high */
+
+  --admin-success: #198754;
+  --admin-warning: #ffc107;
+  --admin-error: #dc3545;
+  --admin-info: #0dcaf0;
+
+  /* ——— Spacing ——— */
+  --admin-sidebar-width: 280px;
+  --admin-header-height: 64px;
+  --admin-spacing-xs: 4px;
+  --admin-spacing-sm: 8px;
+  --admin-spacing-md: 12px;
+  --admin-spacing-lg: 16px;
+  --admin-spacing-xl: 24px;
+  --admin-spacing-2xl: 32px;
+
+  /* ——— Border radius ——— */
+  --admin-radius-sm: 4px;
+  --admin-radius-md: 6px;
+  --admin-radius-lg: 8px;
+
+  /* ——— Shadow (минимальное, плоский стиль) ——— */
+  --admin-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --admin-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* ——— Переходы ——— */
+  --admin-transition: all 150ms ease-in-out;
+}
+
+/* ========================================
+   БАЗОВЫЕ СТИЛИ
+   ======================================== */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--admin-font-family);
+  background-color: var(--admin-bg-light);
+  color: var(--admin-text-primary);
+  font-size: var(--admin-font-size-base);
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: var(--admin-font-weight-semibold);
+  color: var(--admin-text-primary);
+}
+
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+  color: var(--admin-text-primary);
+}
+
+a {
+  color: var(--admin-primary);
+  text-decoration: none;
+  transition: var(--admin-transition);
+}
+
+a:hover {
+  color: var(--admin-primary-hover);
+}
+
+/* ========================================
+   КНОПКИ
+   ======================================== */
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.btn {
+  padding: var(--admin-spacing-sm) var(--admin-spacing-lg);
+  border-radius: var(--admin-radius-md);
+  font-weight: var(--admin-font-weight-medium);
+  font-size: var(--admin-font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--admin-spacing-sm);
+  transition: var(--admin-transition);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--admin-primary);
+  color: white;
+  border: 1px solid var(--admin-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--admin-primary-hover);
+  border-color: var(--admin-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--admin-bg-white);
+  color: var(--admin-text-primary);
+  border: 1px solid var(--admin-border-light);
+}
+
+.btn-secondary:hover {
+  background-color: var(--admin-bg-light);
+  border-color: var(--admin-border-medium);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--admin-primary);
+  border: none;
+}
+
+.btn-ghost:hover {
+  background-color: var(--admin-primary-light);
+}
+
+.btn-danger {
+  background-color: var(--admin-error);
+  color: white;
+  border: 1px solid var(--admin-error);
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+.btn-sm {
+  padding: var(--admin-spacing-xs) var(--admin-spacing-md);
+  font-size: var(--admin-font-size-xs);
+}
+
+.btn-lg {
+  padding: var(--admin-spacing-md) var(--admin-spacing-xl);
+  font-size: var(--admin-font-size-base);
+}
+
+/* ========================================
+   ФОРМА — INPUT, SELECT, TEXTAREA
+   ======================================== */
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--admin-text-primary);
+  border: 1px solid var(--admin-border-light);
+  border-radius: var(--admin-radius-md);
+  padding: var(--admin-spacing-sm) var(--admin-spacing-md);
+  transition: var(--admin-transition);
+  background-color: var(--admin-bg-white);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--admin-text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 3px var(--admin-primary-light);
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--admin-primary);
+}
+
+/* ========================================
+   ТАБЛИЦА
+   ======================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--admin-bg-white);
+  border: 1px solid var(--admin-border-light);
+}
+
+thead {
+  background-color: var(--admin-bg-light);
+  border-bottom: 1px solid var(--admin-border-light);
+}
+
+th {
+  padding: var(--admin-spacing-md) var(--admin-spacing-lg);
+  text-align: left;
+  font-weight: var(--admin-font-weight-semibold);
+  font-size: var(--admin-font-size-sm);
+  color: var(--admin-text-primary);
+}
+
+td {
+  padding: var(--admin-spacing-md) var(--admin-spacing-lg);
+  border-bottom: 1px solid var(--admin-border-light);
+  font-size: var(--admin-font-size-sm);
+}
+
+tbody tr:hover {
+  background-color: var(--admin-bg-light);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ========================================
+   ТЕГИ И СТАТУСЫ
+   ======================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--admin-spacing-xs);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: var(--admin-font-size-xs);
+  font-weight: var(--admin-font-weight-medium);
+  white-space: nowrap;
+}
+
+.badge-new {
+  background-color: #ffe5e5;
+  color: var(--admin-status-new);
+  border: 1px solid #ffcccc;
+}
+
+.badge-viewed {
+  background-color: #e0f7ff;
+  color: var(--admin-status-viewed);
+  border: 1px solid #b3e5ff;
+}
+
+.badge-processed {
+  background-color: #e8f5e9;
+  color: var(--admin-status-processed);
+  border: 1px solid #c8e6c9;
+}
+
+.badge-low {
+  background-color: #f5f5f5;
+  color: var(--admin-status-low);
+  border: 1px solid #e0e0e0;
+}
+
+.badge-medium {
+  background-color: #fff8e1;
+  color: #856404;
+  border: 1px solid #ffe082;
+}
+
+.badge-high {
+  background-color: #ffe5e5;
+  color: var(--admin-status-high);
+  border: 1px solid #ffcccc;
+}
+
+/* ========================================
+   УТИЛИТЫ
+   ======================================== */
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-sm {
+  gap: var(--admin-spacing-sm);
+}
+
+.gap-md {
+  gap: var(--admin-spacing-md);
+}
+
+.gap-lg {
+  gap: var(--admin-spacing-lg);
+}
+
+.text-muted {
+  color: var(--admin-text-muted);
+}
+
+.text-secondary {
+  color: var(--admin-text-secondary);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transition {
+  transition: var(--admin-transition);
+}
+
+/* ========================================
+   LAYOUT АДМИНКИ
+   ======================================== */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--admin-bg-light);
+}
+
+.admin-sidebar {
+  width: var(--admin-sidebar-width);
+  background-color: var(--admin-dark-bg);
+  color: var(--admin-dark-text);
+  padding: var(--admin-spacing-xl) var(--admin-spacing-lg);
+  border-right: 1px solid var(--admin-dark-border);
+  overflow-y: auto;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.admin-header {
+  position: fixed;
+  top: 0;
+  left: var(--admin-sidebar-width);
+  right: 0;
+  height: var(--admin-header-height);
+  background-color: var(--admin-dark-bg);
+  color: var(--admin-dark-text);
+  border-bottom: 1px solid var(--admin-dark-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--admin-spacing-xl);
+  z-index: 100;
+}
+
+.admin-main {
+  margin-left: var(--admin-sidebar-width);
+  margin-top: var(--admin-header-height);
+  flex: 1;
+  padding: var(--admin-spacing-xl);
+  overflow-y: auto;
+}
+
+.admin-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-spacing-md);
+}
+
+.admin-nav-item {
+  padding: var(--admin-spacing-md) var(--admin-spacing-lg);
+  border-radius: var(--admin-radius-md);
+  cursor: pointer;
+  transition: var(--admin-transition);
+  color: var(--admin-dark-text);
+}
+
+.admin-nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.admin-nav-item.active {
+  background-color: var(--admin-primary);
+  color: white;
+  font-weight: var(--admin-font-weight-medium);
+}
+
+/* ========================================
+   МОДАЛЬНЫЕ ОКНА И ПАНЕЛИ
+   ======================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: var(--admin-bg-white);
+  border-radius: var(--admin-radius-lg);
+  box-shadow: var(--admin-shadow-md);
+  padding: var(--admin-spacing-xl);
+  max-width: 500px;
+  width: 90%;
+}
+
+.card {
+  background-color: var(--admin-bg-white);
+  border: 1px solid var(--admin-border-light);
+  border-radius: var(--admin-radius-lg);
+  padding: var(--admin-spacing-lg);
+  box-shadow: var(--admin-shadow-sm);
+}
