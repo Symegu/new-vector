@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import LeadsTable from '@/components/admin/LeadsTable'
-import QuizResultsTable from '@/components/admin/QuizResultsTable'
-import AnalyticsPage from '@/components/admin/AnalyticsPage'
+import AnalyticsPage from '@/src/components/admin/AnalyticsPage'
+import LeadsTable from '@/src/components/admin/LeadsTable'
+import QuizResultsTable from '@/src/components/admin/QuizResultsTable'
 
 export default function AdminPage() {
   const searchParams = useSearchParams()

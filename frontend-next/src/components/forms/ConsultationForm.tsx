@@ -10,11 +10,11 @@ import {
   MapPin,
   Clock,
 } from 'lucide-react'
+import { Card } from '../ui/card'
+import { FadeInSection } from '../ui/fadeIn'
+import { Input } from '../ui/input'
+import { Textarea } from '../ui/textarea'
 
-import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { FadeInSection } from '@/components/ui/fadeIn'
 
 type ContactFormData = {
   name: string

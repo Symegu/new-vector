@@ -7,10 +7,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { FadeInSection } from "@/components/ui/fadeIn";
 import { motion } from "framer-motion";
+import { Card } from "../ui/card";
+import { FadeInSection } from "../ui/fadeIn";
+import { Badge } from "../ui/badge";
 
 type Story = {
   title: string;

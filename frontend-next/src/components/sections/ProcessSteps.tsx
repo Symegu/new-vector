@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+// import { useEffect, useRef, useState } from "react";
 import {
   Phone,
   FileCheck,
@@ -11,10 +11,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { FadeInSection } from "@/components/ui/fadeIn";
+import { Card } from "../ui/card";
+import { FadeInSection } from "../ui/fadeIn";
+import { Badge } from "../ui/badge";
 
 export function ProcessStepsSection() {
   return (
