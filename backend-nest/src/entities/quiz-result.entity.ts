@@ -1,5 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, OneToOne, JoinColumn } from 'typeorm';
-import { Lead } from './lead.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  Index,
+} from 'typeorm';
 
 @Entity('quiz_results')
 @Index(['level'])
@@ -9,7 +14,7 @@ export class QuizResult {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @Column()
@@ -18,13 +23,15 @@ export class QuizResult {
   @Column('text', { array: true, default: {} })
   answers: string[];
 
-  @Column({ nullable: true })
-  leadId?: string;
-
   @Column({ default: false })
   flagged: boolean;
 
-  @OneToOne(() => Lead, (lead) => lead.quizResult)
-  @JoinColumn({ name: 'leadId' })
-  lead?: Lead;
+  @Column({ type: 'int', nullable: true })
+  score: number | null;
+
+  @Column({ type: 'text', nullable: true })
+  title: string | null;
+
+  @Column({ type: 'text', nullable: true })
+  message: string | null;
 }

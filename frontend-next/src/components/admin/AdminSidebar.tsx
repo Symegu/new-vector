@@ -10,7 +10,7 @@ export default function AdminSidebar() {
 
   const tabs = [
     { id: 'leads', label: 'Заявки', icon: '📋' },
-    { id: 'quiz', label: 'Тесты', icon: '✅' },
+    { id: 'quiz', label: 'Результаты теста', icon: '✅' },
     { id: 'analytics', label: 'Аналитика', icon: '📊' },
   ]
 

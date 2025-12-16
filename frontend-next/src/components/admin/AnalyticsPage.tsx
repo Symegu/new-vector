@@ -12,14 +12,12 @@ export default function AnalyticsPage() {
         </p>
         <ul style={{ marginTop: 'var(--admin-spacing-md)', paddingLeft: 'var(--admin-spacing-lg)' }}>
           <li>Количество заявок по дням</li>
-          <li>Источники лидов</li>
-          <li>Результаты тестов по уровням</li>
           <li>Конверсия тест → заявка</li>
         </ul>
 
-        <button className="btn btn-primary" style={{ marginTop: 'var(--admin-spacing-lg)' }}>
+        {/* <button className="btn btn-primary" style={{ marginTop: 'var(--admin-spacing-lg)' }}>
           Разработка в процессе
-        </button>
+        </button> */}
       </div>
     </div>
   )

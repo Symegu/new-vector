@@ -1,12 +1,15 @@
-// src/entities/lead.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Index,
 } from 'typeorm';
 
 @Entity('leads')
+@Index(['status'])
+@Index(['flagged'])
+@Index(['createdAt'])
 export class Lead {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -33,17 +36,16 @@ export class Lead {
   message?: string;
 
   @Column({
-    type: 'varchar',
-    nullable: true,
-    comment: 'quizResultId FK',
-  })
-  quizResultId?: string;
-
-  // Добавь source поле
-  @Column({
-    type: 'varchar',
     default: 'landing_contact',
     comment: 'landing_contact | quiz_result',
   })
   source: 'landing_contact' | 'quiz_result';
+
+  @Column({
+    name: 'quiz_result_id',
+    type: 'uuid',
+    nullable: true,
+    comment: 'quiz_result_id FK',
+  })
+  quizResultId?: string;
 }
