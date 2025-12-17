@@ -3,9 +3,9 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { ShieldCheck, Users, Clock, Lock, Target, Award } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { FadeInSection } from '@/components/ui/fadeIn'
+import { Card } from '../../components/ui/card'
+import { Badge } from '../../components/ui/badge'
+import { FadeInSection } from '../../components/ui/fadeIn'
 
 const benefits = [
   {
