@@ -20,7 +20,7 @@ out/
 # Production builds (общие, в т.ч. для Nest)
 dist/
 build/
-backend-nest/*
+backend-nest/dist
 
 # Testing
 coverage/
