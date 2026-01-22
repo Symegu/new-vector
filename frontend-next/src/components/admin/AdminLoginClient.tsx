@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -10,12 +10,6 @@ export function AdminLoginClient() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
-
-  useEffect(() => {
-    if (document.cookie.includes('admin_token=')) {
-      router.push('/admin?tab=leads')
-    }
-  }, [router])
 
   const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
 
@@ -33,9 +27,11 @@ export function AdminLoginClient() {
       })
 
       if (!res.ok) throw new Error('Неверный логин или пароль')
-
-      document.cookie = `admin_token=${(await res.json()).accessToken}; path=/; max-age=900; SameSite=Strict`
-      router.push('/admin?tab=leads')
+      const data = await res.json();
+      localStorage.setItem('access_token', data.accessToken);
+      console.log('loh')
+      router.push('/admin?tab=dashboard')
+      router.refresh();
     } catch {
       setError('Неверный логин или пароль')
     } finally {

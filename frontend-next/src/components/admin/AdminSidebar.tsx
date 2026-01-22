@@ -6,12 +6,13 @@ export default function AdminSidebar() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const activeTab = searchParams.get('tab') || 'leads'
+  const activeTab = searchParams.get('tab') || 'dashboard'
 
   const tabs = [
+    { id: 'dashboard', label: 'Обзор', icon: '📊' },
     { id: 'leads', label: 'Заявки', icon: '📋' },
     { id: 'quiz', label: 'Результаты теста', icon: '✅' },
-    { id: 'analytics', label: 'Аналитика', icon: '📊' },
+    { id: 'analytics', label: 'Аналитика', icon: '📈' },
   ]
 
   const handleTabClick = (tabId: string) => {

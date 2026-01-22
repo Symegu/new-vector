@@ -1,21 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index } from 'typeorm';
+import { Entity, PrimaryColumn, Column, CreateDateColumn } from 'typeorm';
 
-@Entity('refresh_tokens')
-@Index(['token'])
-@Index(['expiresAt'])
-export class RefreshToken {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ unique: true })
+@Entity('refresh_token_blacklist')
+export class RefreshTokenBlacklist {
+  @PrimaryColumn()
   token: string;
 
   @Column()
   expiresAt: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
-
-  @Column()
-  userId: string;
+  blacklistedAt: Date;
 }

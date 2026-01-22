@@ -8,8 +8,9 @@ export default function AdminHeader() {
   const router = useRouter()
 
   const handleLogout = () => {
-    document.cookie = 'admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
-    router.push('/admin/login')
+    localStorage.removeItem('access_token');
+    document.cookie = 'refresh_token=; Max-Age=0; path=/; SameSite=Strict';
+    router.push('/admin/login');
   }
 
   return (

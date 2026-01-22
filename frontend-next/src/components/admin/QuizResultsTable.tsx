@@ -1,73 +1,68 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useCallback } from 'react';
+import { apiFetch } from '@/src/lib/api'
+import { useRouter } from 'next/navigation' // ✅ App Router
+import { useState, useEffect, useCallback } from 'react'
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react' // иконки
 
 interface QuizResultRow {
-  id: string;
-  createdAt: string;
-  level: 'low' | 'medium' | 'high';
-  title: string | null;
-  message: string | null;
-  answers: string[];
-  leadName: string | null;
+  id: string
+  createdAt: string
+  level: 'low' | 'medium' | 'high'
+  title: string | null
+  message: string | null
+  answers: string[]
+  leadName: string | null
 }
 
 export default function QuizResultsTable() {
-  const [items, setItems] = useState<QuizResultRow[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState('');
+  const router = useRouter()
+  const [items, setItems] = useState<QuizResultRow[]>([])
+  const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const PAGE_SIZE = 10
 
-  const PAGE_SIZE = 10;
-  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
+  const fetchResults = useCallback(async (page: number = 1) => {
+    setLoading(true)
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: PAGE_SIZE.toString(),
+      })
+      if (search.trim()) params.set('search', search.trim())
 
-  const fetchResults = useCallback(
-    async (page: number = 1) => {
-      setLoading(true);
-      try {
-        const params = new URLSearchParams({
-          page: page.toString(),
-          limit: PAGE_SIZE.toString(),
-        });
+      const data = await apiFetch(`/api/admin/quiz-results?${params}`)
+      console.log('Quiz data:', data)
 
-        if (search.trim()) {
-          params.set('search', search.trim());
-        }
-
-        const res = await fetch(`${API_URL}/api/admin/quiz-results?${params}`, {
-          credentials: 'include',
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          setItems(data.results || []);
-          setTotal(data.total || 0);
-          setCurrentPage(data.page || 1);
-        }
-      } catch (error) {
-        console.error('Failed to fetch quiz results:', error);
-      } finally {
-        setLoading(false);
+      setItems(data.results || [])
+      setTotal(data.total || 0)
+      setCurrentPage(data.page || page)
+    } catch (error: any) {
+      console.error('Failed to fetch quiz results:', error)
+      if (error.message?.includes('Auth failed')) {
+        router.push('/admin/login')
       }
-    },
-    [search, API_URL],
-  );
+    } finally {
+      setLoading(false)
+    }
+  }, [search, router])
 
   useEffect(() => {
-    fetchResults(1);
-  }, []);
+    fetchResults(1)
+  }, [fetchResults])
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    fetchResults(1);
-  };
+    e.preventDefault()
+    fetchResults(1)
+  }
 
   const handlePageChange = (page: number) => {
-    fetchResults(page);
-  };
+    fetchResults(page)
+  }
 
-  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const totalPages = Math.ceil(total / PAGE_SIZE)
 
   if (loading) {
     return (
@@ -75,7 +70,7 @@ export default function QuizResultsTable() {
         <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400" />
         <p className="mt-2 text-sm text-gray-800">Загрузка результатов теста...</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -123,8 +118,8 @@ export default function QuizResultsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {items.map((qr) => (
-              <tr key={qr.id} className="hover:bg-gray-50 transition-colors">
+            {items.map((qr, index) => (
+              <tr key={`${qr.id}-${index}`} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 font-mono font-medium">
                   {new Date(qr.createdAt).toLocaleString('ru-RU', {
                     day: '2-digit',

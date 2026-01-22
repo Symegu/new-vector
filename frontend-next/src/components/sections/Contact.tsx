@@ -7,8 +7,12 @@ import { Sparkles, Phone, Mail, MapPin, Clock, CheckCircle2, Shield } from 'luci
 import { Card } from '../ui/card'
 import { FadeInSection } from '../ui/fadeIn'
 import { LeadForm } from '../forms/LeadForm'
+import { PolicyProps } from '../layout/Footer'
 
-export function ContactSection() {
+export function ContactSection({ 
+  onOpenPrivacy, 
+  onOpenConsent
+}: PolicyProps) {
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
       {/* Background with blur effect */}
@@ -82,6 +86,8 @@ export function ContactSection() {
             <Card className="bg-white/95 backdrop-blur-xl border-blue-600 shadow-nv-card overflow-hidden">
               <div className="grid lg:grid-cols-2">
                 <LeadForm
+                  onOpenPrivacy={onOpenPrivacy}
+                  onOpenConsent={onOpenConsent}
                   title="Заполните форму"
                   description="Расскажите в двух словах о долгах. Юрист лично свяжется с вами, чтобы предложить безопасный вариант решения."
                   submitLabel="Получить консультацию"

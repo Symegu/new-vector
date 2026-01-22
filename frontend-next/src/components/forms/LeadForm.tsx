@@ -1,15 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { CheckCircle2, AlertTriangle, X, Clock } from 'lucide-react';
+import { PolicyProps } from '../layout/Footer';
+import { Checkbox } from '../ui/checkbox';
+import { cn } from '../ui/utils';
 
 type LeadFormValues = {
   name: string;
   phone: string;
   email: string;
   message: string;
+  consent: boolean;
+  honeypot: string;
 };
 
 type LeadFormErrors = Partial<Record<keyof LeadFormValues, string>>;
@@ -22,7 +27,7 @@ type LeadApiResponse =
 
 const QUIZ_ID_STORAGE_KEY = 'nv_quiz_result_id';
 
-export type LeadFormProps = {
+export interface LeadFormProps extends PolicyProps{
   title?: string;
   description?: string;
   submitLabel?: string;
@@ -94,11 +99,15 @@ function validateLeadForm(data: LeadFormValues): LeadFormErrors {
   if (data.message && data.message.length > 2000) {
     errors.message = 'Сообщение слишком подробное. Оставьте до 2000 символов.';
   }
-
+  if (!data.consent) {
+    // Добавим ошибку для consent, но покажем в JSX
+  }
   return errors;
 }
 
 export function LeadForm({
+  onOpenPrivacy,
+  onOpenConsent,
   title = 'Записаться на консультацию',
   description = 'Оставьте контакты, и юрист свяжется с вами, чтобы аккуратно разобрать ситуацию с долгами.',
   submitLabel = 'Отправить',
@@ -107,16 +116,17 @@ export function LeadForm({
   formClass = '',
   compact = false,
   showModals = true,
-  onSuccess,
-  
 }: LeadFormProps) {
   const [values, setValues] = useState<LeadFormValues>({
     name: '',
     phone: '',
     email: '',
     message: '',
+    consent: false,
+    honeypot: '',
   });
   const [errors, setErrors] = useState<LeadFormErrors>({});
+  const [consentError, setConsentError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [backendMessage, setBackendMessage] = useState<string | undefined>();
@@ -124,6 +134,8 @@ export function LeadForm({
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [inlineInfo, setInlineInfo] = useState<string | null>(null);
+
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   const handleChange =
     (field: keyof LeadFormValues) =>
@@ -136,15 +148,32 @@ export function LeadForm({
         setErrors((prev) => ({ ...prev, [field]: undefined }));
       }
     };
-
+  const handleConsentChange = (checked: boolean) => {
+    setValues((prev) => ({ ...prev, consent: checked }));
+    setConsentError(false);
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setInlineInfo(null);
     setBackendMessage(undefined);
+    setConsentError(false);
+
+    if (honeypotRef.current?.value) {
+      console.warn('Honeypot filled - spam detected');
+      setInlineInfo('Обнаружена подозрительная активность. Попробуйте позже.');
+      return;
+    }
+    
+    if (!values.consent) {
+      setConsentError(true);
+      setInlineInfo('Требуется согласие с обработкой данных для отправки.');
+      return;
+    }
 
     const newErrors = validateLeadForm(values);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      if (!values.consent) setConsentError(true);
       return;
     }
 
@@ -170,6 +199,8 @@ export function LeadForm({
             phone: values.phone,
             email: values.email,
             message: values.message,
+            consent: values.consent,
+            honeypot: values.honeypot,
             quizResultId,
           }),
         },
@@ -182,7 +213,7 @@ export function LeadForm({
       const apiStatus = data?.status;
 
       if (apiStatus === 'ok') {
-        setValues({ name: '', phone: '', email: '', message: '' });
+        setValues({ name: '', phone: '', email: '', message: '', consent: false, honeypot: '' });
         setErrors({});
         if (showModals) {
           setShowSuccessModal(true);
@@ -226,6 +257,20 @@ export function LeadForm({
   const inputSize = compact ? 'h-10 text-sm' : 'h-14 text-lg';
   const textareaSize = compact ? 'text-sm py-2' : 'text-lg py-4';
 
+  const isFormValid = () => {
+    const name = values.name.trim();
+    const email = values.email.trim();
+    const phoneDigits = values.phone.replace(/\D/g, '');
+
+    return (
+      name.length >= 2 &&
+      phoneDigits.length === 11 &&
+      /^7\d{10}$/.test(phoneDigits) &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+      values.consent
+    );
+  };
+
   return (
     <div className={`${formClass}`}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 h-full justify-center">
@@ -239,6 +284,16 @@ export function LeadForm({
             {description}
           </p>
         )}
+        {/* Honeypot поле (скрыто) */}
+        <input
+          ref={honeypotRef}
+          name="honeypot"
+          type="text"
+          tabIndex={-1}
+          aria-hidden="true"
+          className="sr-only"
+          onChange={(e) => setValues((prev) => ({ ...prev, honeypot: e.target.value }))}
+        />
 
         <div className="space-y-3 mt-2">
           <div>
@@ -315,12 +370,56 @@ export function LeadForm({
               <p className="mt-1 text-xs text-red-600">{errors.message}</p>
             )}
           </div>
+           {/* Чекбокс consent */}
+          <div className="flex items-start space-x-2 pt-1">
+            <Checkbox
+              id="consent"
+              checked={values.consent}
+              onCheckedChange={handleConsentChange}
+              className={consentError ? 'border-red-500 [&>div]:data-[state=checked]:bg-red-500' : ''}
+            />
+            <label
+              htmlFor="consent"
+              className="text-sm text-secondary leading-relaxed cursor-pointer select-none flex-1"
+            >
+              Согласен(а) с{' '}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenConsent?.();
+                }}
+                className="underline text-gold-400 hover:no-underline text-sm"
+              >
+                обработкой персональных данных
+              </button>{' '}
+              и{' '}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenPrivacy?.();
+                }}
+                className="underline text-gold-400 hover:no-underline text-sm"
+              >
+                политикой конфиденциальности
+              </button>
+              .
+            </label>
+          </div>
+          {consentError && (
+            <p className="text-xs text-red-600 pl-6">Необходимо согласие для отправки.</p>
+          )}
         </div>
 
         <button
           type="submit"
-          disabled={isSubmitting}
-          className={`${buttonClassName} disabled:opacity-70 disabled:cursor-not-allowed`}
+          disabled={isSubmitting || !isFormValid()}
+          className={cn(
+    buttonClassName,
+    'disabled:opacity-70 disabled:cursor-not-allowed',
+    !isFormValid() && 'opacity-70 cursor-not-allowed border-slate-300'
+  )}
         >
           <span className="flex items-center justify-center gap-2">
             {isSubmitting ? submitLoadingLabel : submitLabel}
@@ -331,9 +430,16 @@ export function LeadForm({
           <p className="text-xs text-center text-secondary">{inlineInfo}</p>
         )}
 
-        <p className="text-[11px] text-muted mt-1 text-center">
-          Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
-          Данные не передаются третьим лицам.
+        <p className="text-xs text-muted mt-1 text-center">
+          Отправляя форму, вы даете согласие на{' '}
+          <button onClick={onOpenConsent} className="underline text-gold-400 hover:no-underline font-medium text-xs">
+            обработку персональных данных
+          </button>{' '}
+          согласно{' '}
+          <button onClick={onOpenPrivacy} className="underline text-gold-400 hover:no-underline font-medium text-xs">
+            политике конфиденциальности
+          </button>.{' '}
+          <span className="font-medium text-gold-400">Данные защищены и не передаются третьим лицам.</span>
         </p>
       </form>
 

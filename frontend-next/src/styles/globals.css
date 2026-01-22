@@ -892,3 +892,10 @@ svg {
     #FF8637   /* nv-gold-deep */
   );
 }
+
+.modal-overlay {
+  z-index: 9999 !important;
+}
+.modal-content {
+  z-index: 10000 !important;
+}

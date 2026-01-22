@@ -3,7 +3,12 @@
 import Image from 'next/image'
 import { Phone, Mail, MapPin } from 'lucide-react'
 
-export function Footer() {
+export interface PolicyProps {
+  onOpenPrivacy: () => void
+  onOpenConsent: () => void
+}
+
+export function Footer({ onOpenPrivacy, onOpenConsent }: PolicyProps) {
   const handleScroll = (id: string) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
@@ -62,22 +67,44 @@ export function Footer() {
 
         {/* Нижняя полоска: копирайт + политики */}
         <div className="border-t border-white/10 pt-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-light text-xs md:text-sm">
+          <p className="text-light text-xs md:text-sm mb-0!">
             © 2025 «Новый Вектор». Все права защищены.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a
-              href="#"
-              className="text-light hover:text-on-dark text-xs md:text-sm transition-colors"
+            <button
+              onClick={() => onOpenPrivacy()}
+              style={{
+                color: 'inherit',
+                textDecoration: 'underline',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                padding: 0,
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#your-gold-color'}
+              onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}
             >
               Политика конфиденциальности
-            </a>
-            <a
-              href="#"
-              className="text-light hover:text-on-dark text-xs md:text-sm transition-colors"
+            </button>
+            <button
+              onClick={() => onOpenConsent()}
+              style={{
+                color: 'inherit',
+                textDecoration: 'underline',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                padding: 0,
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#your-gold-color'}
+              onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}
             >
               Согласие на обработку данных
-            </a>
+            </button>
           </div>
         </div>
       </div>

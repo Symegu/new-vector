@@ -3,13 +3,14 @@
 import { LeadForm } from './LeadForm';
 import { X } from 'lucide-react';
 import { MouseEvent, useEffect } from 'react';
+import { PolicyProps } from '../layout/Footer';
 
-type LeadFormModalProps = {
+interface LeadFormModalProps extends PolicyProps {
   open: boolean;
   onClose: () => void;
 };
 
-export function LeadFormModal({ open, onClose }: LeadFormModalProps) {
+export function LeadFormModal({ open, onClose, onOpenPrivacy, onOpenConsent }: LeadFormModalProps) {
   useEffect(() => {
     if (!open) return;
 
@@ -31,12 +32,12 @@ export function LeadFormModal({ open, onClose }: LeadFormModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[160] flex items-start justify-center bg-slate-900/60 backdrop-blur-sm "
+      className="modal-overlay fixed inset-0 flex items-start justify-center bg-slate-900/60 backdrop-blur-sm "
       role="dialog"
       aria-modal="true"
       onClick={handleBackdropClick}
     >
-      <div className="mt-24 md:mt-28 mb-6 bg-white rounded-2xl shadow-nv-card max-w-lg w-full mx-4 relative max-h-[calc(100vh-7rem)] overflow-y-auto">
+      <div className="modal-content mt-24 md:mt-28 mb-6 bg-white rounded-2xl shadow-nv-card max-w-lg w-full mx-4 relative max-h-[calc(100vh-7rem)] overflow-y-auto">
         <button
           type="button"
           onClick={onClose}
@@ -56,6 +57,8 @@ export function LeadFormModal({ open, onClose }: LeadFormModalProps) {
           </p> */}
 
           <LeadForm
+            onOpenPrivacy={onOpenPrivacy}
+            onOpenConsent={onOpenConsent}
             title={undefined}
             description={undefined}
             submitLabel="Записаться на консультацию"

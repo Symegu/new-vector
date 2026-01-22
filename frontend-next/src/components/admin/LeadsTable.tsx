@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation' // ← next/navigation для App Router
 import { Bookmark, BookOpen } from 'lucide-react'
+import { apiFetch } from '@/src/lib/api'
 
 interface Lead {
   id: string
@@ -16,6 +18,7 @@ interface Lead {
 }
 
 export default function LeadsTable() {
+  const router = useRouter()
   const [leads, setLeads] = useState<Lead[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -25,8 +28,6 @@ export default function LeadsTable() {
   const [sourceFilter, setSourceFilter] = useState('all')
   const [flaggedOnly, setFlaggedOnly] = useState(false)
   const PAGE_SIZE = 10
-
-  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
 
   const fetchLeads = useCallback(async (page: number = 1) => {
     setLoading(true)
@@ -40,27 +41,29 @@ export default function LeadsTable() {
         limit: PAGE_SIZE.toString(),
       })
 
-      const res = await fetch(`${API_URL}/api/admin/leads?${params}`, {
-        credentials: 'include',
-      })
+      // apiFetch возвращает JSON data или throw
+      const data = await apiFetch(`/api/admin/leads?${params}`)
+      console.log('Leads data:', data) // debug
 
-      if (res.ok) {
-        const data = await res.json()
-        setLeads(data.leads || [])
-        setTotal(data.total || 0)
-        setCurrentPage(data.page || 1)
-      }
-    } catch (error) {
+      setLeads(data.leads || [])
+      setTotal(data.total || 0)
+      setCurrentPage(data.page || page)
+    } catch (error: any) {
       console.error('Failed to fetch leads:', error)
+      if (error.message?.includes('Auth failed') || error.message?.includes('Refresh failed')) {
+        router.push('/admin/login')
+        return
+      }
+      console.error('Ошибка загрузки лидов:', error.message)
     } finally {
       setLoading(false)
     }
-  }, [search, statusFilter, sourceFilter, flaggedOnly, API_URL])
+  }, [search, statusFilter, sourceFilter, flaggedOnly, router])
 
-  // Изначальная загрузка
+  // Изначальная + авто-refetch при фильтрах
   useEffect(() => {
     fetchLeads(1)
-  }, [])
+  }, [fetchLeads])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -76,32 +79,33 @@ export default function LeadsTable() {
     if (!lead) return
 
     try {
-      await fetch(`${API_URL}/api/admin/leads/${id}/flag`, {
+      await apiFetch(`/api/admin/leads/${id}/flag`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ flagged: !lead.flagged }),
-        credentials: 'include',
       })
       fetchLeads(currentPage)
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update flag:', error)
+      if (error.message?.includes('Auth failed')) {
+        router.push('/admin/login')
+        return
+      }
     }
   }
 
   const updateStatus = async (id: string, status: Lead['status']) => {
-    try {
-      await fetch(`${API_URL}/api/admin/leads/${id}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
-        credentials: 'include',
-      })
-      fetchLeads(currentPage)
-    } catch (error) {
-      console.error('Failed to update status:', error)
-    }
+  console.log('Frontend PATCH:', { id, status }) // debug
+  try {
+    await apiFetch(`/api/admin/leads/${id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' }, // ← Явно!
+      body: JSON.stringify({ status }),
+    })
+    fetchLeads(currentPage) // refetch
+  } catch (error) {
+    console.error('Status update failed:', error)
   }
-
+}
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
   if (loading) {
@@ -200,8 +204,8 @@ export default function LeadsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {leads.map((lead) => (
-              <tr key={lead.id} className="hover:bg-gray-50 transition-colors h-20">
+            {leads.map((lead, index) => (
+              <tr key={`${lead.id}-${index}`} className="hover:bg-gray-50 transition-colors h-20">
                 <td className="px-1 py-4 text-center">
                   <button
                     onClick={() => toggleFlag(lead.id)}

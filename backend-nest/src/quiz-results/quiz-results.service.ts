@@ -54,6 +54,7 @@ export class QuizResultsService {
         'lead.name AS lead_name',
       ])
       .orderBy('qr.created_at', 'DESC')
+      .addOrderBy('qr.id', 'DESC')
       .take(limit)
       .skip(skip)
       .getRawMany<QuizResultRawRow>();

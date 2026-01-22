@@ -5,13 +5,18 @@ import {
   Query,
   Param,
   Body,
-  UsePipes,
-  ValidationPipe,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { LeadsService } from './leads.service';
-import { IsBoolean } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty } from 'class-validator';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
-class UpdateStatusDto {
+export class UpdateStatusDto {
+  @IsNotEmpty()
+  @IsEnum(['new', 'viewed', 'processed'], {
+    message: 'status must be new/viewed/processed',
+  })
   status: 'new' | 'viewed' | 'processed';
 }
 
@@ -20,12 +25,13 @@ class UpdateFlagDto {
   flagged: boolean;
 }
 
+@UseGuards(JwtAuthGuard)
 @Controller('admin/leads')
-@UsePipes(new ValidationPipe({ transform: true }))
 export class LeadsController {
   constructor(private readonly leadsService: LeadsService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   findAll(
     @Query('page') page = '1',
     @Query('limit') limit = '20',
@@ -35,12 +41,20 @@ export class LeadsController {
   }
 
   @Patch(':id/status')
-  async updateStatus(@Param('id') id: string, @Body() dto: UpdateStatusDto) {
-    console.log('PATCH status:', { id, dto }); // ✅ Лог для дебага
+  @UseGuards(JwtAuthGuard)
+  async updateStatus(
+    @Param('id') id: string,
+    @Body() dto: UpdateStatusDto,
+    @Req() req: Request,
+  ) {
+    console.log('PATCH raw body:', req.body); // ← ДО ValidationPipe!
+    console.log('PATCH dto:', { id, dto });
+
     return this.leadsService.updateStatus(id, dto.status);
   }
 
   @Patch(':id/flag')
+  @UseGuards(JwtAuthGuard)
   async updateFlag(@Param('id') id: string, @Body() dto: UpdateFlagDto) {
     console.log('PATCH flag:', { id, dto }); // ✅ Лог для дебага
     return this.leadsService.updateFlag(id, dto.flagged);

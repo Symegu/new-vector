@@ -6,11 +6,13 @@ import { AppService } from './app.service';
 import { AdminUser } from './entities/admin-user.entity';
 import { Lead } from './entities/lead.entity';
 import { QuizResult } from './entities/quiz-result.entity';
-import { RefreshToken } from './entities/refresh-token.entity';
+import { RefreshTokenBlacklist } from './entities/refresh-token.entity';
 import { AuthModule } from './auth/auth.module';
 import { LeadsModule } from './leads/leads.module';
 import { QuizResultsModule } from './quiz-results/quiz-results.module';
 import { PublicModule } from './public/public.module';
+import { StatsModule } from './stats/stats.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -24,13 +26,23 @@ import { PublicModule } from './public/public.module';
       username: process.env.DATABASE_USER || 'admin_panel_user',
       password: process.env.DATABASE_PASSWORD || 'passkey',
       database: process.env.DATABASE_NAME || 'NewVector',
-      entities: [AdminUser, Lead, QuizResult, RefreshToken],
-      synchronize: true, // Авто-создание таблиц (только для разработки!)
-      logging: ['error'], // Только ошибки в консоль
+      entities: [AdminUser, Lead, QuizResult, RefreshTokenBlacklist],
+      synchronize: true,
+      logging: ['error'],
     }),
-    AuthModule,
+    ThrottlerModule.forRootAsync({
+      useFactory: () => [
+        {
+          name: 'default',
+          ttl: 900, // 15 мин
+          limit: 5, // 5 запросов
+        },
+      ],
+    }),
     LeadsModule,
     QuizResultsModule,
+    StatsModule,
+    AuthModule,
     PublicModule,
   ],
   controllers: [AppController],

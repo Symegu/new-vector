@@ -59,6 +59,7 @@ export class LeadsService {
 
     const [leads, total] = await qb
       .orderBy('lead.createdAt', 'DESC')
+      .addOrderBy('lead.id', 'DESC')
       .take(limit)
       .skip(skip)
       .getManyAndCount();

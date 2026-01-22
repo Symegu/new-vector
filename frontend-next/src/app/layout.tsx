@@ -17,8 +17,11 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Банкротство физических лиц",
+  title: "Банкротство физических лиц Новый Вектор",
   description: "Помощь с банкротством и списанием долгов",
+  icons: {
+    icon: '../app/favicon.ico',
+  }
 };
 
 export default function RootLayout({

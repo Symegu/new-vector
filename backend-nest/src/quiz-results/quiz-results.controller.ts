@@ -1,15 +1,10 @@
 // src/admin/quiz-results/quiz-results.controller.ts
-import {
-  Controller,
-  Get,
-  Query,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QuizResultsService } from './quiz-results.service';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('admin/quiz-results')
-@UsePipes(new ValidationPipe({ transform: true }))
 export class QuizResultsController {
   constructor(private readonly quizResultsService: QuizResultsService) {}
 

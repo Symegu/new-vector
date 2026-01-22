@@ -12,16 +12,20 @@ import { QuizSection } from "../components/sections/Quiz";
 import { SuccessStoriesSection } from "../components/sections/SuccessStories";
 import { TrustBarSection } from "../components/sections/TrustBar";
 import { LeadFormModal } from "../components/forms/LeadFormModal";
+import { PrivacyPolicyModal } from "../components/forms/PrivacyPolicyModal";
+import { ConsentModal } from "../components/forms/ConsentModal";
 
 
 export default function Home() {
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [isConsentOpen, setIsConsentOpen] = useState(false);
+
   return (
     <div className="bg-nv-nero">
-      <LeadFormModal
-        open={isLeadModalOpen}
-        onClose={() => setIsLeadModalOpen(false)}
-      />
+      <LeadFormModal open={isLeadModalOpen} onClose={() => setIsLeadModalOpen(false)} onOpenPrivacy={() => setIsPrivacyOpen(true)} onOpenConsent={() => setIsConsentOpen(true)}/>
+      <PrivacyPolicyModal open={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
+      <ConsentModal open={isConsentOpen} onClose={() => setIsConsentOpen(false)} />
         
       <main className="min-h-screen">
         {/* Шапка и навигация */}        
@@ -50,10 +54,16 @@ export default function Home() {
         <FAQSection />
 
         {/* Контакты и форма заявки */}
-        <ContactSection />
-
+        <ContactSection 
+          onOpenPrivacy={() => setIsPrivacyOpen(true)}
+          onOpenConsent={() => setIsConsentOpen(true)}
+        />
+        
         {/* Подвал */}
-        <Footer />
+        <Footer 
+          onOpenPrivacy={() => setIsPrivacyOpen(true)}
+          onOpenConsent={() => setIsConsentOpen(true)}
+        />
       </main>
     </div>
   );
