@@ -40,7 +40,7 @@ export function AdminLoginClient() {
   }
 
   return (
-    <div className="absolute top-0 left-0 z-[100] min-w-screen min-h-screen bg-gray-900 flex items-center justify-center p-8">
+    <div className="absolute top-0 left-0 z-100 min-w-screen min-h-screen bg-gray-900 flex items-center justify-center p-8">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">

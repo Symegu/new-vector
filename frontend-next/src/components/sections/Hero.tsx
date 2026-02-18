@@ -44,7 +44,7 @@ export function HeroSection() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center gap-3"
         >
-          <h1 className="text-on-dark mb-6 max-w-3xl mx-auto text-5xl font-bold leading-tight tracking-tight">
+          <h1 className="sm:text-2xl text-on-dark mb-6 max-w-3xl mx-auto text-5xl font-bold leading-tight tracking-tight">
             Освободитесь от долгов <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-amber-300">законно и навсегда</span>
           </h1>
 

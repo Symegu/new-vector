@@ -124,10 +124,10 @@ export function ContactSection({
                           >Email</p>
                         </div>
                           <a
-                            href="mailto:info@vector.ru"
+                            href="mailto:newvector.b@gmail.com"
                             className="text-lg text-on-dark"
                           >
-                            info@vector.ru
+                            newvector.b@gmail.com
                           </a>
                       </div>
 

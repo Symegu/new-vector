@@ -290,15 +290,18 @@ export function Quiz() {
 
         {/* Форма записи на консультацию */}
         <div className="rounded-2xl border border-slate-100 bg-white p-6 md:p-8 flex flex-col gap-4 shadow-nv-soft">
-  <LeadForm
-    title="Записаться на консультацию"
-    description="Оставьте контакты, и юрист «Нового Вектора» свяжется с вами, чтобы обсудить результат теста и подобрать бережное решение по долгам."
-    submitLabel="Отправить и получить консультацию"
-    submitLoadingLabel="Отправляем…"
-    buttonClassName="btn-nv-blue mt-2"
-    compact
-    showModals={true}
-  />
+      <LeadForm
+            title="Записаться на консультацию"
+            description="Оставьте контакты, и юрист «Нового Вектора» свяжется с вами, чтобы обсудить результат теста и подобрать бережное решение по долгам."
+            submitLabel="Отправить и получить консультацию"
+            submitLoadingLabel="Отправляем…"
+            buttonClassName="btn-nv-blue mt-2"
+            compact
+            showModals={true} onOpenPrivacy={function (): void {
+              throw new Error("Function not implemented.");
+            } } onOpenConsent={function (): void {
+              throw new Error("Function not implemented.");
+            } }      />
 </div>
       </div>
     );
