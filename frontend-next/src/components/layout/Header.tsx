@@ -64,7 +64,7 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-10">
             {[
               { id: "about", label: "О нас" },
               { id: "quiz", label: "Тест" },
@@ -75,7 +75,7 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
                 key={item.id}
                 type="button"
                 onClick={() => scrollToSection(item.id)}
-                className="text-on-dark-secondary hover:text-on-dark transition-colors text-sm font-normal"
+                className="text-on-dark-secondary hover:text-on-dark transition-colors text-md font-normal"
               >
                 {item.label}
               </button>
