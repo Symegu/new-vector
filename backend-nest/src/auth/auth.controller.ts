@@ -14,7 +14,7 @@ import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { IsString, IsNotEmpty } from 'class-validator';
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+//import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Throttle } from '@nestjs/throttler';
 
 export const Cookies = createParamDecorator(
@@ -51,7 +51,7 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
-    console.log('login');
+    console.log('login', loginDto);
     const { accessToken, refreshToken } =
       await this.authService.login(loginDto);
 

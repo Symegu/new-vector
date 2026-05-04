@@ -18,17 +18,22 @@ import { ThrottlerModule } from '@nestjs/throttler';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: [
+        `.env.${process.env.NODE_ENV || 'development'}.local`,
+        `.env.${process.env.NODE_ENV || 'development'}`,
+        '.env',
+      ],
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST,
-      port: parseInt(process.env.DATABASE_PORT || '5432'),
+      port: parseInt(process.env.DATABASE_PORT || '5432', 10),
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       entities: [AdminUser, Lead, QuizResult, RefreshTokenBlacklist],
-      synchronize: true,
-      logging: ['error'],
+      synchronize: process.env.NODE_ENV !== 'production',
+      logging: process.env.NODE_ENV !== 'production' ? ['error'] : ['error'],
     }),
     ThrottlerModule.forRootAsync({
       useFactory: () => [

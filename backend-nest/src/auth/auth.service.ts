@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { AdminUser } from '../entities/admin-user.entity';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { JwtPayload } from '../guards/jwt.strategy';
+// import { JwtPayload } from '../guards/jwt.strategy';
 import { AuthLoginDto } from './auth.controller';
 import { RefreshTokenBlacklist } from '../entities/refresh-token.entity';
 
@@ -29,7 +29,6 @@ export class AuthService {
     const user = await this.adminUserRepository.findOne({
       where: { login: loginDto.login },
     });
-
     if (!user || !(await bcrypt.compare(loginDto.password, user.password))) {
       throw new UnauthorizedException('Неверный логин или пароль');
     }
