@@ -39,7 +39,9 @@ export default function Home() {
         {/* О банкротстве */}
         <BankruptcyInfoSection />
         {/* Как всё проходит (процесс) */}
-        <ProcessStepsSection />
+        <ProcessStepsSection
+          onOpenPrivacy={() => setIsPrivacyOpen(true)}
+          onOpenConsent={() => setIsConsentOpen(true)} />
 
         {/* Полоса доверия */}
         <TrustBarSection />

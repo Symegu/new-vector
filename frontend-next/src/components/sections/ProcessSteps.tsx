@@ -1,6 +1,7 @@
 "use client";
 
 // import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   Phone,
   FileCheck,
@@ -8,14 +9,18 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card } from "../ui/card";
 import { FadeInSection } from "../ui/fadeIn";
 import { Badge } from "../ui/badge";
+import { LeadForm } from "../forms/LeadForm";
+import { PolicyProps } from "../layout/Footer";
 
-export function ProcessStepsSection() {
+export function ProcessStepsSection({ 
+  onOpenPrivacy, 
+  onOpenConsent
+}: PolicyProps) {
   return (
     <section className="relative py-20 overflow-hidden bg-white">
       {/* Сетчатый фон */}
@@ -38,7 +43,7 @@ export function ProcessStepsSection() {
             <Badge className="mb-4 bg-violet-100 text-violet-500 border-0 text-sm">
               Процесс
             </Badge>
-            <h2 className="text-slate-900 mb-4">
+            <h2 className="text-primary text-2xl mb-4!">
               Как проходит процесс банкротства
             </h2>
             {/* <p className="text-slate-600 max-w-2xl mx-auto text-lg">
@@ -71,7 +76,7 @@ export function ProcessStepsSection() {
                 "Заявление в суд",
                 "Работа с кредиторами",
               ],
-              duration: "1–2 недели",
+              duration: "2–8 недель",
             },
             {
               number: "03",
@@ -84,7 +89,7 @@ export function ProcessStepsSection() {
                 "Работа с управляющим",
                 "Защита прав",
               ],
-              duration: "4–6 месяцев",
+              duration: "6 месяцев",
             },
             {
               number: "04",
@@ -92,7 +97,7 @@ export function ProcessStepsSection() {
               description: "Полное списание долгов и начало новой жизни.",
               icon: CheckCircle2,
               gradient: "grad-step-4",
-              details: ["Решение суда", "Списание долгов", "Финал процедуры"],
+              details: ["Решение суда", "Списание долгов", "Завершение процедуры"],
               duration: "1 день",
             },
           ].map((step, index) => (
@@ -131,7 +136,7 @@ export function ProcessStepsSection() {
 
                       <div>
                         {/* Заголовок */}
-                        <h5 className="text-slate-900 mb-1">{step.title}</h5>
+                        <h5 className="text-primary text-lg md:text-xl mb-1!">{step.title}</h5>
 
                         {/* Срок */}
                         <div className="inline-flex items-center space-x-2">
@@ -144,7 +149,7 @@ export function ProcessStepsSection() {
                     </div>
 
                     {/* Описание */}
-                    <p className="text-slate-600 text-sm mb-4 leading-relaxed">
+                    <p className="text-secondary text-sm mb-4! leading-relaxed">
                       {step.description}
                     </p>
 
@@ -156,7 +161,7 @@ export function ProcessStepsSection() {
                           className="flex items-start space-x-2 text-sm"
                         >
                           <div className="mt-1 w-1.5 h-1.5 rounded-full bg-slate-300 flex-shrink-0" />
-                          <span className="text-slate-600 leading-relaxed">
+                          <span className="text-secondary leading-relaxed">
                             {detail}
                           </span>
                         </div>
@@ -176,105 +181,66 @@ export function ProcessStepsSection() {
           ))}
         </div>
 
-        {/* Таймлайн */}
-        <FadeInSection delay={0.5}>
-          <Card className="bg-white border border-slate-100 shadow-nv-card px-4 py-6 md:p-8 rounded-2xl">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-              <h3 className="text-slate-900">Общий срок процедуры</h3>
-              <Badge className="bg-nv-badge text-blue-700 border-0 px-4 py-2">
-                6–8 месяцев
-              </Badge>
-            </div>
-
-            {/* Прогресс‑бар */}
-            <div className="relative">
-              <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-linear-to-r from-blue-200 via-violet-200 via-green-200 to-amber-200 rounded-full"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 2, ease: "easeOut" }}
-                />
-              </div>
-
-              <div className="flex justify-between mt-4">
-                {["Старт", "1 месяц", "3 месяца", "6 месяцев", "Финиш"].map(
-                  (label, i) => (
-                    <div key={label} className="text-center">
-                      <div className="w-2 h-2 rounded-full mx-auto mb-2 bg-blue-500" />
-                      <span
-                        className={`text-xs text-slate-500 ${
-                          i === 0 || i === 4 ? "font-semibold text-slate-700" : ""
-                        }`}
-                      >
-                        {label}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
-
-            <div className="mt-6 flex items-start space-x-3 p-4 bg-white rounded-lg border border-blue-200">
-              <Sparkles className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-              <div>
-                <p className="text-slate-900 mb-1 text-lg">
-                  Мы берём на себя все сложности
-                </p>
-                <p className="text-slate-600 text-sm">
-                  Полное сопровождение на каждом этапе. Вам не нужно
-                  разбираться в законах и судебных процедурах.
-                </p>
-              </div>
-            </div>
-          </Card>
-        </FadeInSection>
-
         {/* CTA */}
-        {/* <FadeInSection delay={0.7}>
-          <div className="mt-12 text-center">
-            <Card className="inline-block bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 border-0 shadow-xl px-5 py-6 md:p-8 max-w-3xl relative overflow-hidden rounded-3xl">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-500/15 rounded-full blur-3xl" />
+        <FadeInSection delay={0.5}>
+  <Card className="relative w-full overflow-hidden rounded-2xl border-0 bg-[#1f2735] shadow-nv-card px-5 py-8 md:px-8 md:py-10 lg:px-10 lg:py-10">
+    {/* soft background accents */}
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_left_top,rgba(59,130,246,0.14),transparent_32%),radial-gradient(circle_at_right_bottom,rgba(245,158,11,0.10),transparent_26%)]" />
+    
 
-              <div className="relative z-10">
-                <h3 className="text-white mb-3">
-                  Готовы начать процедуру банкротства?
-                </h3>
-                <p className="text-blue-100 mb-6 max-w-xl mx-auto">
-                  Запишитесь на бесплатную консультацию и узнайте, как мы
-                  поможем вам избавиться от долгов.
-                </p>
+    <div className="relative z-20 grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-8 lg:gap-10 items-center min-h-[400px]">
+      {/* left text */}
+      <div className="relative max-w-[520px] xl:max-w-[380px] mx-auto text-center lg:mx-0 lg:text-left">
+        <h3 className="text-white text-3xl md:text-4xl leading-tight mb-4!">
+          Не откладывайте решение проблем с долгами
+        </h3>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    onClick={() =>
-                      document
-                        .getElementById("contact")
-                        ?.scrollIntoView({ behavior: "smooth" })
-                    }
-                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white border-0 shadow-lg px-6 md:px-8 h-12 md:h-14"
-                  >
-                    Бесплатная консультация
-                    <ArrowRight className="h-5 w-5 ml-2" />
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      document
-                        .getElementById("quiz")
-                        ?.scrollIntoView({ behavior: "smooth" })
-                    }
-                    className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 px-6 md:px-8 h-12 md:h-14"
-                  >
-                    Пройти тест
-                    <Phone className="h-5 w-5 ml-2" />
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </FadeInSection> */}
+        <div className="mb-6 h-px w-64 rounded-full bg-linear-to-r from-blue-400 via-blue-300 to-amber-300 mx-auto lg:mx-0" />
+
+        <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-4! max-w-20 mx-auto lg:mx-0">
+          Получите бесплатную консультацию юриста по банкротству физических лиц.
+          Разберём вашу ситуацию, оценим перспективы и подскажем, какой путь
+          подойдёт именно вам.
+        </p>
+
+        <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-[40ch] mx-auto lg:mx-0">
+          Перезвоним, ответим на вопросы и объясним всё спокойно и понятно.
+        </p>
+      </div>
+
+      {/* form */}
+      <div className="relative z-30 w-full max-w-[520px] mx-auto xl:ml-0">
+        <div className="rounded-2xl bg-white shadow-[0_18px_60px_rgba(15,23,42,0.28)] p-5 md:p-6 ">
+          <LeadForm
+            title=""
+            description=""
+            submitLabel="Получить консультацию"
+            submitLoadingLabel="Отправляем…"
+            buttonClassName="btn-nv-gold mt-2 w-full"
+            compact
+            showModals={true}
+            onOpenPrivacy={onOpenPrivacy}
+            onOpenConsent={onOpenConsent}
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* lawyer */}
+    <div className="hidden pointer-events-none absolute bottom-[-80px] left-95 z-10 xl:flex">
+      <div className="w-[450px]">
+        <Image
+          src="/heroes/8hero.png"
+          alt="Юрист компании Новый Вектор"
+          width={420}
+          height={520}
+          priority
+          className="h-auto w-full object-contain object-bottom drop-shadow-[0_24px_50px_rgba(0,0,0,0.35)]"
+        />
+      </div>
+    </div>
+  </Card>
+</FadeInSection>
       </div>
     </section>
   );

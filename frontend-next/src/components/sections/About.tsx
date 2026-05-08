@@ -65,13 +65,12 @@ export function AboutSection() {
               {/* <Star className="h-4 w-4 text-green-700 animate-pulse" /> */}
               <span className="text-md text-amber-500">О компании</span>
             </motion.div>
-            <h2 className="text-primary mb-6 text-3xl md:text-4xl font-semibold">
+            <h2 className="text-primary mb-6! text-2xl md:text-3xl font-semibold">
               Почему выбирают «Новый Вектор»
             </h2>
             <p className="text-secondary max-w-3xl mx-auto text-lg md:text-xl leading-relaxed"
             style={{margin: '0 auto 1rem'}}>
-              С 2015 года помогаем людям законно избавиться от долгов. Основной
-              специалист — юрист с опытом более 25 лет в гражданском и
+              С 2015 года помогаем людям законно избавиться от долгов.<br/> Основной специалист — юрист с опытом более 25 лет в гражданском и
               банкротном праве.
             </p>
           </div>
@@ -84,11 +83,11 @@ export function AboutSection() {
               {/* Основная карточка с фото */}
               <div className="relative rounded-3xl overflow-hidden shadow-nv-card group">
                 <Image
-                  src="/about-main.jpg"
+                  src="/heroes/4hero.jpg"
                   alt="Консультация в компании Новый Вектор"
                   width={1080}
                   height={720}
-                  className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700 object-center md:object-[0-250px] lg:object-[0-100px] xl:object-[0-150px]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/40 to-transparent" />
 
@@ -107,10 +106,10 @@ export function AboutSection() {
                       </div>
                       <div>
                         <div className="text-2xl text-primary leading-none mb-1">
-                          25+ лет
+                          10+ лет
                         </div>
                         <div className="text-xs text-secondary">
-                          юридической практики
+                          практики в банкротстве
                         </div>
                       </div>
                     </div>
@@ -128,7 +127,7 @@ export function AboutSection() {
                           icon: TrendingDown,
                         },
                         {
-                          value: "100+",
+                          value: "800+",
                           label: "завершённых дел",
                           icon: Users,
                         },
@@ -167,11 +166,11 @@ export function AboutSection() {
                     <div className="p-4 bg-gradient-to-br from-blue-600 to-blue-500 rounded-2xl mb-4 opacity-60">
                       <Clock className="h-8 w-8 text-white" />
                     </div>
-                    <div className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-500 mb-2">
+                    <div className="text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-500 mb-2">
                       С 2015 года
                     </div>
-                    <div className="text-sm text-secondary">
-                      специализируемся на банкротстве физических лиц
+                    <div className="text-xs md:text-sm text-secondary">
+                      специализируемся на банкротстве граждан
                     </div>
                   </div>
                 </Card>
@@ -184,7 +183,7 @@ export function AboutSection() {
                     <div className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-500 mb-2">
                       100%
                     </div>
-                    <div className="text-sm text-secondary">
+                    <div className="text-xs md:text-sm text-secondary">
                       конфиденциальность и защита персональных данных
                     </div>
                   </div>
@@ -199,23 +198,23 @@ export function AboutSection() {
               <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-slate-100 p-1.5 rounded-2xl shadow-nv-soft">
                 <TabsTrigger
                   value="why"
-                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all"
+                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center text-[13px]! h-10 md:text-[14px]! md:h-8!"
                 >
-                  <Star className="h-4 w-4 mr-2" />
+                  <Star className="hidden! md:block! h-4 w-4 mr-2" />
                   Почему мы
                 </TabsTrigger>
                 <TabsTrigger
                   value="how"
-                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all"
+                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center  text-[13px]! h-10 md:text-[14px] md:h-8!"
                 >
-                  <Target className="h-4 w-4 mr-2" />
+                  <Target className="hidden! md:block! h-4 w-4 mr-2" />
                   Как работаем
                 </TabsTrigger>
                 <TabsTrigger
                   value="results"
-                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all"
+                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center  text-[13px]! h-10 md:text-[14px]! md:h-8!"
                 >
-                  <Award className="h-4 w-4 mr-2" />
+                  <Award className="hidden! md:block! h-4 w-4 mr-2" />
                   Подход
                 </TabsTrigger>
               </TabsList>
@@ -228,27 +227,29 @@ export function AboutSection() {
                       <Star className="h-6 w-6 text-white" />
                     </div> */}
                     <div className="flex-1">
-                      <h3 className="text-primary mb-3">Более 10 лет опыта</h3>
+                      <h3 className="text-primary text-2xl mb-4!">Более 10 лет опыта</h3>
                       <p className="text-secondary leading-relaxed">
-                        Наша команда опытных юристов специализируется исключительно
+                        Наша команда опытных юристов специализируется
                         на банкротстве физических лиц.
                       </p>
                     </div>
                   </div>
                   {/* <Separator className="my-2" /> */}
-                  <h3 className="text-primary mb-4">
-                    Личное сопровождение и глубокая экспертиза
+                  <div>
+                    <h3 className="text-primary text-2xl mb-4!">
+                    Личное сопровождение и большой опыт
                   </h3>
                   <p className="text-secondary mb-6 leading-relaxed">
                     Мы не сетевая компания и не работаем «конвейером». Каждое
                     дело ведётся персонально: от первой консультации до
                     завершения процедуры банкротства.
                   </p>
+                  </div>
 
                   <div className="space-y-4">
                     {[
-                      { label: "Вовлечённость в дело", value: 95 },
-                      { label: "Удовлетворённость клиентов", value: 90 },
+                      { label: "Вовлечённость в дело", value: 100 },
+                      { label: "Удовлетворённость клиентов", value: 100 },
                       { label: "Прозрачность и понятность условий", value: 100 },
                     ].map((item, index) => (
                       <div key={index}>
@@ -271,7 +272,7 @@ export function AboutSection() {
                       <Target className="h-6 w-6 text-white" />
                     </div> */}
                     <div className="flex-1">
-                      <h3 className="text-primary mb-3">
+                      <h3 className="text-primary text-2xl mb-4!">
                         Прозрачный и понятный процесс
                       </h3>
                       <p className="text-secondary leading-relaxed">
@@ -298,7 +299,7 @@ export function AboutSection() {
                       {
                         step: "03",
                         title: "Сопровождение в суде",
-                        text: "Представляем ваши интересы на всех заседаниях и взаимодействуем с кредиторами.",
+                        text: "Предстваляем ваши интересы в суде, взаимодейстуем с финансовым управляющим и кредиторами.",
                         gradient: "grad-step-3",
                       },
                       {
@@ -329,7 +330,7 @@ export function AboutSection() {
                           <div className="absolute left-6 top-12 bottom-0 w-px bg-gradient-to-b from-blue-200 to-transparent" />
                         )}
                         <div>
-                          <h5 className="text-primary mb-2">{item.title}</h5>
+                          <h5 className="text-primary mb-1!">{item.title}</h5>
                           <p className="text-secondary leading-relaxed">
                             {item.text}
                           </p>
@@ -343,17 +344,19 @@ export function AboutSection() {
               {/* Подход / результаты без цифр "с потолка" */}
               <TabsContent value="results" className="space-y-6">
                 <Card className="bg-white border-slate-100 shadow-nv-soft p-6">
-                  <h3 className="text-primary">
-                    Подход, которому доверяют
-                  </h3>
-                  <p className="text-secondary leading-relaxed">
-                    К нам приходят по рекомендациям: люди делятся опытом,
-                    потому что чувствуют поддержку, ясность и реальную помощь
-                    в сложной финансовой ситуации.
-                  </p>
+                  <div>
+                    <h3 className="text-primary text-2xl mb-4!">
+                      Подход, которому доверяют
+                    </h3>
+                    <p className="text-secondary leading-relaxed">
+                      К нам приходят по рекомендациям: люди делятся опытом,
+                      потому что чувствуют поддержку, ясность и реальную помощь
+                      в сложной финансовой ситуации.
+                    </p>
+                  </div>
 
                   {/* <Separator className="my-2" /> */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[
                       {
                         number: "Банкротство под ключ",
@@ -361,17 +364,17 @@ export function AboutSection() {
                         icon: TrendingDown,
                       },
                       {
-                        number: "Семейная команда",
-                        label: "личное участие и контроль за каждым делом",
-                        icon: Users,
-                      },
-                      {
                         number: "Понятные условия",
                         label: "фиксированная стоимость, без скрытых платежей",
                         icon: Shield,
                       },
                       {
-                        number: "Онлайн‑формат",
+                        number: "Без вашего присутствия в суде",
+                        label: "вам не придется ходить в суд, мы все сделаем за вас",
+                        icon: Users,
+                      },
+                      {
+                        number: "Онлайн формат",
                         label: "консультации и сопровождение дистанционно",
                         icon: Clock,
                       },
@@ -382,9 +385,9 @@ export function AboutSection() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.1 }}
                       >
-                        <Card className="p-4 text-left bg-linear-to-br from-slate-50 to-blue-50 border-slate-100 hover:shadow-nv-card transition-all group h-full">
-                          <div className="flex items-start gap-3">
-                            <div className="inline-flex p-2 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 group-hover:scale-110 transition-transform">
+                        <Card className="p-4 text-center md:text-left  bg-linear-to-br from-slate-50 to-blue-50 border-slate-100 hover:shadow-nv-card transition-all group h-full">
+                          <div className="flex flex-col md:flex-row items-center md:items-start gap-3">
+                            <div className="h-full w-full inline-flex items-center justify-center max-w-10 max-h-10 p-2 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 group-hover:scale-110 transition-transform">
                               <stat.icon className="h-4 w-4 text-white" />
                             </div>
                             <div className="flex flex-col">

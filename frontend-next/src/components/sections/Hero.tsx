@@ -44,14 +44,12 @@ export function HeroSection() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center gap-3"
         >
-          <h1 className="sm:text-2xl text-on-dark mb-6 max-w-3xl mx-auto text-5xl font-bold leading-tight tracking-tight">
+          <h1 className="text-4xl text-on-dark mb-6! max-w-3xl mx-auto md:text-5xl font-bold leading-tight tracking-tight">
             Освободитесь от долгов <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-amber-300">законно и навсегда</span>
           </h1>
 
-          <p className="text-on-dark-secondary mb-8 max-w-2xl mx-auto text-lg font-normal leading-relaxed">
-            Помогаем пройти процедуру банкротства физических лиц спокойно и
-            понятно, с личным сопровождением юриста на каждом этапе.
-          </p>
+          <p className="text-on-dark-secondary mb-4! max-w-2xl mx-auto text-lg font-normal leading-relaxed">
+            Помогаем пройти процедуру банкротства физических лиц спокойно и понятно, с личным сопровождением юриста на каждом этапе.          </p>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

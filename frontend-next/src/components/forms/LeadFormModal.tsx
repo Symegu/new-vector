@@ -37,7 +37,7 @@ export function LeadFormModal({ open, onClose, onOpenPrivacy, onOpenConsent }: L
       aria-modal="true"
       onClick={handleBackdropClick}
     >
-      <div className="modal-content mt-24 md:mt-28 mb-6 bg-white rounded-2xl shadow-nv-card max-w-lg w-full mx-4 relative max-h-[calc(100vh-7rem)] overflow-y-auto">
+      <div className="modal-content mt-12 md:mt-28 mb-6 bg-white rounded-2xl shadow-nv-card max-w-lg w-full mx-4 relative max-h-[calc(100vh-7rem)] overflow-y-auto">
         <button
           type="button"
           onClick={onClose}

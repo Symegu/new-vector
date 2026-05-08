@@ -349,27 +349,25 @@ export function LeadForm({
             )}
           </div>
 
-          <div>
-            <label className="block text-sm text-secondary mb-1">
-              Комментарий (по желанию)
-            </label>
-            <Textarea
-              rows={compact ? 3 : 4}
-              value={values.message}
-              onChange={handleChange('message')}
-              placeholder={
-                compact
-                  ? 'Например: сумма долгов, количество кредиторов.'
-                  : 'Например: общая сумма долгов, сколько кредиторов, есть ли просрочки или приставы.'
-              }
-              className={`bg-slate-50 border-slate-200 text-primary placeholder:text-slate-400 resize-none rounded-xl px-4 ${textareaSize} ${
-                errors.message ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500'
-              }`}
-            />
-            {errors.message && (
-              <p className="mt-1 text-xs text-red-600">{errors.message}</p>
-            )}
-          </div>
+          {!compact && (
+            <div>
+              <label className="block text-sm text-secondary mb-1">
+                Комментарий (по желанию)
+              </label>
+              <Textarea
+                rows={4}
+                value={values.message}
+                onChange={handleChange('message')}
+                placeholder="Например: общая сумма долгов, сколько кредиторов, есть ли просрочки или приставы."
+                className={`bg-slate-50 border-slate-200 text-primary placeholder:text-slate-400 resize-none rounded-xl px-4 ${textareaSize} ${
+                  errors.message ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500'
+                }`}
+              />
+              {errors.message && (
+                <p className="mt-1 text-xs text-red-600">{errors.message}</p>
+              )}
+            </div>
+          )}
            {/* Чекбокс consent */}
           <div className="flex items-start space-x-2 pt-1">
             <Checkbox
@@ -383,8 +381,8 @@ export function LeadForm({
               className="text-sm text-secondary leading-relaxed cursor-pointer select-none flex-1"
             >
               Согласен(а) с{' '}
-              <button
-                type="button"
+              <span
+                role="button"
                 onClick={(e) => {
                   e.preventDefault();
                   onOpenConsent?.();
@@ -392,10 +390,10 @@ export function LeadForm({
                 className="underline text-gold-400 hover:no-underline text-sm"
               >
                 обработкой персональных данных
-              </button>{' '}
+              </span>{' '}
               и{' '}
-              <button
-                type="button"
+              <span
+                role="button"
                 onClick={(e) => {
                   e.preventDefault();
                   onOpenPrivacy?.();
@@ -403,7 +401,7 @@ export function LeadForm({
                 className="underline text-gold-400 hover:no-underline text-sm"
               >
                 политикой конфиденциальности
-              </button>
+              </span>
               .
             </label>
           </div>
@@ -430,7 +428,7 @@ export function LeadForm({
           <p className="text-xs text-center text-secondary">{inlineInfo}</p>
         )}
 
-        <p className="text-xs text-muted mt-1 text-center">
+        {/* <p className="text-xs text-muted mt-1 text-center">
           Отправляя форму, вы даете согласие на{' '}
           <button onClick={onOpenConsent} className="underline text-gold-400 hover:no-underline font-medium text-xs">
             обработку персональных данных
@@ -440,7 +438,7 @@ export function LeadForm({
             политике конфиденциальности
           </button>.{' '}
           <span className="font-medium text-gold-400">Данные защищены и не передаются третьим лицам.</span>
-        </p>
+        </p> */}
       </form>
 
       {/* Модалки только если showModals === true */}
