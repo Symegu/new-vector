@@ -62,145 +62,15 @@ export function BankruptcyInfoSection() {
         }}
       /> */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Bottom CTA Bar */}
-                <FadeInSection delay={0.8}>
-                  <div className="mt-12 text-center">
-                    <Card className="inline-block bg-nv-hero border-0 shadow-nv-card p-8 w-full">
-                      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div className="text-left">
-                          <h3 className="text-on-dark text-2xl mb-4!">
-                            Не уверены, подходит ли вам банкротство?
-                          </h3>
-                          <p className="text-on-dark-secondary">
-                            Пройдите короткий тест и получите предварительный
-                            ответ за пару минут.
-                          </p>
-                        </div>
-                        <Button
-                          onClick={() =>
-                            document
-                              .getElementById("quiz")
-                              ?.scrollIntoView({ behavior: "smooth" })
-                          }
-                          className="btn-nv-gold shrink-0 text-lg">
-                          <span className="flex items-center gap-2">
-                            Пройти тест
-                            <ArrowRight />
-                          </span>
-                        </Button>
-                      </div>
-                    </Card>
-                  </div>
-                </FadeInSection>
-        {/* Debts List - Full Width Feature */}
-        <FadeInSection delay={0.6}>
-          <Card className="bg-white border-slate-100 shadow-nv-card hover:shadow-nv-card transition-all p-4 md:p-8 h-full relative overflow-hidden">
-            <div className=" bg-white ">
-              <div className="flex items-start space-x-4">
-                <div className="relative">
-                  {/* <div className="absolute inset-0 bg-amber-300 rounded-2xl opacity-40" />
-                    <div className="relative">
-                      <div className="inline-flex p-3 bg-white/20 backdrop-blur-sm rounded-xl">
-                        <FileCheck className="h-6 w-6 text-amber-500 drop-shadow-lg" />
-                      </div>
-                    </div> */}
-                </div>
-                <div>
-                  <h3 className="text-primary text-xl mb-4!">
-                    Какие долги можно списать
-                  </h3>
-                  <p className="text-secondary">
-                    В рамках процедуры обычно списываются необеспеченные
-                    долги: кредиты, займы, коммунальные задолженности,
-                    налоги и штрафы.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-3 pt-0">
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  {
-                    icon: Briefcase,
-                    title: "Кредиты и займы",
-                    items: [
-                      "Потребительские кредиты",
-                      "Кредитные карты",
-                      "Займы МФО",
-                    ],
-                    gradient: "grad-step-1",
-                  },
-                  {
-                    icon: Home,
-                    title: "Коммунальные платежи",
-                    items: [
-                      "Задолженность по ЖКХ",
-                      "Электроэнергия и услуги связи",
-                      "Взносы на капремонт",
-                    ],
-                    gradient: "grad-step-1",
-                  },
-                  {
-                    icon: Scale,
-                    title: "Налоги и штрафы",
-                    items: [
-                      "Налоговые задолженности",
-                      "Административные штрафы",
-                      "Пени и неустойки",
-                    ],
-                    gradient: "grad-step-1",
-                  },
-                ].map((category, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group"
-                  >
-                    <div className="group/item p-6 rounded-xl bg-linear-to-br from-slate-50 to-blue-50 border border-slate-100 hover:border-blue-300 transition-all h-full">
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`hidden! md:block! inline-flex p-3 rounded-xl bg-linear-to-br ${category.gradient} shadow-nv-soft mb-4 group-hover:scale-110 transition-transform opacity-60`}
-                        >
-                          <category.icon className="h-6 w-6 text-white" />
-                        </div>
-                        <h5 className="text-primary mb-4! md:text-lg">
-                          {category.title}
-                        </h5>
-                      </div>
-                      <ul className="ml-0! md:space-y-3 md:ml-6!">
-                        {category.items.map((item, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start space-x-2"
-                          >
-                            <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                            <span className="text-secondary text-sm leading-relaxed">
-                              {item}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </Card>
-        </FadeInSection>
-        
-        {/* <FadeInSection>
+        <FadeInSection>
           <div className="text-center mb-16">
             <Badge className="inline-flex items-center space-x-2 bg-linear-to-r from-blue-100 to-amber-100 text-blue-700 hover:from-blue-200 hover:to-amber-200 border-0 px-6 py-3 rounded-full shadow-nv-soft text-md">
              
               <span>Банкротство и работа с долгами</span>
             </Badge>
           </div>
-        </FadeInSection> */}
-
+        </FadeInSection>
+      
         {/* Main Feature Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Criteria Card */}
@@ -390,7 +260,135 @@ export function BankruptcyInfoSection() {
             </FadeInSection>
           </div>
         </div>
+        {/* CTA Bar */}
+                <FadeInSection delay={0.8}>
+                  <div className="my-8 text-center">
+                    <Card className="inline-block bg-nv-hero border-0 shadow-nv-card p-8 w-full">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="text-left">
+                          <h3 className="text-on-dark text-2xl mb-4!">
+                            Не уверены, подходит ли вам банкротство?
+                          </h3>
+                          <p className="text-on-dark-secondary">
+                            Пройдите короткий тест и получите предварительный
+                            ответ за пару минут.
+                          </p>
+                        </div>
+                        <Button
+                          onClick={() =>
+                            document
+                              .getElementById("quiz")
+                              ?.scrollIntoView({ behavior: "smooth" })
+                          }
+                          className="btn-nv-gold shrink-0 text-lg">
+                          <span className="flex items-center gap-2">
+                            Пройти тест
+                            <ArrowRight />
+                          </span>
+                        </Button>
+                      </div>
+                    </Card>
+                  </div>
+                </FadeInSection>
+        {/* Debts List - Full Width Feature */}
+        <FadeInSection delay={0.6}>
+          <Card className="bg-white border-slate-100 shadow-nv-card hover:shadow-nv-card transition-all p-4 md:p-8 h-full relative overflow-hidden my-8">
+            <div className=" bg-white ">
+              <div className="flex items-start space-x-4">
+                <div className="relative">
+                  {/* <div className="absolute inset-0 bg-amber-300 rounded-2xl opacity-40" />
+                    <div className="relative">
+                      <div className="inline-flex p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+                        <FileCheck className="h-6 w-6 text-amber-500 drop-shadow-lg" />
+                      </div>
+                    </div> */}
+                </div>
+                <div>
+                  <h3 className="text-primary text-xl mb-4!">
+                    Какие долги можно списать
+                  </h3>
+                  <p className="text-secondary">
+                    В рамках процедуры обычно списываются необеспеченные
+                    долги: кредиты, займы, коммунальные задолженности,
+                    налоги и штрафы.
+                  </p>
+                </div>
+              </div>
+            </div>
 
+            <div className="p-3 pt-0">
+              <div className="grid lg:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: Briefcase,
+                    title: "Кредиты и займы",
+                    items: [
+                      "Потребительские кредиты",
+                      "Кредитные карты",
+                      "Займы МФО",
+                    ],
+                    gradient: "grad-step-1",
+                  },
+                  {
+                    icon: Home,
+                    title: "Коммунальные платежи",
+                    items: [
+                      "Задолженность по ЖКХ",
+                      "Электроэнергия и услуги связи",
+                      "Взносы на капремонт",
+                    ],
+                    gradient: "grad-step-1",
+                  },
+                  {
+                    icon: Scale,
+                    title: "Налоги и штрафы",
+                    items: [
+                      "Налоговые задолженности",
+                      "Административные штрафы",
+                      "Пени и неустойки",
+                    ],
+                    gradient: "grad-step-1",
+                  },
+                ].map((category, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="group"
+                  >
+                    <div className="group/item p-6 rounded-xl bg-linear-to-br from-slate-50 to-blue-50 border border-slate-100 hover:border-blue-300 transition-all h-full">
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`hidden! md:block! inline-flex shrink-0 justify-center p-2 rounded-xl bg-linear-to-br ${category.gradient} shadow-nv-soft mb-4 group-hover:scale-110 transition-transform opacity-60`}
+                        >
+                          <category.icon className="h-5 w-5 text-white" />
+                        </div>
+                        <h5 className="text-md! mb-4! md:text-md">
+                          {category.title}
+                        </h5>
+                      </div>
+                      <ul className="ml-0! md:space-y-3 md:ml-6!">
+                        {category.items.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start space-x-2"
+                          >
+                            <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                            <span className="text-secondary text-sm leading-relaxed">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </Card>
+        </FadeInSection>          
         
       </div>
     </section>

@@ -4,8 +4,6 @@ import { CheckCircle2, ArrowRight, Home, Car, Building2 } from "lucide-react";
 import { Progress } from "@radix-ui/react-progress";
 import { Card } from "../ui/card";
 import { FadeInSection } from "../ui/fadeIn";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { Badge } from "../ui/badge";
 import { LeadForm } from "../forms/LeadForm";
 
@@ -30,19 +28,21 @@ export function QuizSection() {
             <Badge className="mb-4 bg-green-100 text-green-700 hover:bg-green-200 border-0">
               Проверка ситуации
             </Badge>
-            <h2 className="text-primary mb-4">
-              Подходит ли вам банкротство
-            </h2>
-            <p className="text-secondary text-lg">
-              Ответьте на несколько вопросов о долгах, просрочках и имуществе,
-              чтобы получить предварительный ориентир и записаться на консультацию.
-            </p>
+            <div className="text-center mb-16 flex flex-col items-center gap-4">
+              <h2 className="text-xl font-bold text-primary mb-4">
+                Подходит ли вам банкротство
+              </h2>
+              <p className="text-secondary text-lg">
+                Ответьте на несколько вопросов,
+                чтобы получить предварительный результат и записаться на консультацию.
+              </p>
+            </div>
           </div>
         </FadeInSection>
 
         <FadeInSection delay={0.2}>
           <Card className="border-slate-100">
-            <Quiz />
+            <Quiz  />
           </Card>
         </FadeInSection>
       </div>
@@ -56,7 +56,7 @@ type StepKey = "debt" | "overdue" | "enforcement" | "assets" | "ready";
 type QuizAnswers = {
   debt?: "small" | "medium" | "high";
   overdue?: "no" | "yes";
-  enforcement?: "no" | "yes";
+  enforcement?: "no" | "yes" | "not_sure";
   assets?: string[];
   ready?: "not_sure" | "yes" | "no";
 };
@@ -74,9 +74,9 @@ const QUIZ_ID_STORAGE_KEY = "nv_quiz_result_id";
 
 const steps: StepKey[] = ["debt", "overdue", "enforcement", "assets", "ready"];
 const debtOptions: { value: DebtLevel; label: string }[] = [
-  { value: "small", label: "До 300 000 ₽" },
-  { value: "medium", label: "От 300 000 до 700 000 ₽" },
-  { value: "high", label: "Более 700 000 ₽" },
+  { value: "small", label: "До 500\u00A0000 ₽" },
+  { value: "medium", label: `От 500\u00A0000 до\u00A01\u00A0500\u00A0000 ₽` },
+  { value: "high", label: "Более 1\u00A0500\u00A0000 ₽" },
 ];
 
 function calculateResult(answers: QuizAnswers): QuizResult {
@@ -89,24 +89,24 @@ function calculateResult(answers: QuizAnswers): QuizResult {
   if (answers.assets && answers.assets.length > 0) score += 1;
   if (answers.ready === "yes") score += 1;
 
-  let level: QuizResult["level"] = "low";
-  let title = "Пока рано говорить о банкротстве";
-  let message =
-    "По ответам не видно выраженных признаков неплатёжеспособности. Если появятся просрочки или требования кредиторов, стоит заранее обсудить ситуацию с юристом.";
+  const level: QuizResult["level"] = "high";
+  const title = "Поздравляем, Ваша ситуация подходит для банкротства.";
+  const message =
+    "На бесплатной консультации юрист оценит вашу ситуацию, расскажет о всех этапах процедуры, рисках и последствиях. Вы получите чёткий план действий и поймёте, подходит ли вам банкротство.";
 
-  if (score >= 3 && score <= 5) {
-    level = "medium";
-    title = "Есть признаки проблемной задолженности";
-    message =
-      "Ответы показывают ощутимую долговую нагрузку и риски. Рекомендована личная консультация по банкротству и реструктуризации, чтобы оценить варианты защиты.";
-  }
+  // if (score >= 3 && score <= 5) {
+  //   level = "medium";
+  //   title = "Есть признаки проблемной задолженности";
+  //   message =
+  //     "Ответы показывают ощутимую долговую нагрузку и риски. Рекомендована личная консультация по банкротству и реструктуризации, чтобы оценить варианты защиты.";
+  // }
 
-  if (score > 5) {
-    level = "high";
-    title = "Банкротство может быть актуальным";
-    message =
-      "По сумме долгов, просрочкам и требованиям кредиторов ваша ситуация близка к критериям банкротства. Консультация поможет понять, как законно списать долги и защитить имущество.";
-  }
+  // if (score > 0) {
+  //   level = "high";
+  //   title = "Банкротство может быть актуальным";
+  //   message =
+  //     "По сумме долгов, просрочкам и требованиям кредиторов ваша ситуация близка к критериям банкротства. Консультация поможет понять, как законно списать долги и защитить имущество.";
+  // }
 
   return { score, level, title, message };
 }
@@ -117,26 +117,26 @@ function buildReadableAnswers(a: QuizAnswers): string[] {
   if (a.debt) {
     list.push(
       a.debt === "small"
-        ? "Долг: до 300 000 ₽"
+        ? "Долг: до 500 000 ₽"
         : a.debt === "medium"
-        ? "Долг: 300 000–700 000 ₽"
-        : "Долг: более 700 000 ₽",
+        ? "Долг: 500 000–1 500 000 ₽"
+        : "Долг: более 1 500 000 ₽",
     );
   }
 
   if (a.overdue) {
     list.push(
       a.overdue === "yes"
-        ? "Просрочки: есть / платить тяжело"
-        : "Просрочки: нет, плачу вовремя",
+        ? "Просрочки: есть"
+        : "Просрочки: нет",
     );
   }
 
   if (a.enforcement) {
     list.push(
       a.enforcement === "yes"
-        ? "Есть решения суда / исполнительные производства"
-        : "Решений суда и приставов пока нет",
+        ? "Были сделки с имуществом за последние 3 года"
+        : "Не было сделки с имуществом за последние 3 года",
     );
   }
 
@@ -199,34 +199,39 @@ export function Quiz() {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [stepIndex, setStepIndex] = useState(0);
   const [result, setResult] = useState<QuizResult | null>(null);
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  const [leadForm, setLeadForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    comment: "",
-  });
+  const [isResultLoaded, setIsResultLoaded] = useState(false);
 
   useEffect(() => {
-    setIsHydrated(true);
-
     if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem(RESULT_STORAGE_KEY);
-    if (!stored) return;
 
     try {
+      const stored = window.localStorage.getItem(RESULT_STORAGE_KEY);
+      if (!stored) return;
+
       const parsed = JSON.parse(stored) as QuizResult;
       setResult(parsed);
     } catch {
       // ignore
+    } finally {
+      setIsResultLoaded(true);
     }
   }, []);
 
   const currentStep = steps[stepIndex];
   const progress = ((stepIndex + 1) / steps.length) * 100;
 
+  const canGoNext =
+    {
+      debt: Boolean(answers.debt),
+      overdue: Boolean(answers.overdue),
+      enforcement: Boolean(answers.enforcement),
+      assets: Boolean(answers.assets?.length),
+      ready: Boolean(answers.ready),
+    }[currentStep] ?? false; ///
+
   const handleNext = async () => {
+    if (!canGoNext) return; ///
+
     if (stepIndex < steps.length - 1) {
       setStepIndex((i) => i + 1);
     } else {
@@ -262,7 +267,7 @@ export function Quiz() {
     });
   };
 
-  if (isHydrated && result) {
+  if (isResultLoaded && result) {
     return (
       <div className="grid md:grid-cols-2 gap-6">
         {/* Итог квиза */}
@@ -273,13 +278,13 @@ export function Quiz() {
               Результат вашего теста
             </span>
           </div>
-          <div className="bg-nv-badge p-8 rounded-xl">
-            <h4 className="text-primary mb-3">
+          <div className="bg-nv-badge p-8! rounded-xl">
+            <h4 className="text-lg mb-3!">
               {result.title}
             </h4>
-            <p className="text-secondary mb-4">{result.message}</p>
+            <p className="text-md mb-4">{result.message}</p>
           </div>
-          <div className="">
+          <div className="mt-6!">
             <p className="text-xs text-muted">
               Этот тест носит ориентировочный характер и не заменяет
               индивидуальную юридическую консультацию. Окончательное решение
@@ -292,16 +297,12 @@ export function Quiz() {
         <div className="rounded-2xl border border-slate-100 bg-white p-6 md:p-8 flex flex-col gap-4 shadow-nv-soft">
       <LeadForm
             title="Записаться на консультацию"
-            description="Оставьте контакты, и юрист «Нового Вектора» свяжется с вами, чтобы обсудить результат теста и подобрать бережное решение по долгам."
-            submitLabel="Отправить и получить консультацию"
+            description="Оставьте контакты, и юрист «Нового Вектора» свяжется с вами, чтобы обсудить результат теста и подобрать лучшее решение."
+            submitLabel="Получить консультацию"
             submitLoadingLabel="Отправляем…"
             buttonClassName="btn-nv-blue mt-2"
-            compact
-            showModals={true} onOpenPrivacy={function (): void {
-              throw new Error("Function not implemented.");
-            } } onOpenConsent={function (): void {
-              throw new Error("Function not implemented.");
-            } }      />
+            showModals={true}
+        />
 </div>
       </div>
     );
@@ -322,14 +323,14 @@ export function Quiz() {
       <div className="border border-slate-100 rounded-2xl bg-white p-6 md:p-8 space-y-6">
         {currentStep === "debt" && (
           <div>
-            <h3 className="text-lg font-semibold text-primary mb-2">
+            <h3 className="text-md md:text-lg font-semibold text-primary mb-2!">
               Примерная сумма ваших долгов
             </h3>
-            <p className="text-sm text-secondary mb-4">
+            <p className="text-sm text-secondary mb-4!">
               Учитывайте кредиты, займы, задолженности по налогам и ЖКХ.
             </p>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2!">
               {debtOptions.map((opt) => {
                 const selected = answers.debt === opt.value;
 
@@ -380,10 +381,10 @@ export function Quiz() {
         )}
         {currentStep === "overdue" && (
           <div>
-            <h3 className="text-lg font-semibold text-primary mb-2">
+            <h3 className="text-md md:text-lg font-semibold text-primary mb-2!">
               Есть ли просрочки по платежам
             </h3>
-            <p className="text-sm text-secondary mb-4">
+            <p className="text-sm text-secondary mb-4!">
               В том числе по кредитам, займам, налогам или ЖКХ.
             </p>
 
@@ -443,24 +444,29 @@ export function Quiz() {
         )}
         {currentStep === "enforcement" && (
           <div>
-            <h3 className="text-lg font-semibold text-primary mb-2">
-              Требования от кредиторов и приставов
+            <h3 className="text-md md:text-lg font-semibold text-primary mb-2!">
+              Были ли сделки с имуществом за последние 3 года?
             </h3>
-            <p className="text-sm text-secondary mb-4">
-              Были ли решения суда, исполнительные производства или активные звонки и письма от взыскателей.
+            <p className="text-sm text-secondary mb-4!">
+              Укажите, совершались ли какие‑либо сделки, включая дарение, куплю‑продажу, залог или арендные договоры, с вашим имуществом за последние 3 года.
             </p>
 
             <div className="flex flex-col gap-2">
               {[
                 {
                   value: "no" as const,
-                  label: "Пока нет решений суда и приставов",
-                  hint: "Важно не доводить до суда, можно обсудить ситуацию заранее.",
+                  label: "Нет",
+                  hint: "",
                 },
                 {
                   value: "yes" as const,
-                  label: "Есть решения суда / исполнительные производства",
-                  hint: "Это серьёзный сигнал, стоит обсудить защиту и списание долгов.",
+                  label: "Да",
+                  hint: "",
+                },
+                {
+                  value: "not_sure" as const,
+                  label: "Не уверен(а)",
+                  hint: "",
                 },
               ].map((opt) => {
                 const selected = answers.enforcement === opt.value;
@@ -506,10 +512,10 @@ export function Quiz() {
         )}
         {currentStep === "assets" && (
           <>
-            <h3 className="text-lg font-semibold text-primary mb-2">
+            <h3 className="text-md md:text-lg font-semibold text-primary mb-2!">
               Какое имущество у вас есть
             </h3>
-            <p className="text-sm text-secondary mb-4">
+            <p className="text-sm text-secondary mb-4!">
               Можно выбрать несколько вариантов. Информация нужна, чтобы
               понять, как лучше защитить имущество в процедуре.
             </p>
@@ -549,10 +555,10 @@ export function Quiz() {
         )}
         {currentStep === "ready" && (
           <div>
-            <h3 className="text-lg font-semibold text-primary mb-2">
+            <h3 className="text-md md:text-lg font-semibold text-primary mb-2!">
               Насколько вы готовы рассматривать банкротство
             </h3>
-            <p className="text-sm text-secondary mb-4">
+            <p className="text-sm text-secondary mb-4!">
               Ответ нужен, чтобы понять, как лучше построить консультацию.
             </p>
 
@@ -624,7 +630,7 @@ export function Quiz() {
         <button
           type="button"
           disabled={stepIndex === 0}
-          className={`border border-slate-300 px-4 py-2 ${
+          className={`border border-slate-300 px-4 py-2 rounded-xl ${
             stepIndex === 0 ? "opacity-50 cursor-not-allowed" : ""
           }`}
           onClick={handleBack}
@@ -634,9 +640,10 @@ export function Quiz() {
         <button
           type="button"
           onClick={handleNext}
-          className="btn-nv-blue text-white"
+          disabled={!canGoNext}
+          className="text-white px-4!"
         >
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 btn-nv-blue min-w-0! md:min-w-3xs!">
             {stepIndex === steps.length - 1
               ? "Получить результат"
               : "Далее"}

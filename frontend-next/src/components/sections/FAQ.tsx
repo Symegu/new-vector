@@ -30,12 +30,14 @@ export function FAQSection() {
             <Badge className="mb-4 bg-blue-100 text-blue-700 hover:bg-blue-200">
               FAQ
             </Badge>
-            <h2 className="text-slate-900 mb-4">
-              Частые вопросы о банкротстве
-            </h2>
-            <p className="text-slate-600 text-lg">
-              Кратко и простым языком о том, что волнует перед началом процедуры
-            </p>
+            <div className="text-center mb-16 flex flex-col items-center gap-4">
+              <h2 className="text-xl font-bold text-primary text-slate-900 mb-4">
+                Частые вопросы о банкротстве
+              </h2>
+              <p className="text-slate-600 text-lg">
+                Кратко и простым языком о том, что волнует перед началом процедуры
+              </p>
+            </div>
           </div>
         </FadeInSection>
 
@@ -50,7 +52,7 @@ export function FAQSection() {
                 value="item-1"
                 className="border-b border-slate-200"
               >
-                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg">
+                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg font-medium!">
                   Сколько стоит процедура банкротства?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed text-base">
@@ -66,15 +68,14 @@ export function FAQSection() {
                 value="item-2"
                 className="border-b border-slate-200"
               >
-                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg">
+                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg font-medium!">
                   Какие долги нельзя списать через банкротство?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed text-base">
                   Как правило, не списываются алименты, компенсация вреда жизни
                   и здоровью, отдельные штрафы и обязательства по решениям
                   суда, а также текущие платежи, возникшие уже во время
-                  процедуры. Большинство кредитов, займов и просроченных
-                  долгов, наоборот, могут быть списаны.
+                  процедуры.
                 </AccordionContent>
               </AccordionItem>
 
@@ -82,12 +83,12 @@ export function FAQSection() {
                 value="item-3"
                 className="border-b border-slate-200"
               >
-                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg">
+                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg font-medium!">
                   Сколько времени занимает процедура?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed text-base">
                   В среднем процедура банкротства физического лица занимает от
-                  нескольких месяцев до года. Срок зависит от загруженности
+                  пяти месяцев до года. Срок зависит от загруженности
                   суда, количества кредиторов и особенностей дела, и на
                   консультации заранее проговариваются возможные этапы и паузы.
                 </AccordionContent>
@@ -97,15 +98,11 @@ export function FAQSection() {
                 value="item-4"
                 className="border-b border-slate-200"
               >
-                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg">
+                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg font-medium!">
                   Можно ли сохранить единственное жильё?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed text-base">
-                  В большинстве случаев единственное пригодное для постоянного
-                  проживания жильё защищено законом и не подлежит реализации.  
-                  Исключения возможны, например, при ипотеке именно этого жилья
-                  или признаках злоупотребления, поэтому каждую ситуацию
-                  нужно разбирать отдельно с юристом.
+                 Единственное пригодное для постоянного проживания жилье не подлежит реализации, так как оно защищено исполнительским иммунитетом согласно ст. 446 ГПК РФ.
                 </AccordionContent>
               </AccordionItem>
 
@@ -113,7 +110,7 @@ export function FAQSection() {
                 value="item-5"
                 className="border-b border-slate-200"
               >
-                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg">
+                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg font-medium!">
                   Какие последствия будут после банкротства?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed text-base">
@@ -127,7 +124,7 @@ export function FAQSection() {
               </AccordionItem>
 
               <AccordionItem value="item-6" className="border-none">
-                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg">
+                <AccordionTrigger className="text-slate-900 hover:text-blue-700 text-left text-lg font-medium!">
                   Что происходит с коллекторами и звонками кредиторов?
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed text-base">

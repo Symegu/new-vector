@@ -3,16 +3,11 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Sparkles, Phone, Mail, MapPin, Clock, CheckCircle2, Shield } from 'lucide-react'
-// import { ConsultationForm } from '../forms/ConsultationForm'
 import { Card } from '../ui/card'
 import { FadeInSection } from '../ui/fadeIn'
 import { LeadForm } from '../forms/LeadForm'
-import { PolicyProps } from '../layout/Footer'
 
-export function ContactSection({ 
-  onOpenPrivacy, 
-  onOpenConsent
-}: PolicyProps) {
+export function ContactSection() {
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
       {/* Background with blur effect */}
@@ -66,14 +61,14 @@ export function ContactSection({
               <span>Бесплатная консультация</span>
             </motion.div>
 
-            <h1 className="text-on-dark mb-6">
+            <h1 className="text-3xl text-on-dark mb-6! max-w-3xl mx-auto md:text-4xl font-bold leading-tight tracking-tight">
               Начните новую жизнь
               <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-amber-300">
                 без долгов сегодня
               </span>
             </h1>
-            <p className="text-on-dark-secondary text-xl max-w-3xl mx-auto">
+            <p className="text-on-dark-secondary text-lg md:text-xl max-w-3xl mx-auto">
               Оставьте заявку, и юрист аккуратно оценит вашу ситуацию и предложит
               возможные варианты решения
             </p>
@@ -86,8 +81,6 @@ export function ContactSection({
             <Card className="bg-white/95 backdrop-blur-xl border-blue-600 shadow-nv-card overflow-hidden">
               <div className="grid lg:grid-cols-2">
                 <LeadForm
-                  onOpenPrivacy={onOpenPrivacy}
-                  onOpenConsent={onOpenConsent}
                   title="Заполните форму"
                   description="Расскажите в двух словах о долгах. Юрист лично свяжется с вами, чтобы предложить безопасный вариант решения."
                   submitLabel="Получить консультацию"
@@ -110,7 +103,7 @@ export function ContactSection({
                         </div>
                         <a
                             href="tel:+79210104626"
-                            className="text-lg text-on-dark"
+                            className="text-sm md:text-md text-on-dark"
                           >
                             +7 (921) 010-46-26
                           </a>
@@ -125,7 +118,7 @@ export function ContactSection({
                         </div>
                           <a
                             href="mailto:newvector.b@gmail.com"
-                            className="text-lg text-on-dark"
+                            className="text-sm md:text-md text-on-dark"
                           >
                             newvector.b@gmail.com
                           </a>
@@ -137,79 +130,70 @@ export function ContactSection({
                           <p className="text-on-dark-secondary text-blue-200"
                             style={{margin: '0'}}>Режим работы</p>
                         </div>
-                          <p className="text-lg text-on-dark" style={{margin: '0'}}>Ежедневно 9:00 – 21:00</p>
+                          <p className="text-sm md:text-md text-on-dark" style={{margin: '0'}}>Ежедневно 9:00 – 21:00</p>
                       </div>
 
                       <div className="flex flex-col items-start space-x-3 gap-2">
                         <div className='flex items-center gap-2'>
                           <MapPin className="h-5 w-5 text-blue-200" />
                           <p className="text-on-dark-secondary text-blue-200"
-                            style={{margin: '0'}}>Адрес филиала 1</p>
+                            style={{margin: '0'}}>Адреса филиалов</p>
                         </div>
-                          <p className="text-lg text-on-dark" style={{margin: '0'}}>
-                            Олонец, офис «Новый Вектор»
-                          </p>
+                          <a href="https://yandex.ru/maps/-/CPDbz-KD" target="_blank" className="text-sm md:text-md text-on-dark" style={{margin: '0'}}>
+                            &bull;&nbsp;&nbsp;&nbsp;г. Петрозаводск, ул. Ватутина, д. 30, офис 4
+                          </a>
+                          <a href="https://yandex.ru/maps/-/CPDbz-KD" target="_blank" className="text-sm md:text-md text-on-dark" style={{margin: '0'}}>
+                            &bull;&nbsp;&nbsp;&nbsp;г. Олонец, ул. Свирских дивизий, д. 5, офис 107
+                          </a>
                       </div>
 
-                      {/* <div className="flex items-center space-x-3 opacity-70">
-                        <MapPin className="h-5 w-5 text-blue-200" />
-                        <div>
-                          <p className="text-sm text-blue-200">Адрес филиала 2</p>
-                          <p className="text-lg text-on-dark">
-                            Будущий офис (адрес уточняется)
-                          </p>
+                      {/* <div className="flex flex-col items-start space-x-3 gap-2">
+                        <div className='flex items-center gap-2'>
+                          <MapPin className="h-5 w-5 text-blue-200" />
+                          <p className="text-on-dark-secondary text-blue-200"
+                            style={{margin: '0'}}>Адрес филиала 2</p>
                         </div>
+                          
                       </div> */}
                     </div>
 
                     {/* Карта */}
                     <div className="mt-auto">
                       <div className="rounded-2xl overflow-hidden border border-white/20 shadow-nv-soft bg-slate-900/40">
-                        <div style={{ position: 'relative', overflow: 'hidden' }}>
-                          {/* Ссылки от Яндекса можно оставить для атрибуции, 
-                              но скрыть визуально, если нужно, через sr-only */}
-                          <a
-                            href="https://yandex.ru/maps/org/novy_vektor/87852798729/?utm_medium=mapframe&utm_source=maps"
-                            style={{
-                              color: '#eee',
-                              fontSize: 12,
-                              position: 'absolute',
-                              top: 0,
-                            }}
-                          >
-                            Новый вектор
-                          </a>
-                          <a
-                            href="https://yandex.ru/maps/20129/olonets/category/legal_services/184105630/?utm_medium=mapframe&utm_source=maps"
-                            style={{
-                              color: '#eee',
-                              fontSize: 12,
-                              position: 'absolute',
-                              top: 14,
-                            }}
-                          >
-                            Юридические услуги в Олонце
-                          </a>
-                          <a
-                            href="https://yandex.ru/maps/20129/olonets/category/bankruptcy_of_individuals/93680225448/?utm_medium=mapframe&utm_source=maps"
-                            style={{
-                              color: '#eee',
-                              fontSize: 12,
-                              position: 'absolute',
-                              top: 28,
-                            }}
-                          >
-                            Банкротство физических лиц в Олонце
-                          </a>
-                          <iframe
-                            src="https://yandex.ru/map-widget/v1/org/novy_vektor/87852798729/?ll=32.972673%2C60.977810&z=16.49"
-                            width="100%"
-                            height="360"
-                            frameBorder="1"
-                            allowFullScreen={true}
-                            style={{ position: 'relative' }}
-                          />
-                        </div>
+                       <div className="mt-auto">
+  <div className="rounded-2xl overflow-hidden border border-white/20 shadow-nv-soft bg-slate-900/40">
+    <div className="relative overflow-hidden">
+      {/* <a
+        href="https://yandex.ru/maps/18/petrozavodsk/?utm_medium=mapframe&utm_source=maps"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-0 left-0 z-10 text-xs text-slate-200"
+      >
+        Петрозаводск
+      </a>
+
+      <a
+        href="https://yandex.ru/maps/18/petrozavodsk/?ll=34.330250%2C61.781733&mode=whatshere&utm_medium=mapframe&utm_source=maps&whatshere%5Bpoint%5D=34.330295%2C61.781738&whatshere%5Bzoom%5D=17&z=15"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute left-0 top-[14px] z-10 text-xs text-slate-200"
+      >
+        Улица Ватутина, 30 на карте Петрозаводска — Яндекс Карты
+      </a> */}
+
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?ll=34.330250%2C61.781733&mode=whatshere&whatshere%5Bpoint%5D=34.330295%2C61.781738&whatshere%5Bzoom%5D=17&z=15"
+        width="100%"
+        height="400"
+        frameBorder="0"
+        allowFullScreen
+        style={{ position: "relative" }}
+        title="Карта офиса Банкротство Новый вектор на улице Ватутина, 30"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</div>
                       </div>
                     </div>
                   </div>

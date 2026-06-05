@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Link from 'next/link';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { CheckCircle2, AlertTriangle, X, Clock } from 'lucide-react';
-import { PolicyProps } from '../layout/Footer';
 import { Checkbox } from '../ui/checkbox';
 import { cn } from '../ui/utils';
 
@@ -27,7 +27,7 @@ type LeadApiResponse =
 
 const QUIZ_ID_STORAGE_KEY = 'nv_quiz_result_id';
 
-export interface LeadFormProps extends PolicyProps{
+export interface LeadFormProps {
   title?: string;
   description?: string;
   submitLabel?: string;
@@ -106,8 +106,6 @@ function validateLeadForm(data: LeadFormValues): LeadFormErrors {
 }
 
 export function LeadForm({
-  onOpenPrivacy,
-  onOpenConsent,
   title = 'Записаться на консультацию',
   description = 'Оставьте контакты, и юрист свяжется с вами, чтобы аккуратно разобрать ситуацию с долгами.',
   submitLabel = 'Отправить',
@@ -381,27 +379,19 @@ export function LeadForm({
               className="text-sm text-secondary leading-relaxed cursor-pointer select-none flex-1"
             >
               Согласен(а) с{' '}
-              <span
-                role="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onOpenConsent?.();
-                }}
-                className="underline text-gold-400 hover:no-underline text-sm"
+              <Link
+                href="/consent-to-processing"
+                className="underline text-gold-400 hover:no-underline"
               >
                 обработкой персональных данных
-              </span>{' '}
+              </Link>{' '}
               и{' '}
-              <span
-                role="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onOpenPrivacy?.();
-                }}
-                className="underline text-gold-400 hover:no-underline text-sm"
+              <Link
+                href="/privacy-policy"
+                className="underline text-gold-400 hover:no-underline"
               >
                 политикой конфиденциальности
-              </span>
+              </Link>
               .
             </label>
           </div>
@@ -427,18 +417,6 @@ export function LeadForm({
         {inlineInfo && (
           <p className="text-xs text-center text-secondary">{inlineInfo}</p>
         )}
-
-        {/* <p className="text-xs text-muted mt-1 text-center">
-          Отправляя форму, вы даете согласие на{' '}
-          <button onClick={onOpenConsent} className="underline text-gold-400 hover:no-underline font-medium text-xs">
-            обработку персональных данных
-          </button>{' '}
-          согласно{' '}
-          <button onClick={onOpenPrivacy} className="underline text-gold-400 hover:no-underline font-medium text-xs">
-            политике конфиденциальности
-          </button>.{' '}
-          <span className="font-medium text-gold-400">Данные защищены и не передаются третьим лицам.</span>
-        </p> */}
       </form>
 
       {/* Модалки только если showModals === true */}

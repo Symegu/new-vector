@@ -51,6 +51,7 @@
   --admin-info: #0dcaf0;
 
   /* ——— Spacing ——— */
+  --admin-sidebar-min-width: 80px;
   --admin-sidebar-width: 280px;
   --admin-header-height: 64px;
   --admin-spacing-xs: 4px;
@@ -490,4 +491,18 @@ tbody tr:last-child td {
   border-radius: var(--admin-radius-lg);
   padding: var(--admin-spacing-lg);
   box-shadow: var(--admin-shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: var(--admin-sidebar-min-width);
+  }
+
+  .admin-main {
+    margin-left: var(--admin-sidebar-min-width);
+  }
+
+  .admin-header {
+    left: var(--admin-sidebar-min-width);
+  }
 }

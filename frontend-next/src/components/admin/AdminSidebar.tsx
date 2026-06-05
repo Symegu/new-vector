@@ -20,7 +20,7 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="admin-sidebar w-64 bg-gray-900 border-r border-gray-800 flex flex-col h-screen">
+    <aside className="admin-sidebar w-10 bg-gray-900 border-r border-gray-800 flex flex-col h-screen">
 
       {/* Navigation */}
       <nav className="flex-1 p-4 gap-8">
@@ -36,7 +36,7 @@ export default function AdminSidebar() {
             }`}
           >
             <span>{tab.icon}</span>
-            <span>{tab.label}</span>
+            <span className="hidden lg:block!">{tab.label}</span>
           </button>
         ))}
       </nav>

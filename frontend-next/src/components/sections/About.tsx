@@ -89,7 +89,7 @@ export function AboutSection() {
                   height={720}
                   className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700 object-center md:object-[0-250px] lg:object-[0-100px] xl:object-[0-150px]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-blue-950/90 via-blue-950/40 to-transparent" />
 
                 {/* бейдж опыта */}
                 <motion.div
@@ -101,7 +101,7 @@ export function AboutSection() {
                 >
                   <div className="bg-white rounded-2xl p-4 shadow-nv-soft">
                     <div className="flex items-center space-x-3">
-                      <div className="p-3 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl shadow-nv-soft opacity-60">
+                      <div className="p-3 bg-linear-to-br from-amber-500 to-amber-600 rounded-xl shadow-nv-soft opacity-60">
                         <Award className="h-6 w-6 text-white" />
                       </div>
                       <div>
@@ -161,26 +161,27 @@ export function AboutSection() {
 
               {/* две маленькие карточки */}
               <div className="grid grid-cols-2 gap-4">
-                <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-100 shadow-nv-soft">
+                <Card className="p-6 bg-linear-to-br from-blue-50 to-blue-100 border-blue-100 shadow-nv-soft">
                   <div className="flex flex-col items-center text-center">
-                    <div className="p-4 bg-gradient-to-br from-blue-600 to-blue-500 rounded-2xl mb-4 opacity-60">
+                    <div className="p-4 bg-linear-to-br from-blue-600 to-blue-500 rounded-2xl mb-4 opacity-60">
                       <Clock className="h-8 w-8 text-white" />
                     </div>
-                    <div className="text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-500 mb-2">
+                    <div className="text-xl md:text-2xl text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-blue-500 mb-2">
                       С 2015 года
                     </div>
                     <div className="text-xs md:text-sm text-secondary">
-                      специализируемся на банкротстве граждан
+                      специализируемся на банкротстве&nbsp;граждан
                     </div>
                   </div>
                 </Card>
 
-                <Card className="p-6 bg-gradient-to-br from-amber-50 to-amber-100 border-amber-100 shadow-nv-soft">
+                <Card className="p-6 bg-linear-to-br from-amber-50 to-amber-100 border-amber-100 shadow-nv-soft">
                   <div className="flex flex-col items-center text-center">
-                    <div className="p-4 bg-gradient-to-br from-amber-600 to-amber-500 rounded-2xl mb-4 opacity-60">
+                    <div className="p-4 bg-linear-to-br from-amber-600 to-amber-500 rounded-2xl mb-4 opacity-60">
                       <Shield className="h-8 w-8 text-white" />
                     </div>
-                    <div className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-500 mb-2">
+                    <div className="text-2xl text-transparent bg-clip-text bg-linear
+                    -to-r from-amber-600 to-amber-500 mb-2">
                       100%
                     </div>
                     <div className="text-xs md:text-sm text-secondary">
@@ -198,21 +199,21 @@ export function AboutSection() {
               <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-slate-100 p-1.5 rounded-2xl shadow-nv-soft">
                 <TabsTrigger
                   value="why"
-                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center text-[13px]! h-10 md:text-[14px]! md:h-8!"
+                  className="rounded-xl data-[state=active]:bg-linear-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center text-[13px]! h-10 md:text-[14px]! md:h-8!"
                 >
                   <Star className="hidden! md:block! h-4 w-4 mr-2" />
                   Почему мы
                 </TabsTrigger>
                 <TabsTrigger
                   value="how"
-                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center  text-[13px]! h-10 md:text-[14px] md:h-8!"
+                  className="rounded-xl data-[state=active]:bg-linear-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center  text-[13px]! h-10 md:text-[14px] md:h-8!"
                 >
                   <Target className="hidden! md:block! h-4 w-4 mr-2" />
                   Как работаем
                 </TabsTrigger>
                 <TabsTrigger
                   value="results"
-                  className="rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center  text-[13px]! h-10 md:text-[14px]! md:h-8!"
+                  className="rounded-xl data-[state=active]:bg-linear-to-br data-[state=active]:from-blue-50 data-[state=active]:to-blue-100 data-[state=active]:text-blue-700 data-[state=active]:shadow-nv-soft transition-all flex items-center justify-center  text-[13px]! h-10 md:text-[14px]! md:h-8!"
                 >
                   <Award className="hidden! md:block! h-4 w-4 mr-2" />
                   Подход
@@ -257,7 +258,7 @@ export function AboutSection() {
                           <span className="text-secondary">{item.label}</span>
                           <span className="text-primary">{item.value}%</span>
                         </div>
-                        <Progress value={item.value} className="h-2" />
+                        <Progress value={item.value} className="h-2" aria-label={item.label} />
                       </div>
                     ))}
                   </div>
@@ -327,7 +328,7 @@ export function AboutSection() {
                           </div>
                         </div>
                         {index < 3 && (
-                          <div className="absolute left-6 top-12 bottom-0 w-px bg-gradient-to-b from-blue-200 to-transparent" />
+                          <div className="absolute left-6 top-12 bottom-0 w-px bg-linear-to-b from-blue-200 to-transparent" />
                         )}
                         <div>
                           <h5 className="text-primary mb-1!">{item.title}</h5>
@@ -387,7 +388,7 @@ export function AboutSection() {
                       >
                         <Card className="p-4 text-center md:text-left  bg-linear-to-br from-slate-50 to-blue-50 border-slate-100 hover:shadow-nv-card transition-all group h-full">
                           <div className="flex flex-col md:flex-row items-center md:items-start gap-3">
-                            <div className="h-full w-full inline-flex items-center justify-center max-w-10 max-h-10 p-2 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 group-hover:scale-110 transition-transform">
+                            <div className="h-full w-full inline-flex items-center justify-center max-w-10 max-h-10 p-2 rounded-xl bg-linear-to-br from-blue-600 to-blue-500 group-hover:scale-110 transition-transform">
                               <stat.icon className="h-4 w-4 text-white" />
                             </div>
                             <div className="flex flex-col">
