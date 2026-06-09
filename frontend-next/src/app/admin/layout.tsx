@@ -1,10 +1,23 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import AdminHeader from '../../components/admin/AdminHeader'
 import AdminSidebar from '../../components/admin/AdminSidebar'
 import '../../styles/admin-globals.css'
+
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
+
+async function checkAdminAuth() {
+  const res = await fetch(`${API_URL}/api/admin/auth/me`, {
+    method: 'GET',
+    credentials: 'include',
+    cache: 'no-store',
+  })
+
+  console.log('checkAdminAuth status:', res.status)
+  return res.ok
+}
 
 export default function AdminLayout({
   children,
@@ -12,13 +25,35 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
 
   useEffect(() => {
-    // Проверяем только localStorage (access_token)
-    if (!localStorage.getItem('access_token')) {
-      router.push('/admin/login');
+
+    const verifyAuth = async () => {
+      try {
+        const isAuthorized = await checkAdminAuth()
+
+        if (!isAuthorized) {
+          router.push('/auth/login')
+          return
+        }
+
+        setIsCheckingAuth(false)
+      } catch {
+        console.error('Auth check failed:')
+        router.push('/auth/login')
+      }
     }
-  }, [router]);
+
+    // setIsCheckingAuth(true)
+    verifyAuth()
+    
+  }, [pathname, router])
+
+  if (isCheckingAuth) {
+    return <div>Проверка авторизации...</div>
+  }
 
   return (
     <div className="admin-layout">

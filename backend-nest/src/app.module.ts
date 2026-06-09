@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 import { AdminUser } from './entities/admin-user.entity';
 import { Lead } from './entities/lead.entity';
 import { QuizResult } from './entities/quiz-result.entity';
-import { RefreshTokenBlacklist } from './entities/refresh-token.entity';
 import { AuthModule } from './auth/auth.module';
 import { LeadsModule } from './leads/leads.module';
 import { QuizResultsModule } from './quiz-results/quiz-results.module';
@@ -31,7 +30,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [AdminUser, Lead, QuizResult, RefreshTokenBlacklist],
+      entities: [AdminUser, Lead, QuizResult],
       synchronize: process.env.NODE_ENV !== 'production',
       logging: process.env.NODE_ENV !== 'production' ? ['error'] : ['error'],
     }),

@@ -8,6 +8,20 @@ type HeaderProps = {
   onOpenLeadModal: () => void;
 };
 
+const desktopNavItems = [
+  { id: "about", label: "О нас" },
+  { id: "quiz", label: "Тест" },
+  { id: "testimonials", label: "Отзывы" },
+  { id: "faq", label: "Вопросы" },
+];
+
+const mobileNavItems = [
+  { id: "about", label: "О компании" },
+  { id: "bankruptcy-info", label: "О банкротстве" },
+  { id: "testimonials", label: "Истории клиентов" },
+  { id: "faq", label: "Вопросы и ответы" },
+];
+
 export function Header({ onOpenLeadModal }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,6 +31,7 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
       setIsScrolled(window.scrollY > 20);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -36,6 +51,10 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
     setIsMobileMenuOpen(false);
   };
 
+  const handleAnchorClick = (id: string) => {
+    scrollToSection(id);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -48,8 +67,9 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
         <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
           <button
             type="button"
-            onClick={() => scrollToSection("contactForm")}
+            onClick={() => handleAnchorClick("hero")}
             className="flex min-w-0 items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity duration-300"
+            aria-label="Перейти к началу страницы"
           >
             <Image
               src="/logo/logo-icon.svg"
@@ -72,30 +92,31 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
             </div>
           </button>
 
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-10 2xl:gap-12">
-            {[
-              { id: "about", label: "О нас" },
-              { id: "quiz", label: "Тест" },
-              { id: "testimonials", label: "Отзывы" },
-              { id: "faq", label: "Вопросы" },
-            ].map((item) => (
-              <button
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-10 2xl:gap-12" aria-label="Основная навигация">
+            {desktopNavItems.map((item) => (
+              <a
                 key={item.id}
-                type="button"
-                onClick={() => scrollToSection(item.id)}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleAnchorClick(item.id);
+                }}
                 className="text-on-dark-secondary hover:text-on-dark transition-colors duration-300 lg:text-[14px]! xl:text-[16px]! 2xl:text-base font-normal"
               >
                 {item.label}
-              </button>
+              </a>
             ))}
           </nav>
 
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             <div className="flex items-center gap-2 text-on-dark-secondary">
               <Phone className="icon-xs shrink-0 icon-light" />
-              <span className="whitespace-nowrap text-sm xl:text-[15px] font-normal">
+              <a
+                href="tel:+79210104626"
+                className="whitespace-nowrap text-sm xl:text-[15px] font-normal hover:text-on-dark transition-colors duration-300"
+              >
                 +7 (921) 010-46-26
-              </span>
+              </a>
             </div>
             <button
               type="button"
@@ -111,6 +132,8 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
             className="lg:hidden flex h-10 w-10 items-center justify-center text-on-dark rounded-lg hover:bg-white/10 transition-colors duration-300"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />
@@ -121,22 +144,23 @@ export function Header({ onOpenLeadModal }: HeaderProps) {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden py-4 bg-nv-dark-soft backdrop-blur-xl rounded-lg mt-2 mb-4 border border-white/10">
-            <nav className="flex flex-col gap-3 px-4">
-              {[
-                { id: "about", label: "О компании" },
-                { id: "bankruptcy-info", label: "О банкротстве" },
-                { id: "testimonials", label: "Истории клиентов" },
-                { id: "faq", label: "Вопросы и ответы" },
-              ].map((item) => (
-                <button
+          <div
+            id="mobile-navigation"
+            className="lg:hidden py-4 bg-nv-dark-soft backdrop-blur-xl rounded-lg mt-2 mb-4 border border-white/10"
+          >
+            <nav className="flex flex-col gap-3 px-4" aria-label="Мобильная навигация">
+              {mobileNavItems.map((item) => (
+                <a
                   key={item.id}
-                  type="button"
-                  onClick={() => scrollToSection(item.id)}
+                  href={`#${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAnchorClick(item.id);
+                  }}
                   className="text-on-dark-secondary hover:text-on-dark text-left transition-colors duration-300 py-2 text-sm font-normal"
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
 
               <div className="pt-4 border-t border-white/10 flex flex-col md:flex-row gap-3 items-center justify-between">

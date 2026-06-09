@@ -16,8 +16,8 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://novy-vector.ru";
-const siteName = "Новый Вектор";
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://novy-vector.ru").replace(/\/$/, "");
+const siteName = "Банкротство физических лиц — Новый Вектор";
 const defaultTitle = "Банкротство физических лиц — Новый Вектор";
 const defaultDescription =
   "Юридическая помощь при банкротстве физических лиц и работе с долгами. Личное сопровождение, понятные условия, консультация и работа по РФ онлайн.";
@@ -31,15 +31,6 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`,
   },
   description: defaultDescription,
-  keywords: [
-    "банкротство физических лиц",
-    "списание долгов",
-    "юрист по банкротству",
-    "помощь с долгами",
-    "Новый Вектор",
-    "банкротство Олонец",
-    "банкротство Петрозаводск",
-  ],
   alternates: {
     canonical: "/",
   },
@@ -60,9 +51,7 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-    ],
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
     shortcut: ["/favicon.ico"],
   },
   verification: {

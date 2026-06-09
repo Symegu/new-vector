@@ -3,7 +3,6 @@
 import { apiFetch } from '@/src/lib/api'
 import { useRouter } from 'next/navigation' // ✅ App Router
 import { useState, useEffect, useCallback } from 'react'
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react' // иконки
 
 interface QuizResultRow {
   id: string
@@ -42,7 +41,7 @@ export default function QuizResultsTable() {
     } catch (error: any) {
       console.error('Failed to fetch quiz results:', error)
       if (error.message?.includes('Auth failed')) {
-        router.push('/admin/login')
+        router.push('/auth/login')
       }
     } finally {
       setLoading(false)

@@ -49,14 +49,14 @@ export class PublicService {
   async createLead(dto: CreateLeadInput) {
     const name = dto.name?.trim();
     const phone = dto.phone?.trim();
-    const email = dto.email?.trim();
+    const email = dto.email?.trim().toLowerCase();
 
-    if (!name || !phone || !email) {
-      throw new BadRequestException({
-        status: 'validation_error',
-        message: 'Пожалуйста, заполните имя, телефон и email.',
-      });
-    }
+    // if (!name || !phone || !email) {
+    //   throw new BadRequestException({
+    //     status: 'validation_error',
+    //     message: 'Пожалуйста, заполните имя, телефон и email.',
+    //   });
+    // }
 
     try {
       const existing = await this.leadsRepo.findOne({
@@ -77,7 +77,7 @@ export class PublicService {
         name,
         phone,
         email,
-        message: dto.message,
+        message: dto.message?.trim(),
         source: dto.quizResultId ? 'quiz_result' : 'landing_contact',
         quizResultId: dto.quizResultId,
       });

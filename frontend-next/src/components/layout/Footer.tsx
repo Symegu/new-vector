@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { Phone, Mail, MapPin } from 'lucide-react'
 
 export function Footer() {
@@ -54,7 +55,9 @@ export function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href="https://vk.com/bankruptcy_new_vector"
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg width="101" height="100" viewBox="0 0 101 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_2_40)">
                   <path d="M0.5 48C0.5 25.3726 0.5 14.0589 7.52944 7.02944C14.5589 0 25.8726 0 48.5 0H52.5C75.1274 0 86.4411 0 93.4706 7.02944C100.5 14.0589 100.5 25.3726 100.5 48V52C100.5 74.6274 100.5 85.9411 93.4706 92.9706C86.4411 100 75.1274 100 52.5 100H48.5C25.8726 100 14.5589 100 7.52944 92.9706C0.5 85.9411 0.5 74.6274 0.5 52V48Z" fill="#0077FF"/>
@@ -70,6 +73,7 @@ export function Footer() {
               <a
                 href="https://vk.com/bankruptcy_new_vector"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="text-light hover:text-on-dark transition-colors"
               >
                 Банкротство Новый Вектор
@@ -78,10 +82,10 @@ export function Footer() {
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-light" />
               <a
-                href="tel:+79210104626"
+                href="tel:+79675362892"
                 className="text-light hover:text-on-dark transition-colors"
               >
-                +7 (921) 010-46-26
+                +7 (967) 536-28-92
               </a>
             </div>
             <div className="flex items-center gap-2">
@@ -108,12 +112,19 @@ export function Footer() {
             © 2025 «Новый Вектор». Все права защищены.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href="/privacy-policy" target="_blank" className="text-light hover:text-on-dark transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="text-light transition-colors hover:text-on-dark"
+            >
               Политика конфиденциальности
-            </a>
-            <a href="/consent-to-processing" target="_blank" className="text-light hover:text-on-dark transition-colors">
+            </Link>
+
+            <Link
+              href="/consent-to-processing"
+              className="text-light transition-colors hover:text-on-dark"
+            >
               Согласие на обработку данных
-            </a>
+            </Link>
           </div>
         </div>
       </div>

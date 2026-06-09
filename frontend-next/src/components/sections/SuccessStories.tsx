@@ -152,12 +152,12 @@ export function SuccessStoriesSection() {
                 <SwiperSlide key={story.title} className="h-auto">
                   <Card className="bg-white border-slate-200 shadow-md hover:shadow-lg transition-shadow px-4 py-5 md:p-6 min-h-[420px] md:min-h-[380px] flex flex-col h-full">
                     <div className="flex items-center space-x-4 mb-6">
-                      <div
+                      {/* <div
                         className="w-16 h-16 rounded-full border-4 border-blue-100 bg-center bg-cover bg-no-repeat flex-shrink-0"
                         style={{
                           backgroundImage: `url(${story.image})`,
                         }}
-                      />
+                      /> */}
                       <div>
                         <h4 className="text-slate-900">{story.title}</h4>
                         <p className="text-slate-500 text-xs mt-1">
@@ -167,7 +167,7 @@ export function SuccessStoriesSection() {
                           {[1, 2, 3, 4, 5].map((star) => (
                             <Star
                               key={star}
-                              className="h-4 w-4 text-amber-500 fill-amber-500"
+                              className="h-4 w-4 text-amber-500 fill-amber-500!"
                             />
                           ))}
                         </div>

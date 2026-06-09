@@ -7,12 +7,10 @@ import { AdminUser } from '../entities/admin-user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from '../guards/jwt.strategy';
 import { BasicGuard } from '../guards/basic.guard';
-import { RefreshTokenStrategy } from '../guards/refresh-token.strategy';
-import { RefreshTokenBlacklist } from '../entities/refresh-token.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([AdminUser, RefreshTokenBlacklist]),
+    TypeOrmModule.forFeature([AdminUser]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -24,7 +22,7 @@ import { RefreshTokenBlacklist } from '../entities/refresh-token.entity';
     }),
   ],
   controllers: [AuthController],
-  providers: [JwtStrategy, AuthService, BasicGuard, RefreshTokenStrategy],
+  providers: [JwtStrategy, AuthService, BasicGuard],
   exports: [JwtStrategy, AuthService],
 })
 export class AuthModule {}

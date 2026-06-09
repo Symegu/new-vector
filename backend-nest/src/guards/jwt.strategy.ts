@@ -3,6 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Request } from 'express';
 
 export interface JwtPayload {
   sub: string;
@@ -12,24 +13,35 @@ export interface JwtPayload {
   date?: number;
 }
 
+const extractJwtFromCookie = (req: Request): string | null => {
+  if (!req?.cookies) {
+    return null;
+  }
+
+  return req.cookies.access_token ?? null;
+};
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt-access') {
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
+    const secret =
+      configService.get<string>('JWT_SECRET') || process.env.JWT_SECRET;
+
+    if (!secret) {
+      throw new Error('JWT_SECRET is not set');
+    }
+
     super({
-      // ✅ Custom extractor для cookie
       jwtFromRequest: ExtractJwt.fromExtractors([
-        ExtractJwt.fromAuthHeaderAsBearerToken(), // 1. Bearer
+        extractJwtFromCookie,
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
       ]),
       ignoreExpiration: false,
-      secretOrKey:
-        configService.get<string>('JWT_SECRET') ||
-        process.env.JWT_SECRET ||
-        'default_secret',
+      secretOrKey: secret,
     });
   }
 
   validate(payload: JwtPayload) {
-    console.log('JwtStrategy payload:', payload); // ✅ Для дебага
     if (!payload?.sub || !payload?.login) {
       throw new UnauthorizedException('Invalid payload');
     }

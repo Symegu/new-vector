@@ -3,10 +3,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export function AdminLoginClient() {
-  const [login, setLogin] = useState('admin')
-  const [password, setPassword] = useState('password')
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
@@ -27,9 +28,7 @@ export function AdminLoginClient() {
       })
 
       if (!res.ok) throw new Error('Неверный логин или пароль')
-      const data = await res.json();
-      localStorage.setItem('access_token', data.accessToken);
-      console.log('loh')
+
       router.push('/admin?tab=dashboard')
       router.refresh();
     } catch {
@@ -44,13 +43,15 @@ export function AdminLoginClient() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
-          <Image
-            src="/logo/logo-icon.svg"
-            alt="Admin"
-            width={48}
-            height={48}
-            className="mx-auto mb-4"
-          />
+          <Link href="/" className="inline-block">
+            <Image
+              src="/logo/logo-icon.svg"
+              alt="Admin"
+              width={48}
+              height={48}
+              className="mx-auto mb-4"
+            />
+          </Link>
           <h1 className="text-2xl font-bold text-on-dark">Админ-панель</h1>
         </div>
 
@@ -95,10 +96,6 @@ export function AdminLoginClient() {
             {isLoading ? '⏳ Вход...' : 'Войти'}
           </button>
         </form>
-
-        <p className="mt-6 text-center text-xs text-gray-400">
-          admin / password
-        </p>
       </div>
     </div>
   )

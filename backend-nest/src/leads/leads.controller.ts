@@ -47,16 +47,12 @@ export class LeadsController {
     @Body() dto: UpdateStatusDto,
     @Req() req: Request,
   ) {
-    console.log('PATCH raw body:', req.body); // ← ДО ValidationPipe!
-    console.log('PATCH dto:', { id, dto });
-
     return this.leadsService.updateStatus(id, dto.status);
   }
 
   @Patch(':id/flag')
   @UseGuards(JwtAuthGuard)
   async updateFlag(@Param('id') id: string, @Body() dto: UpdateFlagDto) {
-    console.log('PATCH flag:', { id, dto }); // ✅ Лог для дебага
     return this.leadsService.updateFlag(id, dto.flagged);
   }
 }

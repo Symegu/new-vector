@@ -30,7 +30,7 @@ export default function DashboardPage() {
   } catch (error: any) {
     console.error('Stats error:', error)
     if (error.message?.includes('Auth failed')) {
-      router.push('/admin/login')
+      router.push('/auth/login')
     }
   } finally {
     setLoading(false) // Обязательно!

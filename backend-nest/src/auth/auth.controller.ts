@@ -3,19 +3,18 @@ import {
   Post,
   Body,
   HttpCode,
-  UseGuards,
   Res,
   Req,
   ExecutionContext,
   createParamDecorator,
-  UnauthorizedException,
+  Get,
+  UseGuards,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { IsString, IsNotEmpty } from 'class-validator';
-import { RefreshTokenGuard } from '../guards/refresh-token.guard';
-//import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Throttle } from '@nestjs/throttler';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 export const Cookies = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
@@ -27,17 +26,11 @@ export const Cookies = createParamDecorator(
 export class AuthLoginDto {
   @IsString()
   @IsNotEmpty()
-  login: string;
+  login!: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
-}
-
-export class AuthRefreshDto {
-  @IsString()
-  @IsNotEmpty()
-  refreshToken: string;
+  password!: string;
 }
 
 @Controller('admin')
@@ -51,63 +44,37 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
-    console.log('login', loginDto);
-    const { accessToken, refreshToken } =
-      await this.authService.login(loginDto);
+    const { accessToken } = await this.authService.login(loginDto);
 
-    res.cookie('refresh_token', refreshToken, {
+    res.cookie('access_token', accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      // sameSite: 'strict',
+      sameSite: 'lax',
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 дней
     });
 
-    return { accessToken };
-  }
-
-  @Post('auth/refresh')
-  @UseGuards(RefreshTokenGuard)
-  async refresh(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    console.log('auth/refresh вызван', req.user);
-    if (!req.user) {
-      throw new UnauthorizedException('No user');
-    }
-    const oldRefreshToken = req.cookies['refresh_token']; // Из cookie-parser
-    const newTokens = await this.authService.refreshTokens(
-      oldRefreshToken,
-      req.user as { id: string; login: string },
-    );
-
-    res.cookie('refresh_token', newTokens.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-    console.log('refresh tokens access', newTokens.accessToken);
-    console.log('refresh tokens refresh', newTokens.refreshToken);
-
-    return { accessToken: newTokens.accessToken };
-  }
-  @Post('auth/logout')
-  @HttpCode(200)
-  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const refreshToken = req.cookies['refresh_token'];
-    await this.authService.blacklistRefreshToken(refreshToken);
-
-    res.clearCookie('refresh_token');
     return { success: true };
   }
 
-  // @Get('auth/check')
-  // @UseGuards(JwtAuthGuard)
-  // checkAuth(
-  //   @Req() req: Request,
-  //   // @Cookies('refresh_token') refreshToken: string,
-  // ) {
-  //   console.log('auth/check вызван');
-  //   return { valid: true, user: req.user || 'anonymous' };
-  // }
+  @Post('auth/logout')
+  @HttpCode(200)
+  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+    });
+    return { success: true };
+  }
+
+  @Get('auth/me')
+  @UseGuards(JwtAuthGuard)
+  getMe(@Req() req: AuthLoginDto) {
+    return {
+      authenticated: true,
+      user: req.login,
+    };
+  }
 }

@@ -1,13 +1,8 @@
 // src/public/public.controller.ts
-import {
-  Body,
-  Controller,
-  Post,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { PublicService } from './public.service';
 import {
+  ArrayNotEmpty,
   Equals,
   IsArray,
   IsBoolean,
@@ -22,7 +17,7 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
-import { Throttle } from '@nestjs/throttler';
+import { seconds, Throttle } from '@nestjs/throttler';
 
 export class CreateLeadDto {
   @IsString()
@@ -50,12 +45,13 @@ export class CreateLeadDto {
   @IsString()
   quizResultId?: string;
 
-  @IsBoolean({ message: 'Согласие обязательно' })
-  @Equals(true)
+  @IsBoolean()
+  @Equals(true, { message: 'Необходимо согласие' })
   consent: boolean;
 
   @IsOptional()
-  @MaxLength(1, { message: 'Spam detected' }) // Honeypot
+  @IsString()
+  @MaxLength(0, { message: 'Spam detected' }) // Honeypot
   honeypot?: string;
 }
 export class CreateQuizResultDto {
@@ -78,11 +74,13 @@ export class CreateQuizResultDto {
   message: string;
 
   @IsArray()
+  @ArrayNotEmpty()
   @IsString({ each: true })
   answers: string[];
 
   @IsOptional()
-  @MaxLength(1)
+  @IsString()
+  @MaxLength(0)
   honeypot?: string; // + honeypot
 }
 
@@ -91,27 +89,13 @@ export class PublicController {
   constructor(private readonly publicService: PublicService) {}
 
   @Post('quiz-results')
-  @Throttle({ default: { limit: 5, ttl: 900 } })
-  @UsePipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
+  @Throttle({ default: { limit: 5, ttl: seconds(15 * 60) } })
   createQuizResult(@Body() dto: CreateQuizResultDto) {
     return this.publicService.createQuizResult(dto);
   }
 
   @Post('leads')
-  @Throttle({ default: { limit: 5, ttl: 900 } })
-  @UsePipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
+  @Throttle({ default: { limit: 5, ttl: seconds(15 * 60) } })
   createLead(@Body() dto: CreateLeadDto) {
     return this.publicService.createLead(dto);
   }

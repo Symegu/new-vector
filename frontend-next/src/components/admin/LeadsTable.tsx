@@ -51,7 +51,7 @@ export default function LeadsTable() {
     } catch (error: any) {
       console.error('Failed to fetch leads:', error)
       if (error.message?.includes('Auth failed') || error.message?.includes('Refresh failed')) {
-        router.push('/admin/login')
+        router.push('/auth/login')
         return
       }
       console.error('Ошибка загрузки лидов:', error.message)
@@ -87,7 +87,7 @@ export default function LeadsTable() {
     } catch (error: any) {
       console.error('Failed to update flag:', error)
       if (error.message?.includes('Auth failed')) {
-        router.push('/admin/login')
+        router.push('/auth/login')
         return
       }
     }
