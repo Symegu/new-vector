@@ -6,6 +6,10 @@ import cookieParser from 'cookie-parser';
 
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  'https://novy-vector.ru',
+  'https://www.novy-vector.ru',
+  'http://novy-vector.ru',
+  'http://www.novy-vector.ru',
   'http://localhost:3000',
 ].filter(Boolean);
 
