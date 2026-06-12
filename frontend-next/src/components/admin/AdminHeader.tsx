@@ -4,15 +4,12 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
-
 export default function AdminHeader() {
   const router = useRouter()
 
   const handleLogout = async () => {
     try {
-      await fetch(`${API_URL}/api/admin/auth/logout`, {
+      await fetch(`/api/admin/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       })

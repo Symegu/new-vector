@@ -1,10 +1,9 @@
 'use client'
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function AdminSidebar() {
   const router = useRouter()
-  const pathname = usePathname()
   const searchParams = useSearchParams()
   const activeTab = searchParams.get('tab') || 'dashboard'
 
