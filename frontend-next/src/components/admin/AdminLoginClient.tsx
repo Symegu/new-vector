@@ -12,15 +12,13 @@ export function AdminLoginClient() {
   const [error, setError] = useState('')
   const router = useRouter()
 
-  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
     setIsLoading(true)
 
     try {
-      const res = await fetch(`${API_URL}/api/admin/login`, {
+      const res = await fetch(`/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ login, password }),

@@ -180,8 +180,7 @@ export function AboutSection() {
                     <div className="p-4 bg-linear-to-br from-amber-600 to-amber-500 rounded-2xl mb-4 opacity-60">
                       <Shield className="h-8 w-8 text-white" />
                     </div>
-                    <div className="text-2xl text-transparent bg-clip-text bg-linear
-                    -to-r from-amber-600 to-amber-500 mb-2">
+                    <div className="text-2xl text-transparent bg-clip-text bg-linear-to-r from-amber-600 to-amber-500 mb-2">
                       100%
                     </div>
                     <div className="text-xs md:text-sm text-secondary">

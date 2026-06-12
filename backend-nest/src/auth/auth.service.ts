@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AdminUser } from '../entities/admin-user.entity';
 import * as bcrypt from 'bcrypt';
-import { ConfigService } from '@nestjs/config';
 import { AuthLoginDto } from './auth.controller';
 
 export interface AuthTokens {
@@ -17,7 +16,6 @@ export class AuthService {
     @InjectRepository(AdminUser)
     private adminUserRepository: Repository<AdminUser>,
     private jwtService: JwtService,
-    private configService: ConfigService,
   ) {}
 
   async login(loginDto: AuthLoginDto): Promise<AuthTokens> {
