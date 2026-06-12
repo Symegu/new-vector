@@ -6,10 +6,8 @@ import AdminHeader from '../../components/admin/AdminHeader'
 import AdminSidebar from '../../components/admin/AdminSidebar'
 import '../../styles/admin-globals.css'
 
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'
-
 async function checkAdminAuth() {
-  const res = await fetch(`${API_URL}/api/admin/auth/me`, {
+  const res = await fetch(`/api/admin/auth/me`, {
     method: 'GET',
     credentials: 'include',
     cache: 'no-store',
